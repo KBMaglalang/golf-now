@@ -1,17 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import styles from "./NavigationBar.module.css";
 
 export default function NavigationBar() {
   return (
-    <header>
-      <div className="header-container">
-        <Link href="/">Golf Now</Link>
-        <Link href="/cart">
-          <AiOutlineShoppingCart />
-        </Link>
-        <Link href="/login">Log In</Link>
-      </div>
+    <Fragment>
+      <header className={styles.header}>
+        <div className="header-container">
+          <Link href="/" className={styles.logo}>
+            Golf Now
+          </Link>
+          <ul>
+            <li>
+              <Link href="/login" className="header-link">
+                Log In
+              </Link>
+            </li>
+            <li>
+              <Link href="/cart">
+                <AiOutlineShoppingCart />
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </header>
       <div className="navigation">
         <nav>
           <Link href="/new">New</Link>
@@ -26,6 +39,6 @@ export default function NavigationBar() {
           <Link href="/golf-deals">Golf Deals</Link>
         </nav>
       </div>
-    </header>
+    </Fragment>
   );
 }
