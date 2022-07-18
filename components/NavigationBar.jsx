@@ -14,11 +14,11 @@ export default function NavigationBar() {
       </div>
       <div className="navigation">
         <nav>
-          <Link href="/New">New</Link>
-          <Link href="/Clubs">Clubs</Link>
-          <Link href="/Balls">Balls</Link>
-          <Link href="/Shoes">Shoes</Link>
-          <Link href="/Clothing">Clothing</Link>
+          <Link href="/new">New</Link>
+          <Link href="/clubs">Clubs</Link>
+          <Link href="/balls">Balls</Link>
+          <Link href="/shoes">Shoes</Link>
+          <Link href="/clothing">Clothing</Link>
           <Link href="/bag-carts">Bags & Carts</Link>
           <Link href="/golf-tech">Golf Tech</Link>
           <Link href="/accessories">Accessories</Link>
