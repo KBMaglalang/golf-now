@@ -12,12 +12,7 @@ export default function NavigationBar() {
         </div>
         <div className="search-input">
           <input type="text" placeholder="Search..."></input>
-          <button
-            type="button"
-            width="300px"
-            className="btn"
-            onClick={() => {}}
-          >
+          <button type="button" className="btn" onClick={() => {}}>
             Search
           </button>
         </div>
