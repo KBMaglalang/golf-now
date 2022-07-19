@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function ShoesBase() {
-  return <div>index</div>;
+  return <div>SHOES</div>;
 }
