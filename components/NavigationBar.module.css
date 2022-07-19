@@ -4,7 +4,7 @@
   font-weight: bold;
 }
 
-.header {
+.header, .navigation {
   width: 100%;
   height: 5rem;
   display: flex;
@@ -14,6 +14,9 @@
   padding: 0 10%;
 }
 
+.navigation {
+  background-color: #205f3c;
+}
 
 .header ul {
   list-style: none;
@@ -22,12 +25,11 @@
   display: flex;
   align-items: baseline;
 }
-
 .header li {
   margin-left: 3rem;
 }
 
-.header a {
+.header a, .navigation a {
   text-decoration: none;
   font-size: 1.5rem;
   color: #002200;
@@ -37,4 +39,14 @@
 .header a:active,
 .header a.active {
   color: white;
+}
+
+.navigation ul {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
 }
