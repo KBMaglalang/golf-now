@@ -60,3 +60,9 @@
   align-items: baseline;
   justify-content: space-between;
 }
+
+.navigation a:hover,
+.navigation a:active,
+.navigation a.active {
+  color: white;
+}
