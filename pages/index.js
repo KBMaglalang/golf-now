@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -11,7 +12,34 @@ export default function Home() {
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <h1>Top Selling Products</h1>
+        <div className={styles.topProductsContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>top product</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>top product 2</h1>
+          </Card>
+        </div>
+        <h1>Check Out These Other Products</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test2</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test3</h1>
+          </Card>
+        </div>
+      </main>
 
       <footer className={styles.footer}></footer>
     </div>
