@@ -1,3 +1,14 @@
+.cart {
+  transform: scale(2);
+}
+
+.cart:hover,
+.cart:active,
+.cart.active {
+  color: white;
+  cursor: pointer;
+}
+
 .logo {
   font-size: 2rem;
   color: white;
