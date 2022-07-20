@@ -38,6 +38,14 @@ export default function Home() {
             <Image src="/" alt="pic" width={500} height={500} />
             <h1>test3</h1>
           </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test4</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test5</h1>
+          </Card>
         </div>
       </main>
 
