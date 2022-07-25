@@ -34,7 +34,7 @@ export default function FooterBar() {
             <Link href="/careers">Careers</Link>
           </li>
           <li>
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/policy">Privacy Policy</Link>
           </li>
           <li>
             <Link href="/accessibility">Accessibility</Link>
