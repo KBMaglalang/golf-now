@@ -48,8 +48,6 @@ export default function Home() {
           </Card>
         </div>
       </main>
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 }

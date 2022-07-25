@@ -23,7 +23,9 @@ export default function NavigationBar() {
             </li>
             <li>
               <Link href="/cart">
-                <AiOutlineShoppingCart className={styles.cart} />
+                <div>
+                  <AiOutlineShoppingCart className={styles.cart} />
+                </div>
               </Link>
             </li>
           </ul>
