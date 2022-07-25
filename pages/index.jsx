@@ -24,6 +24,55 @@ export default function Home() {
             <h1>top product 2</h1>
           </Card>
         </div>
+
+        <h1>Clubs</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
+        <h1>Balls</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
+        <h1>Shoes</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
         <h1>Check Out These Other Products</h1>
         <div className={styles.categoryTopContainer}>
           <Card>
