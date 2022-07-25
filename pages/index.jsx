@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
+import Banner from "../components/ui/Banner";
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Banner />
+
         <h1>Top Selling Products</h1>
         <div className={styles.topProductsContainer}>
           <Card>
