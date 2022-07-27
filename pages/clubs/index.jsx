@@ -18,7 +18,6 @@ export default function ClubsBase() {
         <p>Flezx</p>
         <p>Loft</p>
         <p>Wedge Head</p>
-        <p>Gender</p>
       </div>
       <div className="products-container">
         <Card>
