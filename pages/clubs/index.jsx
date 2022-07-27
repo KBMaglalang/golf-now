@@ -8,7 +8,18 @@ export default function ClubsBase() {
     <div>
       <Banner />
       <h1>Golf Clubs</h1>
-      <div>Filter Bar</div>
+      <div className="filter-container">
+        <h2>Filter</h2>
+        <p>Brand</p>
+        <p>Price</p>
+        <p>Size</p>
+        <p>Hand</p>
+        <p>Shaft</p>
+        <p>Flezx</p>
+        <p>Loft</p>
+        <p>Wedge Head</p>
+        <p>Gender</p>
+      </div>
       <div className="products-container">
         <Card>
           <Image src="/" alt="pic" width={500} height={500} />
