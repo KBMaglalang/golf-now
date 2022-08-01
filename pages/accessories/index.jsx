@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function AccessoriesBase() {
-  return <div>ACCESSORIES</div>;
+  return (
+    <div>
+      <h1>UNDER DEVELOPMENT</h1>
+    </div>
+  );
 }

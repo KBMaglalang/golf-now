@@ -19,11 +19,16 @@ export default function NavigationBar() {
         <nav>
           <ul>
             <li>
+              <Link href="/signup">Sign Up</Link>
+            </li>
+            <li>
               <Link href="/login">Log In</Link>
             </li>
             <li>
               <Link href="/cart">
-                <AiOutlineShoppingCart className={styles.cart} />
+                <div>
+                  <AiOutlineShoppingCart className={styles.cart} />
+                </div>
               </Link>
             </li>
           </ul>

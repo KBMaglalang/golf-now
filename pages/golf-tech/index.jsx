@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function GolfTechBase() {
-  return <div>GOLF TECH</div>;
+  return (
+    <div>
+      <h1>UNDER DEVELOPMENT</h1>
+    </div>
+  );
 }

@@ -1,12 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import NavigationBar from "./NavigationBar";
+import FooterBar from "./Footer";
 import styles from "./Layout.module.css";
 
 export default function Layout(props) {
   return (
-    <div>
+    <Fragment>
       <NavigationBar />
       <main className={styles.main}>{props.children}</main>
-    </div>
+      <footer className={styles.footer}>
+        <FooterBar />
+      </footer>
+    </Fragment>
   );
 }

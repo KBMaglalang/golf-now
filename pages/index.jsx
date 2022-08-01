@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
+import Banner from "../components/ui/Banner";
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Banner />
+
         <h1>Top Selling Products</h1>
         <div className={styles.topProductsContainer}>
           <Card>
@@ -24,6 +27,55 @@ export default function Home() {
             <h1>top product 2</h1>
           </Card>
         </div>
+
+        <h1>Clubs</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
+        <h1>Balls</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
+        <h1>Shoes</h1>
+        <div className={styles.categoryTopContainer}>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+          <Card>
+            <Image src="/" alt="pic" width={500} height={500} />
+            <h1>test1</h1>
+          </Card>
+        </div>
+
         <h1>Check Out These Other Products</h1>
         <div className={styles.categoryTopContainer}>
           <Card>
@@ -48,8 +100,6 @@ export default function Home() {
           </Card>
         </div>
       </main>
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 }
