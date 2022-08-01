@@ -11,6 +11,8 @@ import vendor from "./vendor";
 import productVariant from "./productVariant";
 
 import balls from "./balls";
+import clubs from "./clubs";
+import shoes from "./shoes";
 
 import localeString from "./locale/String";
 import localeText from "./locale/Text";
@@ -36,5 +38,7 @@ export default createSchema({
     localeString,
     productVariant,
     balls,
+    clubs,
+    shoes,
   ]),
 });
