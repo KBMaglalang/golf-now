@@ -14,7 +14,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Banner />
+        {/* <Banner /> */}
 
         <h1>Top Selling Products</h1>
         <div className={styles.topProductsContainer}>
