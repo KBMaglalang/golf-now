@@ -13,6 +13,7 @@ import productVariant from "./productVariant";
 import balls from "./balls";
 import clubs from "./clubs";
 import shoes from "./shoes";
+import brands from "./brands";
 
 import localeString from "./locale/String";
 import localeText from "./locale/Text";
@@ -30,6 +31,7 @@ export default createSchema({
     product,
     vendor,
     category,
+    brands,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
