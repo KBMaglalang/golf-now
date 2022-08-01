@@ -3,10 +3,6 @@ export default {
   title: "Balls",
   type: "document",
   fields: [
-    /*
-      product description
-      product features
-    */
     {
       name: "brand",
       title: "Brand",
