@@ -23,21 +23,21 @@ export default {
       type: "string",
     },
     {
+      name: "slug",
+      title: "slug",
+      type: "slug",
+      options: {
+        source: `sku`,
+        maxLength: 80,
+      },
+    },
+    {
       name: "image",
       title: "Image",
       type: "array",
       of: [{ type: "image" }],
       options: {
         hotspot: true,
-      },
-    },
-    {
-      name: "slug",
-      title: "slug",
-      type: "slug",
-      options: {
-        source: "name",
-        maxLength: 80,
       },
     },
     {
@@ -53,12 +53,28 @@ export default {
     {
       name: "description",
       title: "Description",
-      type: "string", // this could be a rich text things instead of just a string
+      type: "array",
+      of: [
+        {
+          title: "Block",
+          type: "block",
+          styles: [{ title: "Normal", value: "normal" }],
+          lists: [],
+        },
+      ],
     },
     {
       name: "features",
       title: "Features",
-      type: "string", // this could be a rich text things instead of just a string
+      type: "array",
+      of: [
+        {
+          title: "Block",
+          type: "block",
+          styles: [{ title: "Normal", value: "normal" }],
+          lists: [],
+        },
+      ],
     },
   ],
 };
