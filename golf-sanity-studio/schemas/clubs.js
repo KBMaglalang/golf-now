@@ -49,28 +49,12 @@ export default {
     {
       name: "description",
       title: "Description",
-      type: "array",
-      of: [
-        {
-          title: "Block",
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [],
-        },
-      ],
+      type: "blockContent",
     },
     {
       name: "features",
       title: "Features",
-      type: "array",
-      of: [
-        {
-          title: "Block",
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [],
-        },
-      ],
+      type: "blockContent",
     },
   ],
 };
