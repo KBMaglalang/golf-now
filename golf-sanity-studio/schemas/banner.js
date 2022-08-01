@@ -4,6 +4,11 @@ export default {
   type: "document",
   fields: [
     {
+      name: "title",
+      title: "Title",
+      type: "string",
+    },
+    {
       name: "image",
       title: "Image",
       type: "image",
@@ -12,18 +17,18 @@ export default {
       },
     },
     {
-      name: "buttonText",
-      title: "ButtonText",
-      type: "string",
-    },
-    {
-      name: "title",
-      title: "Title",
-      type: "string",
-    },
-    {
       name: "description",
       title: "Description",
+      type: "string",
+    },
+    {
+      name: "discount",
+      title: "Discount",
+      type: "string",
+    },
+    {
+      name: "saleTime",
+      title: "SaleTime",
       type: "string",
     },
     {
@@ -47,13 +52,8 @@ export default {
       type: "string",
     },
     {
-      name: "discount",
-      title: "Discount",
-      type: "string",
-    },
-    {
-      name: "saleTime",
-      title: "SaleTime",
+      name: "buttonText",
+      title: "ButtonText",
       type: "string",
     },
   ],
