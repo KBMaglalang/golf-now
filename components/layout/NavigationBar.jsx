@@ -18,12 +18,8 @@ export default function NavigationBar() {
         </div>
         <nav>
           <ul>
-            <li>
-              <Link href="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link href="/login">Log In</Link>
-            </li>
+            <li>{/* <Link href="/signup">Sign Up</Link> */}</li>
+            <li>{/* <Link href="/login">Log In</Link> */}</li>
             <li>
               <Link href="/cart">
                 <div>
