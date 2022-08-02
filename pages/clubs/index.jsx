@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "../../components/ui/Banner";
 import Card from "../../components/ui/Card";
 import Image from "next/image";
