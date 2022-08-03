@@ -22,7 +22,6 @@ export default function Card({ product: { _type, slug, image, name, price } }) {
           <div>{price}</div>
         </a>
       </Link>
-      {/* <Image src="/" alt="pic" width={500} height={500} /> */}
     </div>
   );
 }
