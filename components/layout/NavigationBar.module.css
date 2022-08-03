@@ -7,13 +7,18 @@
 .cart.active {
   color: white;
   cursor: pointer;
+  transform: scale(2.5);
 }
+
+
 
 .logo {
   font-size: 2rem;
   color: white;
   font-weight: bold;
 }
+
+
 
 .header {
   width: 100%;
@@ -57,6 +62,8 @@
 .header a.active {
   color: white;
 }
+
+
 
 .navigation {
   width: 100%;
