@@ -14,6 +14,7 @@ import balls from "./balls";
 import clubs from "./clubs";
 import shoes from "./shoes";
 import brands from "./brands";
+import banner from "./banner";
 
 import localeString from "./locale/String";
 import localeText from "./locale/Text";
@@ -39,6 +40,7 @@ export default createSchema({
     localeText,
     localeBlockContent,
     localeString,
+    banner,
     balls,
     clubs,
     shoes,

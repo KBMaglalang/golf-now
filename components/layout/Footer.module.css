@@ -1,0 +1,27 @@
+.logo {
+  transform: scale(2);
+}
+
+.footerCustomerContainer, .footerConnectContainer, .footerAboutUsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+}
+
+.footerCustomerContainer ul, .footerConnectContainer ul, .footerAboutUsContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footerCustomerContainer li, .footerConnectContainer li, .footerAboutUsContainer li  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.footerCustomerContainer li:hover, .footerConnectContainer li:hover, .footerAboutUsContainer li:hover  {
+  transform: scale(1.25);
+}
