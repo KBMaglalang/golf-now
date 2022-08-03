@@ -3,7 +3,9 @@ import Link from "next/link";
 import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 
-export default function Card({ product: { _type, slug, image, name, price } }) {
+export default function Card({
+  product: { _type, slug, image, name, price, brand },
+}) {
   return (
     <div className={styles.card}>
       <Link href={`/${_type}/${slug.current}`}>
@@ -11,15 +13,15 @@ export default function Card({ product: { _type, slug, image, name, price } }) {
           <div>
             <img
               src={urlFor(image && image[0])}
-              width={"auto"}
-              height={300}
+              width={"100%"}
+              height={"auto"}
               object-fit={"contain"}
               alt={`${_type}-${slug.current}`}
             />
           </div>
-          <div></div>
-          <div>{name}</div>
-          <div>{price}</div>
+          <div className={styles.brand}>{brand?.title}</div>
+          <h3>{name}</h3>
+          <label>${price}</label>
         </a>
       </Link>
     </div>

@@ -49,22 +49,28 @@ export default function Home({ balls, clubs, shoes }) {
           {topProducts([...balls, ...clubs, ...shoes])}
         </div>
         <h1>Balls</h1>
-        <div className={styles.topProductsContainer}>{listProducts(balls)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
         <h1>Clubs</h1>
-        <div className={styles.topProductsContainer}>{listProducts(clubs)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
         <h1>Shoes</h1>
-        <div className={styles.topProductsContainer}>{listProducts(shoes)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
       </main>
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
-  const balls = await cmsClient.fetch('*[_type == "balls"]');
-  const clubs = await cmsClient.fetch('*[_type == "clubs"]');
-  const shoes = await cmsClient.fetch('*[_type == "shoes"]');
+  const balls = await cmsClient.fetch(
+    '*[_type == "balls"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
+  const clubs = await cmsClient.fetch(
+    '*[_type == "clubs"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
+  const shoes = await cmsClient.fetch(
+    '*[_type == "shoes"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
 
   return {
-    props: { balls, clubs, shoes },
+    props: { balls: balls, clubs, shoes },
   };
 };

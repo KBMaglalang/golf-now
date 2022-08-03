@@ -1,5 +1,6 @@
 .cart {
   transform: scale(2);
+  transition: transform 0.15s ease;
 }
 
 .cart:hover,
@@ -7,7 +8,10 @@
 .cart.active {
   color: white;
   cursor: pointer;
+  transform: scale(2.5);
 }
+
+
 
 .logo {
   font-size: 2rem;
@@ -15,7 +19,9 @@
   font-weight: bold;
 }
 
-.header, .navigation {
+
+
+.header {
   width: 100%;
   height: 5rem;
   display: flex;
@@ -23,10 +29,6 @@
   justify-content: space-between;
   background-color: #007736;
   padding: 0 10%;
-}
-
-.navigation {
-  background-color: #205f3c;
 }
 
 .header ul {
@@ -44,6 +46,7 @@
   text-decoration: none;
   font-size: 1.5rem;
   color: #002200;
+  transition: color 0.15s ease;
 }
 
 .header input {
@@ -62,14 +65,28 @@
   color: white;
 }
 
-.navigation ul {
+
+
+.navigation {
   width: 100%;
+  padding: 0% 10%;
+  background-color: #205f3c;
+}
+
+.navigation ul {
   list-style: none;
   margin: 0;
   padding: 0;
+
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.navigation li {
+  margin: 0.5rem;
 }
 
 .navigation a:hover,
