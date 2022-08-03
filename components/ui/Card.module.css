@@ -15,6 +15,12 @@
   align-items: center;
 }
 
+.card .brand{
+  color: rgb(36, 77, 36);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
 .card:hover,
 .card:focus,
 .card:active {
