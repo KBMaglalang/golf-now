@@ -49,11 +49,11 @@ export default function Home({ balls, clubs, shoes }) {
           {topProducts([...balls, ...clubs, ...shoes])}
         </div>
         <h1>Balls</h1>
-        <div className={styles.topProductsContainer}>{listProducts(balls)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
         <h1>Clubs</h1>
-        <div className={styles.topProductsContainer}>{listProducts(clubs)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
         <h1>Shoes</h1>
-        <div className={styles.topProductsContainer}>{listProducts(shoes)}</div>
+        <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
       </main>
     </div>
   );
