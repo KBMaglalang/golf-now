@@ -6,6 +6,25 @@ import Banner from "../components/ui/Banner";
 import { cmsClient } from "../lib/sanityClient";
 
 export default function Home({ balls, clubs, shoes }) {
+  const topProducts = (products) => {
+    const results = [];
+
+    // for (let counter = 0; counter < 3; counter++) {
+    //   const rand = Math.floor(Math.random() * products.length);
+    //   const temp = products[rand];
+    //   results.push(temp);
+    // }
+
+    // return listProducts(results);
+
+    const temp = products
+      ?.filter((product) => product.stock > 0)
+      .slice(0, 3)
+      .map((product) => <Card key={product._id} product={product} />);
+
+    return listProducts(temp);
+  };
+
   const listProducts = (products) => {
     // filter down products into the card
     return products
@@ -27,7 +46,7 @@ export default function Home({ balls, clubs, shoes }) {
 
         <h1>Top Selling Products</h1>
         <div className={styles.topProductsContainer}>
-          {listProducts([balls, clubs, shoes])}
+          {topProducts([...balls, ...clubs, ...shoes])}
         </div>
         <h1>Balls</h1>
         <div className={styles.topProductsContainer}>{listProducts(balls)}</div>
