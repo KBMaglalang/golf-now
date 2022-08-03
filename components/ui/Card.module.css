@@ -1,10 +1,11 @@
 .card {
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 1rem;
   padding: 1rem;
   width: 400px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .card a {
@@ -12,4 +13,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  background-color: rgb(243, 243, 243);
+  transform: scale(1.1);
 }
