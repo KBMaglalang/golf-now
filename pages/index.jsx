@@ -60,11 +60,17 @@ export default function Home({ balls, clubs, shoes }) {
 }
 
 export const getServerSideProps = async () => {
-  const balls = await cmsClient.fetch('*[_type == "balls"]');
-  const clubs = await cmsClient.fetch('*[_type == "clubs"]');
-  const shoes = await cmsClient.fetch('*[_type == "shoes"]');
+  const balls = await cmsClient.fetch(
+    '*[_type == "balls"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
+  const clubs = await cmsClient.fetch(
+    '*[_type == "clubs"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
+  const shoes = await cmsClient.fetch(
+    '*[_type == "shoes"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
 
   return {
-    props: { balls, clubs, shoes },
+    props: { balls: balls, clubs, shoes },
   };
 };
