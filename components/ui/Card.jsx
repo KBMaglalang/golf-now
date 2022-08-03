@@ -19,7 +19,7 @@ export default function Card({
               alt={`${_type}-${slug.current}`}
             />
           </div>
-          <div>{brand?.title}</div>
+          <div className={styles.brand}>{brand?.title}</div>
           <h3>{name}</h3>
           <label>${price}</label>
         </a>
