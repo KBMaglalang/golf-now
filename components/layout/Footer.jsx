@@ -6,12 +6,13 @@ import {
   AiFillInstagram,
   AiFillYoutube,
 } from "react-icons/ai";
+import styles from "./Footer.module.css";
 
 export default function FooterBar() {
   return (
     <Fragment>
-      <div className="footer-customer-care-container">
-        <h3>Customer Care</h3>
+      <div className={styles.footerCustomerContainer}>
+        <h2>Customer Care</h2>
         <ul>
           <li>
             <Link href="/contact-us">Contact Us</Link>
@@ -24,8 +25,8 @@ export default function FooterBar() {
           </li>
         </ul>
       </div>
-      <div className="footer-about-us-container">
-        <h3>About Us</h3>
+      <div className={styles.footerAboutUsContainer}>
+        <h2>About Us</h2>
         <ul>
           <li>
             <Link href="/about">About Us</Link>
@@ -44,27 +45,27 @@ export default function FooterBar() {
           </li>
         </ul>
       </div>
-      <div className="footer-conenct-container">
-        <h3>Connect With Us</h3>
+      <div className={styles.footerConnectContainer}>
+        <h2>Connect With Us</h2>
         <ul>
           <li>
             <a href="https://www.facebook.com/">
-              <AiFillFacebook />
+              <AiFillFacebook className={styles.logo} />
             </a>
           </li>
           <li>
             <a href="https://www.twitter.com/">
-              <AiFillTwitterCircle />
+              <AiFillTwitterCircle className={styles.logo} />
             </a>
           </li>
           <li>
             <a href="https://www.instagram.com/">
-              <AiFillInstagram />
+              <AiFillInstagram className={styles.logo} />
             </a>
           </li>
           <li>
             <a href="https://www.youtube.com/">
-              <AiFillYoutube />
+              <AiFillYoutube className={styles.logo} />
             </a>
           </li>
         </ul>
