@@ -71,6 +71,6 @@ export const getServerSideProps = async () => {
   );
 
   return {
-    props: { balls: balls, clubs, shoes },
+    props: { balls, clubs, shoes },
   };
 };
