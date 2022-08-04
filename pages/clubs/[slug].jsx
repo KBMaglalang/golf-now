@@ -1,6 +1,5 @@
 import Head from "next/head";
-import styles from "../../styles/Home.module.css"; // ! could change this to another css
-// import { cmsClient, urlFor } from "../lib/sanityClient";
+import styles from "../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 
 export default function ClubsDetails({ productBrand, product }) {
@@ -13,21 +12,21 @@ export default function ClubsDetails({ productBrand, product }) {
       </Head>
 
       <main className={styles.main}>
-        <div>
-          <div className="productImagesContainer">
+        <div className={styles.productContainer}>
+          <div className={styles.productImagesContainer}>
             <p>images</p>
           </div>
-          <div className="productDetailsContainer">
+          <div className={styles.productDetailsContainer}>
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
             <h3>{product?.name}</h3>
             <p>
               in stock or not - default settings and then updated on client side
             </p>
-            <p>{`$${product?.price}`}</p>
+            <label>{`$${product?.price}`}</label>
           </div>
         </div>
-        <div className="productDescriptionContainer">
+        <div className={styles.productDescriptionContainer}>
           <div>
             <h3>Product Description</h3>
           </div>
@@ -35,7 +34,7 @@ export default function ClubsDetails({ productBrand, product }) {
             <h3>Product Features</h3>
           </div>
         </div>
-        <div className="recommendationContainer">
+        <div className={styles.recommendationContainer}>
           <h3>Recommended Products</h3>
         </div>
       </main>
@@ -63,7 +62,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
     `*[_type == "clubs" && slug.current == '${slug}'][0]`
   );
   const productBrand = await cmsClient.fetch(
-    `*[_type == "brand" && _id == '${product.brand._ref}'][0]`
+    `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
   );
 
   return {
