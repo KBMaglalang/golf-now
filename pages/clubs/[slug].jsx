@@ -1,8 +1,9 @@
 import Head from "next/head";
 import styles from "../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../lib/sanityClient";
+import Card from "../../components/ui/Card";
 
-export default function ClubsDetails({ productBrand, product }) {
+export default function ClubsDetails({ productBrand, product, products }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -34,8 +35,15 @@ export default function ClubsDetails({ productBrand, product }) {
             <h3>Product Features</h3>
           </div>
         </div>
-        <div className={styles.recommendationContainer}>
+        <div>
           <h3>Recommended Products</h3>
+          <div>
+            <div className={styles.recommendationContainer}>
+              {products.map((item) => (
+                <Card key={item._id} product={item} />
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -58,6 +66,13 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
+  const products = await cmsClient.fetch(
+    '*[_type == "clubs"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+  );
+  console.log(
+    "🚀 ~ file: [slug].jsx ~ line 72 ~ getStaticProps ~ products",
+    products
+  );
   const product = await cmsClient.fetch(
     `*[_type == "clubs" && slug.current == '${slug}'][0]`
   );
@@ -66,7 +81,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   );
 
   return {
-    props: { productBrand, product },
+    props: { productBrand, product, products },
     revalidate: 1,
   };
 };
