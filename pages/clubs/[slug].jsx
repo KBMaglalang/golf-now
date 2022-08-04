@@ -13,17 +13,31 @@ export default function ClubsDetails({ productBrand, product }) {
       </Head>
 
       <main className={styles.main}>
-        <p>{productBrand?.title}</p>
-        <p>{product?.name}</p>
-        <p>{product?.sku}</p>
-        <p>images</p>
-        <p>${product?.price}</p>
-        <p>
-          in stock or not - default settings and then updated on client side
-        </p>
-        <p>description</p>
-        <p>features</p>
-        <p>recommendations?</p>
+        <div>
+          <div className="productImagesContainer">
+            <p>images</p>
+          </div>
+          <div className="productDetailsContainer">
+            <h4>{`SKU: ${product?.sku}`}</h4>
+            <h3>{`${productBrand?.title}`}</h3>
+            <h3>{product?.name}</h3>
+            <p>
+              in stock or not - default settings and then updated on client side
+            </p>
+            <p>{`$${product?.price}`}</p>
+          </div>
+        </div>
+        <div className="productDescriptionContainer">
+          <div>
+            <h3>Product Description</h3>
+          </div>
+          <div>
+            <h3>Product Features</h3>
+          </div>
+        </div>
+        <div className="recommendationContainer">
+          <h3>Recommended Products</h3>
+        </div>
       </main>
     </div>
   );
