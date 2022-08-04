@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 import Card from "../../components/ui/Card";
+import { PortableText } from "@portabletext/react";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
@@ -44,9 +45,11 @@ export default function ClubsDetails({ productBrand, product, products }) {
         <div className={styles.productDescriptionContainer}>
           <div>
             <h3>Product Description</h3>
+            <PortableText value={product?.description} />
           </div>
           <div>
             <h3>Product Features</h3>
+            <PortableText value={product?.features} />
           </div>
         </div>
         <h3>Recommended Products</h3>
