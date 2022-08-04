@@ -1,6 +1,7 @@
 import Banner from "../../components/ui/Banner";
 import Card from "../../components/ui/Card";
 import Image from "next/image";
+import { cmsClient, urlFor } from "../lib/sanityClient";
 
 export default function ClubsBase() {
   return (
@@ -49,7 +50,7 @@ export default function ClubsBase() {
         </Card> */}
       </div>
       <div className="btn-container">
-        <p>Showiing # out of #</p>
+        <p>Showing # out of #</p>
         <button type="button" className="btn" onClick="">
           Load More
         </button>
