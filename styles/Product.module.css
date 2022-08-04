@@ -53,7 +53,19 @@
 .productDetailsContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+.productDetailsContainer h4 {
+  color: #cfcfcf;
+  margin: 0;
+}
+
+.productDetailsContainer h3 {
+  margin-top: 0.5rem;
+}
+
+.productDetailsContainer h2 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .productDescriptionContainer {

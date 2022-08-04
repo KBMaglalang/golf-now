@@ -34,11 +34,11 @@ export default function ClubsDetails({ productBrand, product, products }) {
           <div className={styles.productDetailsContainer}>
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
-            <h3>{product?.name}</h3>
-            <p>
-              in stock or not - default settings and then updated on client side
-            </p>
-            <label>{`$${product?.price}`}</label>
+            <h2>{product?.name}</h2>
+            <p>{`Available Stock: ${product?.stock}`}</p>
+            <p>{`$${product?.price}`}</p>
+            <button>Buy it Now</button>
+            <button>Add to Cart</button>
           </div>
         </div>
         <div className={styles.productDescriptionContainer}>
