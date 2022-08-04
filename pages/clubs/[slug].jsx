@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import styles from "../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 import Card from "../../components/ui/Card";
 
 export default function ClubsDetails({ productBrand, product, products }) {
+  const [index, setIndex] = useState(0);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +18,25 @@ export default function ClubsDetails({ productBrand, product, products }) {
       <main className={styles.main}>
         <div className={styles.productContainer}>
           <div className={styles.productImagesContainer}>
-            <p>images</p>
+            <div className={styles.imageContainer}>
+              <img
+                src={product.image[index] && urlFor(product.image[index])}
+                className="product-detail-image"
+              />
+            </div>
+            <div className="small-images-container">
+              {product.image?.map((item, i) => (
+                <img
+                  key={i}
+                  src={item && urlFor(item)}
+                  className={
+                    i === index ? "small-image selected-image" : "small-image"
+                  }
+                  onMouseEnter={(e) => setIndex(i)}
+                  height={200}
+                />
+              ))}
+            </div>
           </div>
           <div className={styles.productDetailsContainer}>
             <h4>{`SKU: ${product?.sku}`}</h4>
