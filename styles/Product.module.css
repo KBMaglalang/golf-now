@@ -13,6 +13,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .productImagesContainer {
@@ -20,6 +21,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.imageContainer img {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.smallImagesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.smallImagesContainer img{
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  background-color: #ebebeb;
+
+  overflow: hidden;
+  overflow-x: scroll;
+  cursor: pointer;
+  object-fit: scale-down;
 }
 
 .productDetailsContainer {
@@ -40,6 +68,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 }
 
 /* .marquee {

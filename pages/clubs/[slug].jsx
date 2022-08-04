@@ -19,21 +19,14 @@ export default function ClubsDetails({ productBrand, product, products }) {
         <div className={styles.productContainer}>
           <div className={styles.productImagesContainer}>
             <div className={styles.imageContainer}>
-              <img
-                src={product.image[index] && urlFor(product.image[index])}
-                className="product-detail-image"
-              />
+              <img src={product.image[index] && urlFor(product.image[index])} />
             </div>
-            <div className="small-images-container">
+            <div className={styles.smallImagesContainer}>
               {product.image?.map((item, i) => (
                 <img
                   key={i}
                   src={item && urlFor(item)}
-                  className={
-                    i === index ? "small-image selected-image" : "small-image"
-                  }
-                  onMouseEnter={(e) => setIndex(i)}
-                  height={200}
+                  onMouseEnter={() => setIndex(i)}
                 />
               ))}
             </div>
@@ -56,8 +49,8 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <h3>Product Features</h3>
           </div>
         </div>
+        <h3>Recommended Products</h3>
         <div>
-          <h3>Recommended Products</h3>
           <div>
             <div className={styles.recommendationContainer}>
               {products.map((item) => (
