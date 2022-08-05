@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 import Card from "../../components/ui/Card";
+import { PortableText } from "@portabletext/react";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
@@ -19,21 +20,14 @@ export default function ClubsDetails({ productBrand, product, products }) {
         <div className={styles.productContainer}>
           <div className={styles.productImagesContainer}>
             <div className={styles.imageContainer}>
-              <img
-                src={product.image[index] && urlFor(product.image[index])}
-                className="product-detail-image"
-              />
+              <img src={product.image[index] && urlFor(product.image[index])} />
             </div>
-            <div className="small-images-container">
+            <div className={styles.smallImagesContainer}>
               {product.image?.map((item, i) => (
                 <img
                   key={i}
                   src={item && urlFor(item)}
-                  className={
-                    i === index ? "small-image selected-image" : "small-image"
-                  }
-                  onMouseEnter={(e) => setIndex(i)}
-                  height={200}
+                  onMouseEnter={() => setIndex(i)}
                 />
               ))}
             </div>
@@ -41,23 +35,28 @@ export default function ClubsDetails({ productBrand, product, products }) {
           <div className={styles.productDetailsContainer}>
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
-            <h3>{product?.name}</h3>
-            <p>
-              in stock or not - default settings and then updated on client side
-            </p>
-            <label>{`$${product?.price}`}</label>
+            <h2>{product?.name}</h2>
+            <span>--- can add variations here ---</span>
+            <span>{`Available Stock: ${product?.stock}`}</span>
+            <span>{`$${product?.price}`}</span>
+            <div className={styles.buttonContainer}>
+              <button className={styles.buyNowButton}>Buy it Now</button>
+              <button className={styles.addToCartButton}>Add to Cart</button>
+            </div>
           </div>
         </div>
         <div className={styles.productDescriptionContainer}>
           <div>
             <h3>Product Description</h3>
+            <PortableText value={product?.description} />
           </div>
           <div>
             <h3>Product Features</h3>
+            <PortableText value={product?.features} />
           </div>
         </div>
+        <h3>Recommended Products</h3>
         <div>
-          <h3>Recommended Products</h3>
           <div>
             <div className={styles.recommendationContainer}>
               {products.map((item) => (
