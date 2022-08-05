@@ -4,6 +4,7 @@ import styles from "../../styles/Product.module.css"; // ! could change this to 
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 import Card from "../../components/ui/Card";
 import { PortableText } from "@portabletext/react";
+import { toast } from "react-hot-toast";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
@@ -40,8 +41,26 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>
             <div className={styles.buttonContainer}>
-              <button className={styles.buyNowButton}>Buy it Now</button>
-              <button className={styles.addToCartButton}>Add to Cart</button>
+              <button
+                className={styles.buyNowButton}
+                onClick={() => {
+                  toast.success(
+                    `Purchasing ${productBrand?.title}|${product?.name}`
+                  );
+                }}
+              >
+                Buy it Now
+              </button>
+              <button
+                className={styles.addToCartButton}
+                onClick={() => {
+                  toast.success(
+                    `${productBrand?.title}|${product?.name} Added to Cart`
+                  );
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
