@@ -36,10 +36,13 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
             <h2>{product?.name}</h2>
-            <p>{`Available Stock: ${product?.stock}`}</p>
-            <p>{`$${product?.price}`}</p>
-            <button>Buy it Now</button>
-            <button>Add to Cart</button>
+            <span>--- can add variations here ---</span>
+            <span>{`Available Stock: ${product?.stock}`}</span>
+            <span>{`$${product?.price}`}</span>
+            <div className={styles.buttonContainer}>
+              <button className={styles.buyNowButton}>Buy it Now</button>
+              <button className={styles.addToCartButton}>Add to Cart</button>
+            </div>
           </div>
         </div>
         <div className={styles.productDescriptionContainer}>
