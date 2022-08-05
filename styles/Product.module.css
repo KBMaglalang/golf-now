@@ -12,8 +12,14 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 2rem;
+}
+
+.productContainer div{
+  max-width: 40rem;
+  width: 50vw;
+  /* margin: 1rem; */
 }
 
 .productImagesContainer {
@@ -54,6 +60,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .productDetailsContainer h4 {
   color: #cfcfcf;
   margin: 0;
@@ -68,11 +75,51 @@
   margin-bottom: 0.25rem;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: baseline;
+  /* width: 100%; */
+  /* margin: 0; */
+}
+
+.buyNowButton {
+  cursor: pointer;
+  padding: 10px 10px;
+  min-width: 40%;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #f02d34;
+  color: white;
+  border: none;
+  transition: transform 0.15s ease;
+}
+.addToCartButton {
+  cursor: pointer;
+  padding: 10px 10px;
+  min-width: 40%;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: white;
+  color: #f02d34;
+  border: 1px solid #f02d34 ;
+  transition: transform 0.15s ease;
+}
+.buyNowButton:hover, .addToCartButton:hover {
+  transform:scale(1.1,1.1)
+}
+
 .productDescriptionContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+}
+.productDescriptionContainer div{
+  max-width: 40rem;
+  width: 50vw;
+  padding: 1rem
 }
 
 .recommendationContainer {
@@ -81,6 +128,9 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  overflow-x: auto;
+  width: 100vw;
+  height: 40rem;
 }
 
 /* .marquee {
@@ -90,7 +140,7 @@
   overflow-x: hidden;
 }
 
-.maylike-products-container{
+.may like-products-container{
   display: flex;
   justify-content: center;
   gap: 15px;
