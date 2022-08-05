@@ -12,7 +12,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
   margin-top: 2rem;
 }
 
@@ -79,6 +78,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: baseline;
+  margin-top: auto;
 }
 
 .buyNowButton {
@@ -115,7 +115,6 @@
 }
 .productDescriptionContainer div{
   max-width: 40rem;
-  width: 50vw;
   padding: 1rem
 }
 
@@ -124,8 +123,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
   overflow-x: auto;
+
+  gap: 1rem;
   width: 100vw;
   height: 40rem;
 }
