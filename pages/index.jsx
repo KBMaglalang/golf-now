@@ -22,7 +22,7 @@ export default function Home({ balls, clubs, shoes }) {
     return products
       ?.filter((product) => product.stock > 0)
       .slice(0, 3)
-      .map((product) => <Card key={product._id} product={product} />);
+      .map((product) => <Card key={product.sku} product={product} />);
   };
 
   const listProducts = (products) => {
@@ -30,7 +30,7 @@ export default function Home({ balls, clubs, shoes }) {
     return products
       ?.filter((product) => product.stock > 0)
       .slice(0, 3)
-      .map((product) => <Card key={product._id} product={product} />);
+      .map((product) => <Card key={product.sku} product={product} />);
   };
 
   return (
@@ -61,13 +61,13 @@ export default function Home({ balls, clubs, shoes }) {
 
 export const getServerSideProps = async () => {
   const balls = await cmsClient.fetch(
-    '*[_type == "balls"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+    '*[_type == "balls"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
   );
   const clubs = await cmsClient.fetch(
-    '*[_type == "clubs"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+    '*[_type == "clubs"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
   );
   const shoes = await cmsClient.fetch(
-    '*[_type == "shoes"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+    '*[_type == "shoes"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
   );
 
   return {
