@@ -2,7 +2,7 @@
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1rem;
+  margin: 1rem;
   padding: 1rem;
   width: 400px;
   transition: background-color 0.15s ease, transform 0.15s ease;
