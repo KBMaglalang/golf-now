@@ -3,7 +3,7 @@ import Card from "../../components/ui/Card";
 import Image from "next/image";
 import { cmsClient, urlFor } from "../../lib/sanityClient";
 import Head from "next/head";
-import styles from "../../styles/Product.module.css"; // ! could change this to another css
+import styles from "../../styles/Category.module.css";
 
 export default function ClubsBase({ products }) {
   const listProducts = (products) => {
@@ -25,9 +25,10 @@ export default function ClubsBase({ products }) {
 
       <main className={styles.main}>
         {/* <Banner /> */}
-        <h1>Golf Clubs</h1>
-        {/* <div className="filter-container">
-          <h2>Filter</h2>
+        <h1 className={styles.categoryTitle}>Clubs</h1>
+        <div className={styles.filterContainer}>
+          <h3>Filter Products</h3>
+          {/* <h2>Filter</h2>
           <p>Brand</p>
           <p>Price</p>
           <p>Size</p>
@@ -35,27 +36,16 @@ export default function ClubsBase({ products }) {
           <p>Shaft</p>
           <p>Flex</p>
           <p>Loft</p>
-          <p>Wedge Head</p>
-        </div> */}
-        <div className="products-container">{listProducts(products)}</div>
-        <div className="btn-container">
-          <p>Showing # out of #</p>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => {
-              loadMoreProducts();
-            }}
-          >
-            Load More
-          </button>
+          <p>Wedge Head</p> */}
+          <br></br>
         </div>
+        <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
     </div>
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const products = await cmsClient.fetch(
     '*[_type == "clubs"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
   );
