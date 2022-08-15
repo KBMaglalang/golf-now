@@ -106,7 +106,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug } }) => {
   const products = await cmsClient.fetch(
-    '*[_type == "clubs"]{_type, slug, image, name, price, stock, brand->{_id,title}}'
+    '*[_type == "clubs"]{_id, _type, slug, image, name, price, stock, brand->{_id,title}}'
   );
   console.log(
     "🚀 ~ file: [slug].jsx ~ line 72 ~ getStaticProps ~ products",
