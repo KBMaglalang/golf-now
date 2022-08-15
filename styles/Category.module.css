@@ -1,0 +1,21 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  min-height: 100vh;
+  padding: 0 4rem 4rem 4rem;
+}
+
+.productsContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  padding: 0 4rem 0 4rem;
+}
+
+.categoryTitle {}
