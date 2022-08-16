@@ -35,7 +35,6 @@ export default function ClubsBase({ products }) {
           <p>Flex</p>
           <p>Loft</p>
           <p>Wedge Head</p> */}
-          <br></br>
         </div>
         <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
