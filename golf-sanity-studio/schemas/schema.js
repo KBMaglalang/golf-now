@@ -15,6 +15,10 @@ import clubs from "./clubs";
 import shoes from "./shoes";
 import brands from "./brands";
 import banner from "./banner";
+import clothing from "./clothing";
+import golfTech from "./golfTech";
+import bagCarts from "./bagCarts";
+import accessories from "./accessories";
 
 import localeString from "./locale/String";
 import localeText from "./locale/Text";
@@ -44,5 +48,9 @@ export default createSchema({
     balls,
     clubs,
     shoes,
+    clothing,
+    golfTech,
+    bagCarts,
+    accessories,
   ]),
 });
