@@ -8,7 +8,7 @@ export default function Card({
 }) {
   return (
     <div className={styles.card}>
-      <Link href={`/${_type}/${slug.current}`}>
+      <Link href={`/products/${_type}/${slug.current}`}>
         <a>
           <div>
             <img

@@ -1,11 +1,17 @@
-import Banner from "../../components/ui/Banner";
-import Card from "../../components/ui/Card";
+import Banner from "../../../components/ui/Banner";
+import Card from "../../../components/ui/Card";
 import Image from "next/image";
-import { cmsClient, urlFor } from "../../lib/sanityClient";
+import { cmsClient, urlFor } from "../../../lib/sanityClient";
 import Head from "next/head";
-import styles from "../../styles/Category.module.css";
+import styles from "../../../styles/Category.module.css";
+import { useRouter } from "next/router";
 
 export default function ClubsBase({ products }) {
+  const router = useRouter();
+  const categoryName =
+    router?.query?.category.charAt(0).toUpperCase() +
+    router?.query?.category.slice(1);
+
   const listProducts = (products) => {
     // filter down products into the card
     return products
@@ -13,19 +19,18 @@ export default function ClubsBase({ products }) {
       .map((product) => <Card key={product.sku} product={product} />);
   };
 
-  const loadMoreProducts = () => {};
-
   return (
     <div className={styles.container}>
       <Head>
-        <title>{`Golf Now`}</title>
+        {categoryName && <title>{`Golf Now | ${categoryName}`}</title>}
+        {!router?.query?.category && <title>{`Golf Now`}</title>}
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
       <main className={styles.main}>
         {/* <Banner /> */}
-        <h1 className={styles.categoryTitle}>Clubs</h1>
+        <h1 className={styles.categoryTitle}>{categoryName}</h1>
         <div className={styles.filterContainer}>
           <h3>Filter Products</h3>
           {/* <h2>Filter</h2>
@@ -37,7 +42,6 @@ export default function ClubsBase({ products }) {
           <p>Flex</p>
           <p>Loft</p>
           <p>Wedge Head</p> */}
-          <br></br>
         </div>
         <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
@@ -45,9 +49,9 @@ export default function ClubsBase({ products }) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({ params: { category } }) => {
   const products = await cmsClient.fetch(
-    '*[_type == "clubs"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    `*[_type == "${category}"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}`
   );
 
   return {

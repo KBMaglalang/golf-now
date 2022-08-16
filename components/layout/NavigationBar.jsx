@@ -34,34 +34,34 @@ export default function NavigationBar() {
         <nav className={styles.navigation}>
           <ul>
             <li>
-              <Link href="/new">New</Link>
+              <Link href="/products/new">New</Link>
             </li>
             <li>
-              <Link href="/clubs">Clubs</Link>
+              <Link href="/products/clubs">Clubs</Link>
             </li>
             <li>
-              <Link href="/balls">Balls</Link>
+              <Link href="/products/balls">Balls</Link>
             </li>
             <li>
-              <Link href="/shoes">Shoes</Link>
+              <Link href="/products/shoes">Shoes</Link>
             </li>
             <li>
-              <Link href="/clothing">Clothing</Link>
+              <Link href="/products/clothing">Clothing</Link>
             </li>
             <li>
-              <Link href="/bag-carts">Bags & Carts</Link>
+              <Link href="/products/bag-carts">Bags & Carts</Link>
             </li>
             <li>
-              <Link href="/golf-tech">Golf Tech</Link>
+              <Link href="/products/golf-tech">Golf Tech</Link>
             </li>
             <li>
-              <Link href="/accessories">Accessories</Link>
+              <Link href="/products/accessories">Accessories</Link>
             </li>
             <li>
-              <Link href="/brands">Brands</Link>
+              <Link href="/products/brands">Brands</Link>
             </li>
             <li>
-              <Link href="/golf-deals">Golf Deals</Link>
+              <Link href="/products/golf-deals">Golf Deals</Link>
             </li>
           </ul>
         </nav>
