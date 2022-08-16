@@ -4,8 +4,14 @@ import Image from "next/image";
 import { cmsClient, urlFor } from "../../../lib/sanityClient";
 import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
+import { useRouter } from "next/router";
 
 export default function ClubsBase({ products }) {
+  const router = useRouter();
+  const categoryName =
+    router?.query?.category.charAt(0).toUpperCase() +
+    router?.query?.category.slice(1);
+
   const listProducts = (products) => {
     // filter down products into the card
     return products
@@ -16,14 +22,15 @@ export default function ClubsBase({ products }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{`Golf Now`}</title>
+        {categoryName && <title>{`Golf Now | ${categoryName}`}</title>}
+        {!router?.query?.category && <title>{`Golf Now`}</title>}
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
       <main className={styles.main}>
         {/* <Banner /> */}
-        <h1 className={styles.categoryTitle}>Clubs</h1>
+        <h1 className={styles.categoryTitle}>{categoryName}</h1>
         <div className={styles.filterContainer}>
           <h3>Filter Products</h3>
           {/* <h2>Filter</h2>
