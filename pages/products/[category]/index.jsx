@@ -50,8 +50,22 @@ export default function ClubsBase({ products }) {
 }
 
 export const getServerSideProps = async ({ params: { category } }) => {
-  const products = await cmsClient.fetch(
-    `*[_type == "${category}"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}`
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 55 ~ getServerSideProps ~ category",
+    category
+  );
+
+  let products = undefined;
+  if (category === "brand") {
+    products = await cmsClient.fetch(`*[_type == "${category}"]`);
+  } else {
+    products = await cmsClient.fetch(
+      `*[_type == "${category}"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}`
+    );
+  }
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 56 ~ getServerSideProps ~ products",
+    products
   );
 
   return {
