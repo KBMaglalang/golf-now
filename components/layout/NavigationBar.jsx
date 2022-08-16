@@ -33,9 +33,9 @@ export default function NavigationBar() {
       <div>
         <nav className={styles.navigation}>
           <ul>
-            <li>
+            {/* <li>
               <Link href="/products/new">New</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/products/clubs">Clubs</Link>
             </li>
@@ -54,15 +54,15 @@ export default function NavigationBar() {
             <li>
               <Link href="/products/golf-tech">Golf Tech</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/products/accessories">Accessories</Link>
-            </li>
+            </li> */}
             <li>
-              <Link href="/products/brands">Brands</Link>
+              <Link href="/products/brand">Brand</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/products/golf-deals">Golf Deals</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
