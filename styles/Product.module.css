@@ -125,7 +125,7 @@
   align-items: center;
   overflow-x: auto;
 
-  gap: 1rem;
+  /* gap: 1rem; */
   width: 100vw;
   height: 40rem;
 }
