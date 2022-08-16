@@ -12,7 +12,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{`Golf Now - ${productBrand?.title} | ${product?.name}`}</title>
+        <title>{`Golf Now | ${productBrand?.title} - ${product?.name}`}</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
@@ -89,31 +89,56 @@ export default function ClubsDetails({ productBrand, product, products }) {
   );
 }
 
-export const getStaticPaths = async () => {
-  //! need something like a router or a way to see the passed content
+// export const getStaticPaths = async () => {
+//   //! need something like a router or a way to see the passed content
 
-  const query = `*[_type == "clubs"] {_type, slug {current}}`;
-  const products = await cmsClient.fetch(query);
-  const paths = products.map((product) => ({
-    params: {
-      category: product._type,
-      slug: product.slug.current,
-    },
-  }));
+//   const query = `*[_type == "clubs"] {_type, slug {current}}`;
+//   const products = await cmsClient.fetch(query);
+//   console.log(
+//     "🚀 ~ file: [slug].jsx ~ line 97 ~ getStaticPaths ~ products",
+//     products
+//   );
+//   const paths = products.map((product) => ({
+//     params: {
+//       category: product._type,
+//       slug: product.slug.current,
+//     },
+//   }));
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
 
-// export const getStaticProps = async ({ params: { slug } }) => {
-export const getStaticProps = async ({ params: { category, slug } }) => {
+// export const getStaticProps = async ({ params: { category, slug } }) => {
+//   console.log("🚀 ~ file: [slug].jsx ~ line 112 ~ getStaticProps ~ slug", slug);
+//   console.log(
+//     "🚀 ~ file: [slug].jsx ~ line 112 ~ getStaticProps ~ category",
+//     category
+//   );
+//   const products = await cmsClient.fetch(
+//     `*[_type == "${category}"]{_id, _type, slug, image, name, price, stock, brand->{_id,title}}`
+//   );
+//   const product = await cmsClient.fetch(
+//     `*[_type == "${category}" && slug.current == '${slug}'][0]`
+//   );
+//   const productBrand = await cmsClient.fetch(
+//     `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
+//   );
+
+//   return {
+//     props: { productBrand, product, products },
+//     revalidate: 1,
+//   };
+// };
+
+export const getServerSideProps = async (context) => {
   const products = await cmsClient.fetch(
-    `*[_type == "${category}"]{_id, _type, slug, image, name, price, stock, brand->{_id,title}}`
+    `*[_type == "${context.query.category}"]{_id, _type, slug, image, name, price, stock, brand->{_id,title}}`
   );
   const product = await cmsClient.fetch(
-    `*[_type == "${category}" && slug.current == '${slug}'][0]`
+    `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}'][0]`
   );
   const productBrand = await cmsClient.fetch(
     `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
@@ -121,6 +146,5 @@ export const getStaticProps = async ({ params: { category, slug } }) => {
 
   return {
     props: { productBrand, product, products },
-    revalidate: 1,
   };
 };
