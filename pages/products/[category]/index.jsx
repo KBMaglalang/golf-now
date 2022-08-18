@@ -5,6 +5,7 @@ import { cmsClient, urlFor } from "../../../lib/sanityClient";
 import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
 import { useRouter } from "next/router";
+import BrandCard from "../../../components/ui/BrandCard";
 
 export default function ClubsBase({ products }) {
   const router = useRouter();
@@ -14,6 +15,12 @@ export default function ClubsBase({ products }) {
 
   const listProducts = (products) => {
     // filter down products into the card
+    if (router.query.category.includes("brand")) {
+      console.log("in listProducts brand");
+      return products.map((product) => (
+        <BrandCard key={product._id} brand={product} />
+      ));
+    }
     return products
       ?.filter((product) => product.stock > 0)
       .map((product) => <Card key={product.sku} product={product} />);
@@ -31,18 +38,21 @@ export default function ClubsBase({ products }) {
       <main className={styles.main}>
         {/* <Banner /> */}
         <h1 className={styles.categoryTitle}>{categoryName}</h1>
-        <div className={styles.filterContainer}>
-          <h3>Filter Products</h3>
-          {/* <h2>Filter</h2>
-          <p>Brand</p>
-          <p>Price</p>
-          <p>Size</p>
-          <p>Hand</p>
-          <p>Shaft</p>
-          <p>Flex</p>
-          <p>Loft</p>
-          <p>Wedge Head</p> */}
-        </div>
+        {!router.query.category.includes("brand") && (
+          <div className={styles.filterContainer}>
+            <h3>Filter Products</h3>
+            {/* <h2>Filter</h2>
+        <p>Brand</p>
+        <p>Price</p>
+        <p>Size</p>
+        <p>Hand</p>
+        <p>Shaft</p>
+        <p>Flex</p>
+        <p>Loft</p>
+        <p>Wedge Head</p> */}
+          </div>
+        )}
+
         <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
     </div>
@@ -50,11 +60,6 @@ export default function ClubsBase({ products }) {
 }
 
 export const getServerSideProps = async ({ params: { category } }) => {
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 55 ~ getServerSideProps ~ category",
-    category
-  );
-
   let products = undefined;
   if (category === "brand") {
     products = await cmsClient.fetch(`*[_type == "${category}"]`);
@@ -63,10 +68,6 @@ export const getServerSideProps = async ({ params: { category } }) => {
       `*[_type == "${category}"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}`
     );
   }
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 56 ~ getServerSideProps ~ products",
-    products
-  );
 
   return {
     props: { products },
