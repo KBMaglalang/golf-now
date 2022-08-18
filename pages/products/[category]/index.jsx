@@ -38,18 +38,21 @@ export default function ClubsBase({ products }) {
       <main className={styles.main}>
         {/* <Banner /> */}
         <h1 className={styles.categoryTitle}>{categoryName}</h1>
-        <div className={styles.filterContainer}>
-          <h3>Filter Products</h3>
-          {/* <h2>Filter</h2>
-          <p>Brand</p>
-          <p>Price</p>
-          <p>Size</p>
-          <p>Hand</p>
-          <p>Shaft</p>
-          <p>Flex</p>
-          <p>Loft</p>
-          <p>Wedge Head</p> */}
-        </div>
+        {!router.query.category.includes("brand") && (
+          <div className={styles.filterContainer}>
+            <h3>Filter Products</h3>
+            {/* <h2>Filter</h2>
+        <p>Brand</p>
+        <p>Price</p>
+        <p>Size</p>
+        <p>Hand</p>
+        <p>Shaft</p>
+        <p>Flex</p>
+        <p>Loft</p>
+        <p>Wedge Head</p> */}
+          </div>
+        )}
+
         <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
     </div>
