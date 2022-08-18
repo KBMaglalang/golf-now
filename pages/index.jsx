@@ -5,7 +5,14 @@ import styles from "../styles/Home.module.css";
 import Banner from "../components/ui/Banner";
 import { cmsClient } from "../lib/sanityClient";
 
-export default function Home({ balls, clubs, shoes }) {
+export default function Home({
+  balls,
+  clubs,
+  shoes,
+  clothing,
+  bagCarts,
+  golfTech,
+}) {
   const topProducts = (products) => {
     if (!products.length) {
       return;
@@ -54,6 +61,18 @@ export default function Home({ balls, clubs, shoes }) {
         <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
         <h1>Shoes</h1>
         <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
+        <h1>Clothing</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(clothing)}
+        </div>
+        <h1>Bags & Carts</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(bagCarts)}
+        </div>
+        <h1>Golf Tech</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(golfTech)}
+        </div>
       </main>
     </div>
   );
@@ -69,8 +88,17 @@ export const getServerSideProps = async () => {
   const shoes = await cmsClient.fetch(
     '*[_type == "shoes"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
   );
+  const clothing = await cmsClient.fetch(
+    '*[_type == "clothing"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+  );
+  const bagCarts = await cmsClient.fetch(
+    '*[_type == "bag-carts"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+  );
+  const golfTech = await cmsClient.fetch(
+    '*[_type == "golf-tech"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+  );
 
   return {
-    props: { balls, clubs, shoes },
+    props: { balls, clubs, shoes, clothing, bagCarts, golfTech },
   };
 };
