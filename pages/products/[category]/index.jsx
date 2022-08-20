@@ -6,12 +6,28 @@ import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
 import { useRouter } from "next/router";
 import BrandCard from "../../../components/ui/BrandCard";
+import { useEffect, useState, useRef } from "react";
 
 export default function ClubsBase({ products }) {
+  const [productList, setProducts] = useState([]);
   const router = useRouter();
   const categoryName =
     router?.query?.category.charAt(0).toUpperCase() +
     router?.query?.category.slice(1);
+
+  const getProducts = async () => {
+    // update the stock amount in sanity
+    const sanityCheck = await fetch("/api/sanityUpdate", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(
+      "🚀 ~ file: index.jsx ~ line 27 ~ getProducts ~ sanityCheck",
+      sanityCheck
+    );
+  };
 
   const listProducts = (products) => {
     // filter down products into the card
@@ -52,6 +68,7 @@ export default function ClubsBase({ products }) {
         <p>Wedge Head</p> */}
           </div>
         )}
+        <button onClick={getProducts}>test</button>
 
         <div className={styles.productsContainer}>{listProducts(products)}</div>
       </main>
@@ -65,7 +82,7 @@ export const getServerSideProps = async ({ params: { category } }) => {
     products = await cmsClient.fetch(`*[_type == "${category}"]`);
   } else {
     products = await cmsClient.fetch(
-      `*[_type == "${category}"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}`
+      `*[_type == "${category}"]{..., brand->{_id,title}}`
     );
   }
 

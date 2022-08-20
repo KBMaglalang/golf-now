@@ -80,22 +80,23 @@ export default function Home({
 
 export const getServerSideProps = async () => {
   const balls = await cmsClient.fetch(
-    '*[_type == "balls"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "balls"]{..., brand->{_id,title}}'
   );
+
   const clubs = await cmsClient.fetch(
-    '*[_type == "clubs"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "clubs"]{..., brand->{_id,title}}'
   );
   const shoes = await cmsClient.fetch(
-    '*[_type == "shoes"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "shoes"]{..., brand->{_id,title}}'
   );
   const clothing = await cmsClient.fetch(
-    '*[_type == "clothing"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "clothing"]{..., brand->{_id,title}}'
   );
   const bagCarts = await cmsClient.fetch(
-    '*[_type == "bag-carts"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "bag-carts"]{..., brand->{_id,title}}'
   );
   const golfTech = await cmsClient.fetch(
-    '*[_type == "golf-tech"]{_type, slug, image, name, price, stock, sku, brand->{_id,title}}'
+    '*[_type == "golf-tech"]{..., brand->{_id,title}}'
   );
 
   return {
