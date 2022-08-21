@@ -140,10 +140,6 @@ export const getServerSideProps = async (context) => {
   const product = await cmsClient.fetch(
     `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}'][0]`
   );
-  console.log(
-    "🚀 ~ file: [slug].jsx ~ line 147 ~ getServerSideProps ~ product",
-    product
-  );
   const productBrand = await cmsClient.fetch(
     `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
   );
