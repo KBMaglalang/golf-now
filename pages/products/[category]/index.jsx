@@ -9,32 +9,36 @@ import BrandCard from "../../../components/ui/BrandCard";
 import { useEffect, useState, useRef } from "react";
 
 export default function ClubsBase({ products }) {
-  const [productList, setProducts] = useState([]);
+  const [productList, setProductList] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState("");
   const router = useRouter();
   const categoryName =
     router?.query?.category.charAt(0).toUpperCase() +
     router?.query?.category.slice(1);
 
-  const getProducts = async () => {
-    // update the stock amount in sanity
-    const sanityCheck = await fetch("/api/sanityUpdate", {
+  useEffect(() => {
+    setProductList(products);
+    setSelectedBrand("");
+  }, [products]);
+
+  const getProducts = async (brandId) => {
+    const sanityData = await fetch(`/api/sanityUpdate?id=${brandId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 27 ~ getProducts ~ sanityCheck",
-      sanityCheck
-    );
+    if (sanityData.statusCode === 500) return;
+    const data = await sanityData.json();
+    setProductList(data.response);
+    setSelectedBrand(data.response[0].brand.title);
   };
 
   const listProducts = (products) => {
-    // filter down products into the card
-    if (router.query.category.includes("brand")) {
-      console.log("in listProducts brand");
+    const isProductsBrands = productList?.filter((e) => e._type === "brand");
+    if (router.query.category.includes("brand") && isProductsBrands.length) {
       return products.map((product) => (
-        <BrandCard key={product._id} brand={product} />
+        <BrandCard key={product._id} brand={product} handler={getProducts} />
       ));
     }
     return products
@@ -53,7 +57,15 @@ export default function ClubsBase({ products }) {
 
       <main className={styles.main}>
         {/* <Banner /> */}
-        <h1 className={styles.categoryTitle}>{categoryName}</h1>
+        {selectedBrand && (
+          <h1 className={styles.categoryTitle}>
+            {categoryName} | {selectedBrand}
+          </h1>
+        )}
+        {!selectedBrand && (
+          <h1 className={styles.categoryTitle}>{categoryName}</h1>
+        )}
+
         {!router.query.category.includes("brand") && (
           <div className={styles.filterContainer}>
             <h3>Filter Products</h3>
@@ -68,9 +80,9 @@ export default function ClubsBase({ products }) {
         <p>Wedge Head</p> */}
           </div>
         )}
-        <button onClick={getProducts}>test</button>
-
-        <div className={styles.productsContainer}>{listProducts(products)}</div>
+        <div className={styles.productsContainer}>
+          {listProducts(productList)}
+        </div>
       </main>
     </div>
   );
