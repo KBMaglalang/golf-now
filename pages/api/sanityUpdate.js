@@ -17,7 +17,6 @@ export default async function handler(req, res) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "GET") {
-    console.log("in get req", req.query);
     try {
       const response = await cmsClient.fetch(
         `*[brand._ref == '${req.query.id}']{..., brand->{_id,title}}`
