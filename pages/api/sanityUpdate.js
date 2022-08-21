@@ -17,13 +17,13 @@ export default async function handler(req, res) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "GET") {
-    console.log("in get req");
+    console.log("in get req", req.query);
     try {
       const response = await cmsClient.fetch(
-        `*[brand._ref == 'f32b9e88-bfb4-4da3-8625-c6a62a49d647']{..., brand->{_id,title}}`
+        `*[brand._ref == '${req.query.id}']{..., brand->{_id,title}}`
       );
 
-      res.status(200).json(response);
+      res.status(200).json({ response });
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
