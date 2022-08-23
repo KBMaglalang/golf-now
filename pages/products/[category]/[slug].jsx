@@ -42,22 +42,32 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <span>{`$${product?.price}`}</span>
             <div className={styles.buttonContainer}>
               <button
-                className={styles.buyNowButton}
+                className={
+                  !product?.stock
+                    ? styles.disabledBuyNowButton
+                    : styles.buyNowButton
+                }
                 onClick={() => {
                   toast.success(
                     `Purchasing ${productBrand?.title}|${product?.name}`
                   );
                 }}
+                disabled={!product?.stock ? true : false}
               >
                 Buy it Now
               </button>
               <button
-                className={styles.addToCartButton}
+                className={
+                  !product?.stock
+                    ? styles.disabledAddToCartButton
+                    : styles.addToCartButton
+                }
                 onClick={() => {
                   toast.success(
                     `${productBrand?.title}|${product?.name} Added to Cart`
                   );
                 }}
+                disabled={!product?.stock ? true : false}
               >
                 Add to Cart
               </button>
