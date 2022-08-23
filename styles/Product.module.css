@@ -118,6 +118,26 @@
   padding: 1rem
 }
 
+.disabledBuyNowButton {
+  padding: 10px 10px;
+  min-width: 40%;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #e4e4e4;
+  color: white;
+  border: none;
+}
+
+.disabledAddToCartButton {
+  padding: 10px 10px;
+  min-width: 40%;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: white;
+  color: #e4e4e4;
+  border: 1px solid #e4e4e4 ;
+}
+
 .recommendationContainer {
   display: flex;
   flex-direction: row;
