@@ -24,7 +24,7 @@ export default function Card({ product }) {
             <div>
               <label
                 className={!product?.stock && styles.strike}
-              >{`${product?.price}`}</label>
+              >{`$${product?.price}`}</label>
               <label> SOLD OUT</label>
             </div>
           )}
