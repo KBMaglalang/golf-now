@@ -41,9 +41,9 @@ export default function ClubsBase({ products }) {
         <BrandCard key={product._id} brand={product} handler={getProducts} />
       ));
     }
-    return products
-      ?.filter((product) => product.stock > 0)
-      .map((product) => <Card key={product.sku} product={product} />);
+    return products.map((product) => (
+      <Card key={product.sku} product={product} />
+    ));
   };
 
   return (
