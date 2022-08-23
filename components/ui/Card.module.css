@@ -21,6 +21,10 @@
   margin-top: 1rem;
 }
 
+.strike {
+  text-decoration: line-through;
+}
+
 .card:hover,
 .card:focus,
 .card:active {
