@@ -5,9 +5,16 @@ import { cmsClient, urlFor } from "../../../lib/sanityClient";
 import Card from "../../../components/ui/Card";
 import { PortableText } from "@portabletext/react";
 import { toast } from "react-hot-toast";
+import { useStateContext } from "../../../context/StateContext";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
+  const [productQuantity, setProductQuantity] = useState(1);
+  const { cartItems, setCartItems, onAdd, onRemove } = useStateContext();
+
+  const handleBuyNow = () => {
+    onAdd(product, qty);
+  };
 
   return (
     <div className={styles.container}>
@@ -47,12 +54,13 @@ export default function ClubsDetails({ productBrand, product, products }) {
                     ? styles.disabledBuyNowButton
                     : styles.buyNowButton
                 }
-                onClick={() => {
-                  toast.success(
-                    `Purchasing ${productBrand?.title}|${product?.name}`
-                  );
-                }}
+                // onClick={() => {
+                //   toast.success(
+                //     `Purchasing ${productBrand?.title}|${product?.name}`
+                //   );
+                // }}
                 disabled={!product?.stock ? true : false}
+                onClick={handleBuyNow}
               >
                 Buy it Now
               </button>
@@ -62,12 +70,13 @@ export default function ClubsDetails({ productBrand, product, products }) {
                     ? styles.disabledAddToCartButton
                     : styles.addToCartButton
                 }
-                onClick={() => {
-                  toast.success(
-                    `${productBrand?.title}|${product?.name} Added to Cart`
-                  );
-                }}
+                // onClick={() => {
+                //   toast.success(
+                //     `${productBrand?.title}|${product?.name} Added to Cart`
+                //   );
+                // }}
                 disabled={!product?.stock ? true : false}
+                onClick={() => onAdd(product, qty)}
               >
                 Add to Cart
               </button>
