@@ -6,11 +6,34 @@ import Card from "../../../components/ui/Card";
 import { PortableText } from "@portabletext/react";
 import { toast } from "react-hot-toast";
 import { useStateContext } from "../../../context/StateContext";
+import {
+  AiOutlineMinus,
+  AiOutlinePlus,
+  AiOutlineLeft,
+  AiOutlineRight,
+  AiOutlineShopping,
+} from "react-icons/ai";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
   const { cartItems, setCartItems, onAdd, onRemove } = useStateContext();
+
+  useEffect(() => {
+    setProductQuantity(1);
+  }, []);
+
+  const updateQuantity = (state) => {
+    if (state === "inc") {
+      if (productQuantity + 1 <= product.stock) {
+        setProductQuantity((prev) => prev + 1);
+      }
+    } else {
+      if (productQuantity - 1 >= 0) {
+        setProductQuantity((prev) => prev - 1);
+      }
+    }
+  };
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -44,9 +67,22 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
             <h2>{product?.name}</h2>
-            <span>--- can add variations here ---</span>
+            {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>
+            <div>
+              <div>
+                <p className="quantity-desc">
+                  <span className="minus" onClick={() => updateQuantity("dec")}>
+                    <AiOutlineMinus />
+                  </span>
+                  <span className="num">{productQuantity}</span>
+                  <span className="plus" onClick={() => updateQuantity("inc")}>
+                    <AiOutlinePlus />
+                  </span>
+                </p>
+              </div>
+            </div>
             <div className={styles.buttonContainer}>
               <button
                 className={
