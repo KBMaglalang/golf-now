@@ -33,18 +33,6 @@ export const StateContext = ({ children }) => {
   // }, [cartItems]);
 
   const onAdd = (product, quantity) => {
-    console.log(
-      "🚀 ~ file: StateContext.js ~ line 36 ~ onAdd ~ quantity",
-      quantity
-    );
-    console.log(
-      "🚀 ~ file: StateContext.js ~ line 36 ~ onAdd ~ product",
-      product
-    );
-    console.log(
-      "🚀 ~ file: StateContext.js ~ line 45 ~ onAdd ~ cartItems",
-      cartItems
-    );
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
     );
@@ -57,11 +45,6 @@ export const StateContext = ({ children }) => {
       toast.error(`Total order cannot exceed available stock. Sorry 😞`);
       return;
     }
-
-    // setTotalPrice(
-    //   (prevTotalPrice) => prevTotalPrice + product.price * quantity
-    // );
-    // setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
 
     // toast.success(`${qty} ${product.name} added to cart`);
     toast.success(`${quantity} ${product.name} added to cart`);
