@@ -10,10 +10,10 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
-  const { cartItems, setCartItems, onAdd, onRemove } = useStateContext();
+  const { cartItems, onAdd } = useStateContext();
 
   useEffect(() => {
-    setProductQuantity((prev) => 1);
+    setProductQuantity(1);
   }, []);
 
   const updateQuantity = (state) => {
@@ -27,7 +27,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
   };
 
   const handleBuyNow = () => {
-    onAdd(product, qty);
+    onAdd(product, productQuantity);
   };
 
   return (
