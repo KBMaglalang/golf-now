@@ -2,12 +2,33 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import styles from "../../../styles/Product.module.css"; // ! could change this to another css
 import { cmsClient, urlFor } from "../../../lib/sanityClient";
-import Card from "../../../components/ui/Card";
+// import Card from "../../../components/ui/Card";
 import { PortableText } from "@portabletext/react";
-import { toast } from "react-hot-toast";
+import { useStateContext } from "../../../context/StateContext";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 export default function ClubsDetails({ productBrand, product, products }) {
   const [index, setIndex] = useState(0);
+  const [productQuantity, setProductQuantity] = useState(1);
+  const { onAdd } = useStateContext();
+
+  useEffect(() => {
+    setProductQuantity(1);
+  }, []);
+
+  const updateQuantity = (state) => {
+    if (state === "inc" && productQuantity + 1 <= product.stock) {
+      setProductQuantity((prev) => prev + 1);
+    }
+
+    if (state === "dec" && productQuantity - 1 > 0) {
+      setProductQuantity((prev) => prev - 1);
+    }
+  };
+
+  const handleBuyNow = () => {
+    onAdd(product, productQuantity);
+  };
 
   return (
     <div className={styles.container}>
@@ -37,9 +58,22 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${productBrand?.title}`}</h3>
             <h2>{product?.name}</h2>
-            <span>--- can add variations here ---</span>
+            {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>
+            <div>
+              <div>
+                <p className="quantity-desc">
+                  <span className="minus" onClick={() => updateQuantity("dec")}>
+                    <AiOutlineMinus />
+                  </span>
+                  <span className="num">{productQuantity}</span>
+                  <span className="plus" onClick={() => updateQuantity("inc")}>
+                    <AiOutlinePlus />
+                  </span>
+                </p>
+              </div>
+            </div>
             <div className={styles.buttonContainer}>
               <button
                 className={
@@ -47,12 +81,8 @@ export default function ClubsDetails({ productBrand, product, products }) {
                     ? styles.disabledBuyNowButton
                     : styles.buyNowButton
                 }
-                onClick={() => {
-                  toast.success(
-                    `Purchasing ${productBrand?.title}|${product?.name}`
-                  );
-                }}
                 disabled={!product?.stock ? true : false}
+                onClick={handleBuyNow}
               >
                 Buy it Now
               </button>
@@ -62,12 +92,8 @@ export default function ClubsDetails({ productBrand, product, products }) {
                     ? styles.disabledAddToCartButton
                     : styles.addToCartButton
                 }
-                onClick={() => {
-                  toast.success(
-                    `${productBrand?.title}|${product?.name} Added to Cart`
-                  );
-                }}
                 disabled={!product?.stock ? true : false}
+                onClick={() => onAdd(product, productQuantity)}
               >
                 Add to Cart
               </button>
@@ -84,7 +110,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <PortableText value={product?.features} />
           </div>
         </div>
-        <h3>Recommended Products</h3>
+        {/* <h3>Recommended Products</h3>
         <div>
           <div>
             <div className={styles.recommendationContainer}>
@@ -93,7 +119,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
