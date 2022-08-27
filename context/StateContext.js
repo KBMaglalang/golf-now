@@ -12,9 +12,9 @@ export const StateContext = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify({ cartItems }));
-  }, [cartItems]);
+  const updateLocalStorage = (items) => {
+    localStorage.setItem("cart", JSON.stringify({ cartItems: items }));
+  };
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
@@ -30,7 +30,6 @@ export const StateContext = ({ children }) => {
       return;
     }
 
-    // toast.success(`${qty} ${product.name} added to cart`);
     toast.success(`${quantity} ${product.name} added to cart`);
     if (checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
@@ -40,45 +39,48 @@ export const StateContext = ({ children }) => {
         return { ...cartProduct };
       });
       setCartItems(updatedCartItems);
+      updateLocalStorage(updatedCartItems);
       return;
     }
 
     product.quantity = quantity;
-    setCartItems((prev) => [...prev, { ...product }]);
+    setCartItems((prev) => {
+      updateLocalStorage([...prev, { ...product }]);
+      return [...prev, { ...product }];
+    });
   };
 
   const onRemove = (product) => {
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
     setCartItems(newCartItems);
+    updateLocalStorage(newCartItems);
   };
 
-  // const toggleCartItemQuantity = (id, value) => {
-  //   const foundProduct = cartItems.find((item) => item._id === id);
-  //   const index = cartItems.findIndex((product) => product._id === id);
-  //   const newCartItems = cartItems.filter((item) => item._id !== id);
+  const toggleCartItemQuantity = (id, value) => {
+    const foundProduct = cartItems.find((item) => item._id === id);
+    const index = cartItems.findIndex((product) => product._id === id);
+    const newCartItems = cartItems.filter((item) => item._id !== id);
 
-  //   if (value === "inc" && foundProduct.stock > foundProduct.quantity) {
-  //     const updateCart = [...newCartItems];
-  //     updateCart.splice(index, 0, {
-  //       ...foundProduct,
-  //       quantity: foundProduct.quantity + 1,
-  //     });
-  //     setCartItems(updateCart);
-  //     // setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
-  //     // setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + 1);
-  //   } else if (value === "dec") {
-  //     if (foundProduct.quantity > 1) {
-  //       const updateCart = [...newCartItems];
-  //       updateCart.splice(index, 0, {
-  //         ...foundProduct,
-  //         quantity: foundProduct.quantity - 1,
-  //       });
-  //       setCartItems(updateCart);
-  //       // setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
-  //       // setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - 1);
-  //     }
-  //   }
-  // };
+    if (value === "inc" && foundProduct.stock > foundProduct.quantity) {
+      const updateCart = [...newCartItems];
+      updateCart.splice(index, 0, {
+        ...foundProduct,
+        quantity: foundProduct.quantity + 1,
+      });
+      setCartItems(updateCart);
+      updateLocalStorage(updateCart);
+    } else if (value === "dec") {
+      if (foundProduct.quantity > 1) {
+        const updateCart = [...newCartItems];
+        updateCart.splice(index, 0, {
+          ...foundProduct,
+          quantity: foundProduct.quantity - 1,
+        });
+        setCartItems(updateCart);
+        updateLocalStorage(updateCart);
+      }
+    }
+  };
 
   return (
     <Context.Provider
@@ -87,7 +89,7 @@ export const StateContext = ({ children }) => {
         setCartItems,
         onAdd,
         onRemove,
-        // toggleCartItemQuantity,
+        toggleCartItemQuantity,
       }}
     >
       {children}
