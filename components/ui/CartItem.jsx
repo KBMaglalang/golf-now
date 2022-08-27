@@ -26,11 +26,17 @@ export default function CartItem({ product }) {
       <div>
         <div>
           <p className="quantity-desc">
-            <span className="minus">
+            <span
+              className="minus"
+              onClick={() => toggleCartItemQuantity(product._id, "dec")}
+            >
               <AiOutlineMinus />
             </span>
             <span className="num">{product?.quantity}</span>
-            <span className="plus">
+            <span
+              className="plus"
+              onClick={() => toggleCartItemQuantity(product._id, "inc")}
+            >
               <AiOutlinePlus />
             </span>
           </p>
