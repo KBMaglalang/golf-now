@@ -4,6 +4,7 @@ import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
+import { PortableText } from "@portabletext/react";
 
 export default function CartItem({ product }) {
   console.log("🚀 ~ file: CartItem.jsx ~ line 8 ~ CartItem ~ product", product);
@@ -21,6 +22,9 @@ export default function CartItem({ product }) {
         /> */}
       </div>
       <div>{product?.brand?.title}</div>
+      <PortableText value={product?.description} />
+      <span>{`Price: $${product?.price}`}</span>
+      <span>{`Total: ${product?.price * product?.quantity}`}</span>
 
       <h3>{product?.name}</h3>
       <div>
