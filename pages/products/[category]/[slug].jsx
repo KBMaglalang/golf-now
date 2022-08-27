@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import styles from "../../../styles/Product.module.css"; // ! could change this to another css
+import styles from "../../../styles/Product.module.css";
 import { cmsClient, urlFor } from "../../../lib/sanityClient";
-// import Card from "../../../components/ui/Card";
 import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
-export default function ClubsDetails({ productBrand, product, products }) {
+export default function ClubsDetails({ product }) {
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
   const { onAdd } = useStateContext();
@@ -33,7 +32,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{`Golf Now | ${productBrand?.title} - ${product?.name}`}</title>
+        <title>{`Golf Now | ${product?.brand?.title} - ${product?.name}`}</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
@@ -56,7 +55,7 @@ export default function ClubsDetails({ productBrand, product, products }) {
           </div>
           <div className={styles.productDetailsContainer}>
             <h4>{`SKU: ${product?.sku}`}</h4>
-            <h3>{`${productBrand?.title}`}</h3>
+            <h3>{`${product?.brand?.title}`}</h3>
             <h2>{product?.name}</h2>
             {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
@@ -110,24 +109,12 @@ export default function ClubsDetails({ productBrand, product, products }) {
             <PortableText value={product?.features} />
           </div>
         </div>
-        {/* <h3>Recommended Products</h3>
-        <div>
-          <div>
-            <div className={styles.recommendationContainer}>
-              {products.map((item) => (
-                <Card key={item._id} product={item} />
-              ))}
-            </div>
-          </div>
-        </div> */}
       </main>
     </div>
   );
 }
 
 // export const getStaticPaths = async () => {
-//   //! need something like a router or a way to see the passed content
-
 //   const query = `*[_type == "clubs"] {_type, slug {current}}`;
 //   const products = await cmsClient.fetch(query);
 //   console.log(
@@ -170,17 +157,11 @@ export default function ClubsDetails({ productBrand, product, products }) {
 // };
 
 export const getServerSideProps = async (context) => {
-  const products = await cmsClient.fetch(
-    `*[_type == "${context.query.category}"]{..., brand->{_id,title}}`
-  );
   const product = await cmsClient.fetch(
-    `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}'][0]`
-  );
-  const productBrand = await cmsClient.fetch(
-    `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
+    `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}']{..., brand->{_id,title}}[0]`
   );
 
   return {
-    props: { productBrand, product, products },
+    props: { product },
   };
 };
