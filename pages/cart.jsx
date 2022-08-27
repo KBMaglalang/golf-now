@@ -9,14 +9,14 @@ export default function Cart() {
   const { cartItems, onRemove, toggleCartItemQuantity } = useStateContext();
   console.log("🚀 ~ file: cart.jsx ~ line 10 ~ Cart ~ cartItems", cartItems);
 
-  // const listCartItems = (items) => {
-  //   if (!items?.length) {
-  //     return;
-  //   }
+  const listCartItems = (items) => {
+    if (!items?.length) {
+      return;
+    }
 
-  //   const temp = items.map((e) => <CartItem key={e._id} product={e} />);
-  //   return temp;
-  // };
+    const temp = items.map((e) => <CartItem key={e._id} product={e} />);
+    return temp;
+  };
 
   //number of unique products in the cart
   // calculate subtotal
@@ -39,7 +39,7 @@ export default function Cart() {
           <p>product price</p>
           <p>product sub total</p>
         </div> */}
-        {/* {listCartItems(cartItems)} */}
+        {listCartItems(cartItems)}
       </div>
       <div className="cart-total-container">
         <h1>Cart Total</h1>
