@@ -4,49 +4,17 @@ import { toast } from "react-hot-toast";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  // const [cartItems, setCartItems] = useState([]);
-  const [cartItems, setCartItems] = useState(() => {
-    let initialValue = undefined;
-
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("cart");
-      console.log(
-        "🚀 ~ file: StateContext.js ~ line 10 ~ const[cartItems,setCartItems]=useState ~ saved",
-        saved
-      );
-      initialValue = JSON.parse(saved).cartItems;
-      console.log(
-        "🚀 ~ file: StateContext.js ~ line 12 ~ const[cartItems,setCartItems]=useState ~ initialValue",
-        initialValue
-      );
-    }
-
-    return initialValue?.cartItems || [];
-  });
-
-  // useEffect(() => {
-  //   // console.log("in useEffect");
-  //   // console.log("local storage", localStorage);
-  //   // console.log("getItem", localStorage.getItem("cart"));
-  //   // console.log("parsed", JSON.parse(localStorage.getItem("cart")));
-  //   // console.log(
-  //   //   "length",
-  //   //   JSON.parse(localStorage.getItem("cart"))?.cartItems.length
-  //   // );
-
-  //   // if (JSON.parse(localStorage.getItem("cart"))) {
-  //   // console.log("in the if statement");
-  //   setCartItems(JSON.parse(localStorage.getItem("cart")).cartItems);
-  //   // setTotalPrice(JSON.parse(localStorage.getItem("cart")).totalPrice);
-  //   // setTotalQuantities(
-  //   //   JSON.parse(localStorage.getItem("cart")).totalQuantities
-  //   // );
-  //   // }
-  // }, []);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify({ cartItems }));
-  }, [cartItems]);
+    if (JSON.parse(localStorage.getItem("cart"))) {
+      setCartItems(JSON.parse(localStorage.getItem("cart")).cartItems);
+    }
+  }, []);
+
+  const updateLocalStorage = (items) => {
+    localStorage.setItem("cart", JSON.stringify({ cartItems: items }));
+  };
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
@@ -62,7 +30,6 @@ export const StateContext = ({ children }) => {
       return;
     }
 
-    // toast.success(`${qty} ${product.name} added to cart`);
     toast.success(`${quantity} ${product.name} added to cart`);
     if (checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
@@ -72,16 +39,21 @@ export const StateContext = ({ children }) => {
         return { ...cartProduct };
       });
       setCartItems(updatedCartItems);
+      updateLocalStorage(updatedCartItems);
       return;
     }
 
     product.quantity = quantity;
-    setCartItems((prev) => [...prev, { ...product }]);
+    setCartItems((prev) => {
+      updateLocalStorage([...prev, { ...product }]);
+      return [...prev, { ...product }];
+    });
   };
 
   const onRemove = (product) => {
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
     setCartItems(newCartItems);
+    updateLocalStorage(newCartItems);
   };
 
   const toggleCartItemQuantity = (id, value) => {
@@ -96,6 +68,7 @@ export const StateContext = ({ children }) => {
         quantity: foundProduct.quantity + 1,
       });
       setCartItems(updateCart);
+      updateLocalStorage(updateCart);
     } else if (value === "dec") {
       if (foundProduct.quantity > 1) {
         const updateCart = [...newCartItems];
@@ -104,6 +77,7 @@ export const StateContext = ({ children }) => {
           quantity: foundProduct.quantity - 1,
         });
         setCartItems(updateCart);
+        updateLocalStorage(updateCart);
       }
     }
   };
