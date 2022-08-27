@@ -7,7 +7,6 @@ import CartItem from "../components/ui/CartItem";
 
 export default function Cart() {
   const { cartItems, onRemove, toggleCartItemQuantity } = useStateContext();
-  console.log("🚀 ~ file: cart.jsx ~ line 10 ~ Cart ~ cartItems", cartItems);
 
   const listCartItems = (items) => {
     if (!items?.length) {
@@ -26,6 +25,12 @@ export default function Cart() {
 
   return (
     <div>
+      <Head>
+        <title>{`Golf Now | Cart`}</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
       <h1>Your Cart</h1>
       <div className="cart-container">
         {/* <div className="product-details">

@@ -3,9 +3,11 @@ import Link from "next/link";
 import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { useStateContext } from "../../context/StateContext";
 
 export default function CartItem({ product }) {
   console.log("🚀 ~ file: CartItem.jsx ~ line 8 ~ CartItem ~ product", product);
+  const { onAdd, onRemove, toggleCartItemQuantity } = useStateContext();
 
   return (
     <div>
@@ -24,17 +26,23 @@ export default function CartItem({ product }) {
       <div>
         <div>
           <p className="quantity-desc">
-            <span className="minus">
+            <span
+              className="minus"
+              onClick={() => toggleCartItemQuantity(product._id, "dec")}
+            >
               <AiOutlineMinus />
             </span>
             <span className="num">{product?.quantity}</span>
-            <span className="plus">
+            <span
+              className="plus"
+              onClick={() => toggleCartItemQuantity(product._id, "inc")}
+            >
               <AiOutlinePlus />
             </span>
           </p>
         </div>
         <div>
-          <span>Remove</span>
+          <span onClick={() => onRemove(product)}>Remove</span>
         </div>
       </div>
     </div>
