@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     try {
       console.log(
         "🚀 ~ file: stripe.js ~ line 33 ~ line_items:req.body.cartItems.map ~ req.body",
-        req.body
+        req.body.cartItems
       );
 
       const params = {
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
               product_data: {
                 name: item.name,
               },
-              unit_amount: item.price * 100,
+              unit_amount: (item.price * 100).toFixed(0),
             },
             adjustable_quantity: {
               enabled: true,
@@ -39,8 +39,8 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/canceled`,
       };
 
-      // add user email to the stripe data if user is logged in
-      if (req.body.user) params["customer_email"] = req.body.user.email;
+      // // add user email to the stripe data if user is logged in
+      // if (req.body.user) params["customer_email"] = req.body.user.email;
 
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
