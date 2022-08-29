@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsBagCheckFill } from "react-icons/bs";
 
 import { useStateContext } from "../context/StateContext";
-import { runFireworks } from "../lib/util";
+import { runFireworks } from "../lib/fireworks";
 import { useRouter } from "next/router";
 
 const Success = () => {
