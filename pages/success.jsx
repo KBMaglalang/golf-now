@@ -1,50 +1,50 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { BsBagCheckFill } from "react-icons/bs";
-
+import { useRouter } from "next/router";
 import { useStateContext } from "../context/StateContext";
 import { runFireworks } from "../lib/fireworks";
-import { useRouter } from "next/router";
 
 const Success = () => {
   const router = useRouter();
-  const { setCartItems, setTotalPrice, setTotalQuantities, cartItems } =
-    useStateContext();
+  const { setCartItems, cartItems } = useStateContext();
 
-  // useEffect(async () => {
-  //   if (!router.isReady) return;
-  //   if (!router.query?.session_id) return;
+  const processData = async () => {
+    if (!router.isReady) return;
+    if (!router.query?.session_id) return;
 
-  //   const response = await fetch(`/api/stripe?key=${router.query.session_id}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   if (response.statusCode === 500) return;
-  //   const data = await response.json();
+    const response = await fetch(`/api/stripe?key=${router.query.session_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  //   if (data.session.payment_status === "paid") {
-  //     runFireworks();
+    if (response.statusCode === 500) return;
+    const data = await response.json();
 
-  //     if (cartItems.length) {
-  //       // update the stock amount in sanity
-  //       const sanityCheck = await fetch("/api/sanityUpdate", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(cartItems),
-  //       });
-  //     }
+    if (data.session.payment_status === "paid") {
+      runFireworks();
 
-  //     setCartItems([]);
-  //     setTotalPrice(0);
-  //     setTotalQuantities(0);
+      if (cartItems.length) {
+        // update the stock amount in sanity
+        const sanityCheck = await fetch("/api/sanityUpdate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cartItems),
+        });
 
-  //     localStorage.clear();
-  //   }
-  // }, [router.isReady]);
+        setCartItems([]);
+        localStorage.clear();
+      }
+    }
+  };
+
+  useEffect(() => {
+    processData();
+  }, [router.isReady]);
 
   return (
     <div className="success-wrapper">
@@ -53,13 +53,7 @@ const Success = () => {
           <BsBagCheckFill />
         </p>
         <h2>Thank you for your order!</h2>
-        <p className="email-msg">Check your email inbox for the receipt.</p>
-        {/* <p className="description">
-          If you have any questions, please email
-          <a className="email" href="mailto:order@example.com">
-            OOgunremi@yahoo.com
-          </a>
-        </p> */}
+        <p className="email-msg">Check your email inbox for the receipt</p>
         <Link href="/">
           <button type="button" width="300px" className="btn">
             Continue Shopping
