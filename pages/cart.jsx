@@ -24,10 +24,6 @@ export default function Cart() {
 
     // process the order with stripe
     const stripe = await getStripe();
-    console.log(
-      "🚀 ~ file: cart.jsx ~ line 26 ~ handleCheckout ~ stripe",
-      stripe
-    );
     const response = await fetch("/api/stripe", {
       method: "POST",
       headers: {
@@ -35,13 +31,8 @@ export default function Cart() {
       },
       body: JSON.stringify({ cartItems }),
     });
-    console.log(
-      "🚀 ~ file: cart.jsx ~ line 33 ~ handleCheckout ~ response",
-      response
-    );
     if (response.statusCode === 500) return;
     const data = await response.json();
-    console.log("🚀 ~ file: cart.jsx ~ line 35 ~ handleCheckout ~ data", data);
 
     stripe.redirectToCheckout({ sessionId: data.id });
   };
