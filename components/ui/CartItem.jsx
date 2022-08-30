@@ -7,7 +7,6 @@ import { useStateContext } from "../../context/StateContext";
 import { PortableText } from "@portabletext/react";
 
 export default function CartItem({ product }) {
-  console.log("🚀 ~ file: CartItem.jsx ~ line 8 ~ CartItem ~ product", product);
   const { onAdd, onRemove, toggleCartItemQuantity } = useStateContext();
 
   return (
