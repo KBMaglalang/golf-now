@@ -6,6 +6,7 @@ import getStripe from "../lib/stripe";
 import { cmsClient, urlFor } from "../lib/sanityClient";
 import { PortableText } from "@portabletext/react";
 import toast from "react-hot-toast";
+import styles from "../styles/Product.module.css";
 
 export default function Cart() {
   const { cartItems, onRemove, toggleCartItemQuantity } = useStateContext();
@@ -44,27 +45,31 @@ export default function Cart() {
   // calculate total
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>{`Golf Now | Cart`}</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <h1>Your Cart</h1>
-      <div className="cart-container">{listCartItems(cartItems)}</div>
-      <div className="cart-total-container">
-        <h1>Cart Total</h1>
-        <p>subtotal</p>
-        <p>delivery</p>
-        <p>sales tax</p>
-        <p>estimated total</p>
-        <div className="btn-container">
-          <button type="button" className="btn" onClick={handleCheckout}>
-            Pay with Stripe
-          </button>
+      <main className={styles.main}>
+        <h1>{`Your Cart ${
+          cartItems.length ? `(${cartItems.length}) ` : ""
+        }`}</h1>
+        <div className="cart-container">{listCartItems(cartItems)}</div>
+        <div className="cart-total-container">
+          <h1>Cart Total</h1>
+          <p>subtotal</p>
+          <p>delivery</p>
+          <p>sales tax</p>
+          <p>estimated total</p>
+          <div className="btn-container">
+            <button type="button" className="btn" onClick={handleCheckout}>
+              Pay with Stripe
+            </button>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
