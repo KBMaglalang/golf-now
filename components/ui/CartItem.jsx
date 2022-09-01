@@ -1,10 +1,8 @@
 // import styles from "./Card.module.css";
-import Link from "next/link";
 import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
-import { PortableText } from "@portabletext/react";
 import styles from "./CartItem.module.css";
 
 export default function CartItem({ product }) {
@@ -26,9 +24,6 @@ export default function CartItem({ product }) {
         <div className={styles.productName}>
           <span className={styles.productBrand}>{product?.brand?.title}</span>
           <span>{product?.name}</span>
-        </div>
-        <div className={styles.description}>
-          {/* <PortableText value={product?.description} /> */}
         </div>
       </div>
 
