@@ -56,13 +56,11 @@ export default function Cart() {
         <h1>{`Your Cart ${
           cartItems.length ? `(${cartItems.length}) ` : ""
         }`}</h1>
+        {!cartItems.length && <h2>Cart is Empty</h2>}
         <div className="cart-container">{listCartItems(cartItems)}</div>
         <div className="cart-total-container">
           <h1>Cart Total</h1>
-          <p>subtotal</p>
-          <p>delivery</p>
-          <p>sales tax</p>
-          <p>estimated total</p>
+          <p>Total</p>
           <div className="btn-container">
             <button type="button" className="btn" onClick={handleCheckout}>
               Pay with Stripe
