@@ -5,8 +5,10 @@ import { cmsClient, urlFor } from "../../../lib/sanityClient";
 import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export default function ClubsDetails({ product }) {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
   const { onAdd } = useStateContext();
@@ -27,6 +29,7 @@ export default function ClubsDetails({ product }) {
 
   const handleBuyNow = () => {
     onAdd(product, productQuantity);
+    router.push("/cart");
   };
 
   return (
