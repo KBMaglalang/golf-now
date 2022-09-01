@@ -63,11 +63,17 @@ export default function ClubsDetails({ product }) {
             <div>
               <div>
                 <p className="quantity-desc">
-                  <span className="minus" onClick={() => updateQuantity("dec")}>
+                  <span
+                    className={styles.minus}
+                    onClick={() => updateQuantity("dec")}
+                  >
                     <AiOutlineMinus />
                   </span>
-                  <span className="num">{productQuantity}</span>
-                  <span className="plus" onClick={() => updateQuantity("inc")}>
+                  <span className={styles.num}>{productQuantity}</span>
+                  <span
+                    className={styles.plus}
+                    onClick={() => updateQuantity("inc")}
+                  >
                     <AiOutlinePlus />
                   </span>
                 </p>
