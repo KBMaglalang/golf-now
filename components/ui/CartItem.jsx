@@ -51,9 +51,9 @@ export default function CartItem({ product }) {
             Remove
           </span>
         </div>
-        <span>{`Total: $${(product?.price * product?.quantity).toFixed(
-          2
-        )}`}</span>
+        <span className={styles.priceTotal}>{`Total: $${(
+          product?.price * product?.quantity
+        ).toFixed(2)}`}</span>
       </div>
     </div>
   );

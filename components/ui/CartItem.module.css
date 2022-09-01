@@ -36,6 +36,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.remove:hover {
+  color: #f02d34;
 }
 
 .productBrand {
@@ -68,4 +74,9 @@
   border-right: 1px solid gray;
   font-size: 20px;
   pointer-events: none;
+}
+
+.priceTotal {
+  margin: 1rem;
+  font-weight: bold;
 }
