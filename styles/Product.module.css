@@ -150,6 +150,25 @@
   height: 50%;
 }
 
+.minus {
+  border-right: 1px solid gray;
+  color: #f02d34;
+  border: 1px solid gray;
+  padding: 6px;
+}
+
+.plus {
+  color: rgb(49, 168, 49);
+  border: 1px solid gray;
+  padding: 6px;
+}
+
+.num{
+  border-right: 1px solid gray;
+  font-size: 20px;
+  pointer-events: none;
+}
+
 /* .marquee {
   position: relative;
   height: 400px;

@@ -1,10 +1,8 @@
 // import styles from "./Card.module.css";
-import Link from "next/link";
 import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
-import { PortableText } from "@portabletext/react";
 import styles from "./CartItem.module.css";
 
 export default function CartItem({ product }) {
@@ -27,9 +25,6 @@ export default function CartItem({ product }) {
           <span className={styles.productBrand}>{product?.brand?.title}</span>
           <span>{product?.name}</span>
         </div>
-        <div className={styles.description}>
-          <PortableText value={product?.description} />
-        </div>
       </div>
 
       <div>
@@ -37,14 +32,14 @@ export default function CartItem({ product }) {
 
         <span className={styles.productQuantity}>
           <span
-            className="minus"
+            className={styles.minus}
             onClick={() => toggleCartItemQuantity(product._id, "dec")}
           >
             <AiOutlineMinus />
           </span>
-          <span className="num">{product?.quantity}</span>
+          <span className={styles.num}>{product?.quantity}</span>
           <span
-            className="plus"
+            className={styles.plus}
             onClick={() => toggleCartItemQuantity(product._id, "inc")}
           >
             <AiOutlinePlus />
@@ -52,9 +47,11 @@ export default function CartItem({ product }) {
         </span>
 
         <div>
-          <span onClick={() => onRemove(product)}>Remove</span>
+          <span className={styles.remove} onClick={() => onRemove(product)}>
+            Remove
+          </span>
         </div>
-        <span className={styles.totalPriceContainer}>{`Total: $${(
+        <span className={styles.priceTotal}>{`Total: $${(
           product?.price * product?.quantity
         ).toFixed(2)}`}</span>
       </div>

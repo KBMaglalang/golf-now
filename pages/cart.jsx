@@ -3,8 +3,6 @@ import Head from "next/head";
 import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
-import { cmsClient, urlFor } from "../lib/sanityClient";
-import { PortableText } from "@portabletext/react";
 import toast from "react-hot-toast";
 import styles from "../styles/Product.module.css";
 
@@ -38,12 +36,6 @@ export default function Cart() {
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
-  //number of unique products in the cart
-  // calculate subtotal
-  // calculate shipping
-  // calculate sales tax
-  // calculate total
-
   return (
     <div className={styles.container}>
       <Head>
@@ -56,13 +48,11 @@ export default function Cart() {
         <h1>{`Your Cart ${
           cartItems.length ? `(${cartItems.length}) ` : ""
         }`}</h1>
+        {!cartItems.length && <h2>Cart is Empty</h2>}
         <div className="cart-container">{listCartItems(cartItems)}</div>
         <div className="cart-total-container">
           <h1>Cart Total</h1>
-          <p>subtotal</p>
-          <p>delivery</p>
-          <p>sales tax</p>
-          <p>estimated total</p>
+          <p>Total</p>
           <div className="btn-container">
             <button type="button" className="btn" onClick={handleCheckout}>
               Pay with Stripe
