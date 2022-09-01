@@ -3,8 +3,6 @@ import Head from "next/head";
 import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
-import { cmsClient, urlFor } from "../lib/sanityClient";
-import { PortableText } from "@portabletext/react";
 import toast from "react-hot-toast";
 import styles from "../styles/Product.module.css";
 
@@ -37,12 +35,6 @@ export default function Cart() {
 
     stripe.redirectToCheckout({ sessionId: data.id });
   };
-
-  //number of unique products in the cart
-  // calculate subtotal
-  // calculate shipping
-  // calculate sales tax
-  // calculate total
 
   return (
     <div className={styles.container}>
