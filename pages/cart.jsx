@@ -1,34 +1,65 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import { useStateContext } from "../context/StateContext";
+import CartItem from "../components/ui/CartItem";
+import getStripe from "../lib/stripe";
+import toast from "react-hot-toast";
+import styles from "../styles/Product.module.css";
 
 export default function Cart() {
+  const { cartItems, onRemove, toggleCartItemQuantity } = useStateContext();
+
+  const listCartItems = (items) => {
+    if (!items?.length) {
+      return;
+    }
+
+    const temp = items.map((e) => <CartItem key={e._id} product={e} />);
+    return temp;
+  };
+
+  const handleCheckout = async () => {
+    toast.loading("Redirecting...");
+
+    // process the order with stripe
+    const stripe = await getStripe();
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartItems }),
+    });
+    if (response.statusCode === 500) return;
+    const data = await response.json();
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
   return (
-    <div>
-      <h1>Your Cart</h1>
-      <div className="cart-container">
-        <div className="product-details">
-          <p>product title</p>
-          <p>product image</p>
-          <p>product details</p>
-          <p>delete product</p>
-          <p>increase quantity</p>
-          <p>decrease quantity</p>
-          <p>product total quantity</p>
-          <p>product price</p>
-          <p>product sub total</p>
+    <div className={styles.container}>
+      <Head>
+        <title>{`Golf Now | Cart`}</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
+      <main className={styles.main}>
+        <h1>{`Your Cart ${
+          cartItems.length ? `(${cartItems.length}) ` : ""
+        }`}</h1>
+        {!cartItems.length && <h2>Cart is Empty</h2>}
+        <div className="cart-container">{listCartItems(cartItems)}</div>
+        <div className="cart-total-container">
+          <h1>Cart Total</h1>
+          <p>Total</p>
+          <div className="btn-container">
+            <button type="button" className="btn" onClick={handleCheckout}>
+              Pay with Stripe
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="cart-total-container">
-        <h1>Cart Total</h1>
-        <p>subtotal</p>
-        <p>delivery</p>
-        <p>sales tax</p>
-        <p>estimated total</p>
-        <div className="btn-container">
-          <button type="button" className="btn" onClick="">
-            Pay with Stripe
-          </button>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }

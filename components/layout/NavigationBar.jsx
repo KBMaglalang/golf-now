@@ -18,12 +18,8 @@ export default function NavigationBar() {
         </div>
         <nav>
           <ul>
-            <li>
-              <Link href="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link href="/login">Log In</Link>
-            </li>
+            <li>{/* <Link href="/signup">Sign Up</Link> */}</li>
+            <li>{/* <Link href="/login">Log In</Link> */}</li>
             <li>
               <Link href="/cart">
                 <div>
@@ -37,36 +33,36 @@ export default function NavigationBar() {
       <div>
         <nav className={styles.navigation}>
           <ul>
+            {/* <li>
+              <Link href="/products/new">New</Link>
+            </li> */}
             <li>
-              <Link href="/new">New</Link>
+              <Link href="/products/clubs">Clubs</Link>
             </li>
             <li>
-              <Link href="/clubs">Clubs</Link>
+              <Link href="/products/balls">Balls</Link>
             </li>
             <li>
-              <Link href="/balls">Balls</Link>
+              <Link href="/products/shoes">Shoes</Link>
             </li>
             <li>
-              <Link href="/shoes">Shoes</Link>
+              <Link href="/products/clothing">Clothing</Link>
             </li>
             <li>
-              <Link href="/clothing">Clothing</Link>
+              <Link href="/products/bag-carts">Bags & Carts</Link>
             </li>
             <li>
-              <Link href="/bag-carts">Bags & Carts</Link>
+              <Link href="/products/golf-tech">Golf Tech</Link>
             </li>
+            {/* <li>
+              <Link href="/products/accessories">Accessories</Link>
+            </li> */}
             <li>
-              <Link href="/golf-tech">Golf Tech</Link>
+              <Link href="/products/brand">Brand</Link>
             </li>
-            <li>
-              <Link href="/accessories">Accessories</Link>
-            </li>
-            <li>
-              <Link href="/brands">Brands</Link>
-            </li>
-            <li>
-              <Link href="/golf-deals">Golf Deals</Link>
-            </li>
+            {/* <li>
+              <Link href="/products/golf-deals">Golf Deals</Link>
+            </li> */}
           </ul>
         </nav>
       </div>
