@@ -27,7 +27,7 @@ export default function CartItem({ product }) {
         </div>
       </div>
 
-      <div>
+      <div className={styles.priceContainer}>
         <span>{`Price: $${product?.price}`}</span>
 
         <span className={styles.productQuantity}>
