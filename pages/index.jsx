@@ -42,10 +42,6 @@ export default function Home({
       results.push(temp);
     }
 
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 31 ~ topProductsList ~ results",
-      results
-    );
     setTopProduct(listProducts(results));
   };
 
