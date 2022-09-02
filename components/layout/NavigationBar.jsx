@@ -10,12 +10,12 @@ export default function NavigationBar() {
         <div className={styles.logo}>
           <Link href="/">Golf Now</Link>
         </div>
-        <div className="search-input">
+        {/* <div className="search-input">
           <input type="text" placeholder="Search..."></input>
           <button type="button" className="btn" onClick={() => {}}>
             Search
           </button>
-        </div>
+        </div> */}
         <nav>
           <ul>
             <li>{/* <Link href="/signup">Sign Up</Link> */}</li>
