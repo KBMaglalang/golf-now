@@ -18,6 +18,18 @@ export default function Cart() {
     return temp;
   };
 
+  const getTotal = (items) => {
+    if (!items?.length) {
+      return;
+    }
+
+    const results = items
+      .reduce((p, c) => p + c.price * c.quantity, 0)
+      .toFixed(2);
+
+    return results;
+  };
+
   const handleCheckout = async () => {
     toast.loading("Redirecting...");
 
@@ -52,7 +64,7 @@ export default function Cart() {
         <div className="cart-container">{listCartItems(cartItems)}</div>
         <div className="cart-total-container">
           <h1>Cart Total</h1>
-          <p>Total</p>
+          <p>{`Total: $${getTotal(cartItems)}`}</p>
           <div className="btn-container">
             <button type="button" className="btn" onClick={handleCheckout}>
               Pay with Stripe
