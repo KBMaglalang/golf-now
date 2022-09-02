@@ -66,11 +66,15 @@ export default function Cart() {
         <div>{listCartItems(cartItems)}</div>
 
         {!!cartItems.length && (
-          <div>
-            <h1>Cart Total</h1>
-            <span>{`Total: $${getTotal(cartItems)}`}</span>
+          <div className={styles.productImagesContainer}>
+            <h1>{`Cart Total: $${getTotal(cartItems)}`}</h1>
+
             <div>
-              <button type="button" className="btn" onClick={handleCheckout}>
+              <button
+                type="button"
+                className={styles.addToCartButton}
+                onClick={handleCheckout}
+              >
                 Pay with Stripe
               </button>
             </div>
