@@ -11,8 +11,6 @@ export default function NavigationBar() {
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
-
-    console.log("value is:", event.target.value);
   };
 
   return (
@@ -31,7 +29,7 @@ export default function NavigationBar() {
             type="button"
             className="btn"
             onClick={() => {
-              router.push(`/search?${encodeURIComponent(searchTerm)}`);
+              router.push(`/search?=${encodeURIComponent(searchTerm)}`);
             }}
           >
             Search
