@@ -5,6 +5,7 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("cart"))) {
@@ -90,6 +91,8 @@ export const StateContext = ({ children }) => {
         onAdd,
         onRemove,
         toggleCartItemQuantity,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}
