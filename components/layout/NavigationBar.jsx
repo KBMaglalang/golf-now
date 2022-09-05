@@ -13,6 +13,12 @@ export default function NavigationBar() {
     setSearchTerm(event.target.value);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      router.push(`/search?=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
   return (
     <Fragment>
       <header className={styles.header}>
@@ -24,7 +30,8 @@ export default function NavigationBar() {
             type="text"
             placeholder="Search..."
             onChange={handleChange}
-          ></input>
+            onKeyDown={handleKeyDown}
+          />
           <button
             type="button"
             className="btn"
