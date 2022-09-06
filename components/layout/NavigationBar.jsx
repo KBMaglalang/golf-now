@@ -2,20 +2,46 @@ import React, { Fragment } from "react";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import styles from "./NavigationBar.module.css";
+import { useRouter } from "next/router";
+import { useStateContext } from "../../context/StateContext";
 
 export default function NavigationBar() {
+  const router = useRouter();
+  const { searchTerm, setSearchTerm } = useStateContext();
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      router.push(`/search?=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
   return (
     <Fragment>
       <header className={styles.header}>
         <div className={styles.logo}>
           <Link href="/">Golf Now</Link>
         </div>
-        {/* <div className="search-input">
-          <input type="text" placeholder="Search..."></input>
-          <button type="button" className="btn" onClick={() => {}}>
+        <div className="search-input">
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+          />
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              router.push(`/search?=${encodeURIComponent(searchTerm)}`);
+            }}
+          >
             Search
           </button>
-        </div> */}
+        </div>
         <nav>
           <ul>
             <li>{/* <Link href="/signup">Sign Up</Link> */}</li>

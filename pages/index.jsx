@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
-import Banner from "../components/ui/Banner";
 import { cmsClient } from "../lib/sanityClient";
 import { useState, useEffect } from "react";
 
