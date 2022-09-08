@@ -37,14 +37,31 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Order {
+  id          String  @id @default(cuid())
+  orderStatus String?
+  productSKU  String?
+  quantity    Int?
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
+  phoneNumber   String?
+  country       String?
+  city          String?
+  postalCode    String?
+  address1      String?
+  address2      String?
+
+  accounts Account[]
+  sessions Session[]
+  orders   Order[]
 }
 
 model VerificationToken {
