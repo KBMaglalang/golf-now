@@ -34,11 +34,20 @@ export default async function handle(req, res) {
     }
   } else if (req.method === "GET") {
     try {
+      // const result = await prisma.user.findUnique({
+      //   where: {},
+      // });
+      res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "PUT") {
     try {
+      // const result = await prisma.user.update({
+      //   where: {},
+      //   data: {},
+      // });
+      res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
