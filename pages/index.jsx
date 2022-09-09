@@ -54,11 +54,27 @@ export default function Home({
       .map((product) => <Card key={product._id} product={product} />);
   };
 
+  const writePost = async () => {
+    try {
+      await fetch(`/api/prisma`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (session) {
     return (
       <>
+        <span>
+          {console.log("🚀 ~ file: index.jsx ~ line 61 ~ session", session)}
+        </span>
         Signed in as {session.user.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
+        <button onClick={() => writePost()}>Write to postgresql</button>
       </>
     );
   }
