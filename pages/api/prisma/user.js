@@ -1,4 +1,4 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../../lib/prisma";
 
 export default async function handle(req, res) {
   if (req.method === "POST") {
@@ -18,7 +18,7 @@ export default async function handle(req, res) {
       const result = await prisma.user.create({
         data: {
           name: "asdf",
-          email: "asdf",
+          email: "asdf@asdf.com",
           image: "asdf",
           phoneNumber: "asdf",
           country: "asdf",
@@ -34,35 +34,41 @@ export default async function handle(req, res) {
     }
   } else if (req.method === "GET") {
     try {
-      // const result = await prisma.user.findUnique({
-      //   where: {},
-      // });
+      const result = await prisma.user.findUnique({
+        where: {
+          email: "asdf@asdf.com",
+        },
+      });
+      console.log("🚀 ~ file: prisma.js ~ line 42 ~ handle ~ result", result);
       res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "PUT") {
     try {
-      // const result = await prisma.user.update({
-      //   where: {},
-      //   data: {},
-      // });
+      const result = await prisma.user.update({
+        where: {
+          email: "asdf@asdf.com",
+        },
+        data: {
+          name: "panko",
+        },
+      });
+      console.log("🚀 ~ file: prisma.js ~ line 57 ~ handle ~ result", result);
       res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "DELETE") {
+    console.log("in delete route");
     try {
-      // if (req.method === "DELETE") {
-      //   // handleDELETE(postId, res)
-      //   const post = await prisma.post.delete({
-      //     where: { id: Number(postId) },
-      //   });
-      // } else {
-      //   throw new Error(
-      //     `The HTTP ${req.method} method is not supported at this route.`
-      //   );
-      // }
+      const result = await prisma.user.delete({
+        where: {
+          email: "asdf@asdf.com",
+        },
+      });
+      console.log("🚀 ~ file: prisma.js ~ line 71 ~ handle ~ result", result);
+      res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
