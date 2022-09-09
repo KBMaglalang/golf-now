@@ -102,6 +102,51 @@ export default function Home({
     }
   };
 
+  const createOrder = async () => {
+    try {
+      await fetch(`/api/prisma/order/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const findOrder = async () => {
+    try {
+      await fetch(`/api/prisma/order/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const updateOrder = async () => {
+    try {
+      await fetch(`/api/prisma/order/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deleteOrder = async () => {
+    try {
+      await fetch(`/api/prisma/order/`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (session) {
     return (
       <>
@@ -114,6 +159,11 @@ export default function Home({
         <button onClick={() => findUser()}>find User</button>
         <button onClick={() => updateUser()}>update user</button>
         <button onClick={() => deleteUser()}>delete user</button>
+        <br />
+        <button onClick={() => createOrder()}>create order</button>
+        <button onClick={() => findOrder()}>find order</button>
+        <button onClick={() => updateOrder()}>update order</button>
+        <button onClick={() => deleteOrder()}>delete order</button>
       </>
     );
   }
