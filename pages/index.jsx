@@ -54,10 +54,46 @@ export default function Home({
       .map((product) => <Card key={product._id} product={product} />);
   };
 
-  const writePost = async () => {
+  const createUser = async () => {
     try {
-      await fetch(`/api/prisma`, {
+      await fetch(`/api/prisma/user/`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateUser = async () => {
+    try {
+      await fetch(`/api/prisma/user/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const findUser = async () => {
+    try {
+      await fetch(`/api/prisma/user/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await fetch(`/api/prisma/user/`, {
+        method: "DELETE",
         headers: { "Content-Type": "application/json" },
         // body: JSON.stringify(undefined),
       });
@@ -74,7 +110,10 @@ export default function Home({
         </span>
         Signed in as {session.user.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
-        <button onClick={() => writePost()}>Write to postgresql</button>
+        <button onClick={() => createUser()}>create user</button>
+        <button onClick={() => findUser()}>find User</button>
+        <button onClick={() => updateUser()}>update user</button>
+        <button onClick={() => deleteUser()}>delete user</button>
       </>
     );
   }
