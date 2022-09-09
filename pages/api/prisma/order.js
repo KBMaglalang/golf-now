@@ -30,7 +30,7 @@ export default async function handle(req, res) {
     try {
       const result = await prisma.order.update({
         where: {
-          userId: "cl7r8kaqb00064mhdkw5eifzc",
+          id: "cl7tw1lej029010hdvt8ldk0c",
         },
         data: {
           orderStatus: "cancelled",
@@ -46,7 +46,7 @@ export default async function handle(req, res) {
     try {
       const result = await prisma.order.delete({
         where: {
-          userId: "cl7r8kaqb00064mhdkw5eifzc",
+          id: "cl7tvwiko027510hdgpvmqyvn",
         },
       });
       console.log("🚀 ~ file: prisma.js ~ line 71 ~ handle ~ result", result);
