@@ -15,7 +15,6 @@ export default function Home({
   golfTech,
 }) {
   const [topProduct, setTopProduct] = useState([]);
-  const { data: session } = useSession();
 
   useEffect(() => {
     topProductsList();
@@ -54,160 +53,40 @@ export default function Home({
       .map((product) => <Card key={product._id} product={product} />);
   };
 
-  const createUser = async () => {
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const updateUser = async () => {
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const findUser = async () => {
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const deleteUser = async () => {
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const createOrder = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const findOrder = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const updateOrder = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const deleteOrder = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  if (session) {
-    return (
-      <>
-        <span>
-          {console.log("🚀 ~ file: index.jsx ~ line 61 ~ session", session)}
-        </span>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-        <button onClick={() => createUser()}>create user</button>
-        <button onClick={() => findUser()}>find User</button>
-        <button onClick={() => updateUser()}>update user</button>
-        <button onClick={() => deleteUser()}>delete user</button>
-        <br />
-        <button onClick={() => createOrder()}>create order</button>
-        <button onClick={() => findOrder()}>find order</button>
-        <button onClick={() => updateOrder()}>update order</button>
-        <button onClick={() => deleteOrder()}>delete order</button>
-      </>
-    );
-  }
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+    <div className={styles.container}>
+      <Head>
+        <title>Golf Now</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
+      <main className={styles.main}>
+        {/* <Banner /> */}
+
+        <h1>Top Selling Products</h1>
+        <div className={styles.topProductsContainer}>{topProduct}</div>
+        <h1>Balls</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
+        <h1>Clubs</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
+        <h1>Shoes</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
+        <h1>Clothing</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(clothing)}
+        </div>
+        <h1>Bags & Carts</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(bagCarts)}
+        </div>
+        <h1>Golf Tech</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(golfTech)}
+        </div>
+      </main>
+    </div>
   );
-
-  // return (
-  //   <div className={styles.container}>
-  //     <Head>
-  //       <title>Golf Now</title>
-  //       <meta name="description" content="Golf Products" />
-  //       <link rel="icon" href="/golf-ball-icon.png" />
-  //     </Head>
-
-  //     <main className={styles.main}>
-  //       {/* <Banner /> */}
-
-  //       <h1>Top Selling Products</h1>
-  //       <div className={styles.topProductsContainer}>{topProduct}</div>
-  //       <h1>Balls</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
-  //       <h1>Clubs</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
-  //       <h1>Shoes</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
-  //       <h1>Clothing</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(clothing)}
-  //       </div>
-  //       <h1>Bags & Carts</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(bagCarts)}
-  //       </div>
-  //       <h1>Golf Tech</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(golfTech)}
-  //       </div>
-  //     </main>
-  //   </div>
-  // );
 }
 
 export const getServerSideProps = async () => {
