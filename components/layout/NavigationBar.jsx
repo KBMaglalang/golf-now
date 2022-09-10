@@ -62,7 +62,7 @@ export default function NavigationBar() {
                 </div>
               </li>
             )}
-            {!session && <li onClick={() => signIn()}>Log In/Sign Up</li>}
+            {!session && <li onClick={() => signIn()}>Log In / Sign Up</li>}
 
             <li>
               <Link href="/cart">
