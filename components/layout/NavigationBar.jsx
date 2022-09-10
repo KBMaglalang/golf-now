@@ -47,9 +47,6 @@ export default function NavigationBar() {
         <nav>
           <ul>
             {session && (
-              // <li>
-              //   <Link href="/account">{session.user.name}</Link>
-              // </li>
               <li>
                 <div className={styles.dropdown}>
                   <button className={styles.dropbtn}>
