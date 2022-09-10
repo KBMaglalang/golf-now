@@ -4,8 +4,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import styles from "./NavigationBar.module.css";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function NavigationBar() {
+  const { data: session } = useSession();
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useStateContext();
 
@@ -44,8 +46,24 @@ export default function NavigationBar() {
         </div>
         <nav>
           <ul>
-            <li>{/* <Link href="/signup">Sign Up</Link> */}</li>
-            <li>{/* <Link href="/login">Log In</Link> */}</li>
+            {session && (
+              // <li>
+              //   <Link href="/account">{session.user.name}</Link>
+              // </li>
+              <li>
+                <div className={styles.dropdown}>
+                  <button className={styles.dropbtn}>
+                    {session.user.name}
+                  </button>
+                  <div className={styles.dropdownContent}>
+                    <a href="/account">Account</a>
+                    <a onClick={() => signOut()}>Sign Out</a>
+                  </div>
+                </div>
+              </li>
+            )}
+            {!session && <li onClick={() => signIn()}>Log In/Sign Up</li>}
+
             <li>
               <Link href="/cart">
                 <div>

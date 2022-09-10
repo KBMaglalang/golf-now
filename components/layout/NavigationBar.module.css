@@ -1,3 +1,52 @@
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent a, .dropdownContent span {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdownContent a:hover, .dropdownContent span:hover {
+  background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+
+
+
 .cart {
   transform: scale(2);
   transition: transform 0.15s ease;
@@ -18,7 +67,6 @@
   color: white;
   font-weight: bold;
 }
-
 
 
 .header {
@@ -42,22 +90,22 @@
   margin-left: 3rem;
 }
 
-.header a, .navigation a {
+/* .header a, .navigation a {
   text-decoration: none;
   font-size: 1.5rem;
   color: #002200;
   transition: color 0.15s ease;
-}
+} */
 
 .header input {
   width: 500px;
   height: 2rem;
 }
 
-.header button {
+/* .header button {
   width: 10%;
   height: 2rem;
-}
+} */
 
 .header a:hover,
 .header a:active,
