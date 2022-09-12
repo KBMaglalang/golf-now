@@ -15,7 +15,6 @@ export default function Home({
   golfTech,
 }) {
   const [topProduct, setTopProduct] = useState([]);
-  const { data: session } = useSession();
 
   useEffect(() => {
     topProductsList();
@@ -54,55 +53,40 @@ export default function Home({
       .map((product) => <Card key={product._id} product={product} />);
   };
 
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  }
   return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+    <div className={styles.container}>
+      <Head>
+        <title>Golf Now</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
+      <main className={styles.main}>
+        {/* <Banner /> */}
+
+        <h1>Top Selling Products</h1>
+        <div className={styles.topProductsContainer}>{topProduct}</div>
+        <h1>Balls</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
+        <h1>Clubs</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
+        <h1>Shoes</h1>
+        <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
+        <h1>Clothing</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(clothing)}
+        </div>
+        <h1>Bags & Carts</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(bagCarts)}
+        </div>
+        <h1>Golf Tech</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(golfTech)}
+        </div>
+      </main>
+    </div>
   );
-
-  // return (
-  //   <div className={styles.container}>
-  //     <Head>
-  //       <title>Golf Now</title>
-  //       <meta name="description" content="Golf Products" />
-  //       <link rel="icon" href="/golf-ball-icon.png" />
-  //     </Head>
-
-  //     <main className={styles.main}>
-  //       {/* <Banner /> */}
-
-  //       <h1>Top Selling Products</h1>
-  //       <div className={styles.topProductsContainer}>{topProduct}</div>
-  //       <h1>Balls</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
-  //       <h1>Clubs</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
-  //       <h1>Shoes</h1>
-  //       <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
-  //       <h1>Clothing</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(clothing)}
-  //       </div>
-  //       <h1>Bags & Carts</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(bagCarts)}
-  //       </div>
-  //       <h1>Golf Tech</h1>
-  //       <div className={styles.categoryTopContainer}>
-  //         {listProducts(golfTech)}
-  //       </div>
-  //     </main>
-  //   </div>
-  // );
 }
 
 export const getServerSideProps = async () => {
