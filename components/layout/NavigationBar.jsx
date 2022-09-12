@@ -59,7 +59,13 @@ export default function NavigationBar() {
                 </div>
               </li>
             )}
-            {!session && <li onClick={() => signIn()}>Log In / Sign Up</li>}
+            {!session && (
+              <li onClick={() => signIn()}>
+                <div className={styles.dropdown}>
+                  <button className={styles.dropbtn}>Log In / Sign Up</button>
+                </div>
+              </li>
+            )}
 
             <li>
               <Link href="/cart">
