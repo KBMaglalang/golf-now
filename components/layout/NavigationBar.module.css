@@ -27,6 +27,7 @@
   text-decoration: none;
   display: block;
   cursor: pointer;
+  transition: color 0.15s ease;
 }
 
 .dropdownContent a:hover, .dropdownContent span:hover {
@@ -87,22 +88,17 @@
   margin-left: 3rem;
 }
 
-/* .header a, .navigation a {
+.navigation a {
   text-decoration: none;
   font-size: 1.5rem;
   color: #002200;
   transition: color 0.15s ease;
-} */
+}
 
 .header input {
   width: 500px;
   height: 2rem;
 }
-
-/* .header button {
-  width: 10%;
-  height: 2rem;
-} */
 
 .header a:hover,
 .header a:active,
