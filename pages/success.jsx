@@ -14,7 +14,7 @@ const Success = () => {
     if (!router.query?.session_id) return;
 
     const response = await fetch(
-      `/api/stripe/purchase?key=${router.query.session_id}`,
+      `/api/stripe/orders?key=${router.query.session_id}`,
       {
         method: "GET",
         headers: {
