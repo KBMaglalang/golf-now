@@ -13,12 +13,15 @@ const Success = () => {
     if (!router.isReady) return;
     if (!router.query?.session_id) return;
 
-    const response = await fetch(`/api/stripe?key=${router.query.session_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `/api/stripe/purchase?key=${router.query.session_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (response.statusCode === 500) return;
     const data = await response.json();

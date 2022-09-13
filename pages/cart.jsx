@@ -35,7 +35,7 @@ export default function Cart() {
 
     // process the order with stripe
     const stripe = await getStripe();
-    const response = await fetch("/api/stripe", {
+    const response = await fetch("/api/stripe/purchase", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
