@@ -49,6 +49,10 @@ export default async function handler(req, res) {
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
+  } else if (req.method === "PUT") {
+    // ! no need to UPDATE anything in stripe
+  } else if (req.method === "DELETE") {
+    // ! no need to DELETE anything in stripe
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
