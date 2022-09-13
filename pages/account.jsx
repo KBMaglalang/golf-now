@@ -1,23 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
+import prisma from "../lib/prisma";
 
-export default function Account() {
+export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
-  // const { data: session, status } = useSession({ required: true });
-
-  // const createUser = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/user/`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const updateUser = async () => {
     try {
@@ -31,75 +19,6 @@ export default function Account() {
     }
   };
 
-  // const findUser = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/user/`, {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const deleteUser = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/user/`, {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const createOrder = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/order/`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const findOrder = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/order/`, {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const updateOrder = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/order/`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const deleteOrder = async () => {
-  //   try {
-  //     await fetch(`/api/prisma/order/`, {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   if (session) {
     return (
       <div className={styles.container}>
@@ -111,10 +30,26 @@ export default function Account() {
 
         <main className={styles.main}>
           <h1>Signed in as: {session.user.name}</h1>
+          <form action="">
+            <span>Phone Number</span>
+            <input type="text" placeholder={"asdf"} />
+            <span>Address 1</span>
+            <input type="text" />
+            <span>Address 2</span>
+            <input type="text" />
+            <span>City</span>
+            <input type="text" />
+            <span>Country</span>
+            <input type="text" />
+            <span>Postal Code</span>
+            <input type="text" />
+            <button>Update Account</button>
+          </form>
         </main>
       </div>
     );
   }
+
   return (
     <>
       Not signed in <br />
@@ -134,7 +69,13 @@ export const getServerSideProps = async (context) => {
     };
   }
 
+  const userData = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
   return {
-    props: { session },
+    props: { userData },
   };
 };
