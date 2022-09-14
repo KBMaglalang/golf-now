@@ -47,7 +47,7 @@ const Success = () => {
 
   useEffect(() => {
     processData();
-  }, [router.isReady]);
+  }, [router.isReady]); // ! this may not be necessary when actually deployed
 
   return (
     <div className="success-wrapper">
