@@ -7,16 +7,58 @@ import prisma from "../lib/prisma";
 export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
 
-  const updateUser = async () => {
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
+  const updateUser = async (event) => {
+    event.preventDefault();
+
+    console.log("in update user function");
+    console.log("event", event.target);
+    console.log("phoneNumber", event.target.phoneNumber.value);
+
+    console.log(
+      "🚀 ~ file: account.jsx ~ line 8 ~ Account ~ userData",
+      userData
+    );
+
+    const formData = {
+      phoneNumber: event.target.phoneNumber.value,
+      address1: event.target.address1.value,
+      address2: event.target.address2.value,
+      city: event.target.city.value,
+      country: event.target.country.value,
+      postalCode: event.target.postalCode.value,
+    };
+    console.log(
+      "🚀 ~ file: account.jsx ~ line 25 ~ updateUser ~ formData",
+      formData
+    );
+
+    // try {
+    //   await fetch(`/api/prisma/user/`, {
+    //     method: "PUT",
+    //     headers: { "Content-Type": "application/json" },
+    //     // body: JSON.stringify(undefined),
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
+  const getOrders = async () => {
+    console.log("in getOrders function");
+
+    const response = await fetch(
+      `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.statusCode === 500) return;
+    const data = await response.json();
+    console.log("🚀 ~ file: account.jsx ~ line 61 ~ getOrders ~ data", data);
   };
 
   if (session) {
@@ -30,21 +72,56 @@ export default function Account({ userData }) {
 
         <main className={styles.main}>
           <h1>Signed in as: {session.user.name}</h1>
-          <form action="">
+
+          <form onSubmit={updateUser}>
             <span>Phone Number</span>
-            <input type="text" placeholder={"asdf"} />
+            <input
+              type="text"
+              id="phoneNumber"
+              className="phoneNumber"
+              defaultValue={userData.phoneNumber}
+            />
             <span>Address 1</span>
-            <input type="text" />
+            <input
+              type="text"
+              id="address1"
+              name="address1"
+              defaultValue={userData.address1}
+            />
             <span>Address 2</span>
-            <input type="text" />
+            <input
+              type="text"
+              id="address2"
+              name="address2"
+              defaultValue={userData.address2}
+            />
             <span>City</span>
-            <input type="text" />
+            <input
+              type="text"
+              id="city"
+              name="city"
+              defaultValue={userData.city}
+            />
             <span>Country</span>
-            <input type="text" />
+            <input
+              type="text"
+              id="country"
+              name="country"
+              defaultValue={userData.country}
+            />
             <span>Postal Code</span>
-            <input type="text" />
-            <button>Update Account</button>
+            <input
+              type="text"
+              id="postalCode"
+              name="postalCode"
+              defaultValue={userData.postalCode}
+            />
+            <button type="submit">Update Account</button>
           </form>
+          <div>
+            <h1>Order Request</h1>
+            <button onClick={() => getOrders()}>getPreviousOrders</button>
+          </div>
         </main>
       </div>
     );
@@ -74,6 +151,10 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
+  console.log(
+    "🚀 ~ file: account.jsx ~ line 82 ~ getServerSideProps ~ userData",
+    userData
+  );
 
   return {
     props: { userData },
