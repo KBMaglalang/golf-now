@@ -10,56 +10,45 @@ export default function Account({ userData }) {
   const updateUser = async (event) => {
     event.preventDefault();
 
-    console.log("in update user function");
-    console.log("event", event.target);
-    console.log("phoneNumber", event.target.phoneNumber.value);
-
-    console.log(
-      "🚀 ~ file: account.jsx ~ line 8 ~ Account ~ userData",
-      userData
-    );
-
     const formData = {
       phoneNumber: event.target.phoneNumber.value,
       address1: event.target.address1.value,
       address2: event.target.address2.value,
       city: event.target.city.value,
       country: event.target.country.value,
+      stateProvince: event.target.stateProvince.value,
       postalCode: event.target.postalCode.value,
     };
-    console.log(
-      "🚀 ~ file: account.jsx ~ line 25 ~ updateUser ~ formData",
-      formData
-    );
 
-    // try {
-    //   await fetch(`/api/prisma/user/`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     // body: JSON.stringify(undefined),
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await fetch(`/api/prisma/user/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formData, userData }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const getOrders = async () => {
-    console.log("in getOrders function");
+  // ! to be moved to the server side
+  // const getOrders = async () => {
+  //   console.log("in getOrders function");
 
-    const response = await fetch(
-      `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  //   const response = await fetch(
+  //     `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
 
-    if (response.statusCode === 500) return;
-    const data = await response.json();
-    console.log("🚀 ~ file: account.jsx ~ line 61 ~ getOrders ~ data", data);
-  };
+  //   if (response.statusCode === 500) return;
+  //   const data = await response.json();
+  //   console.log("🚀 ~ file: account.jsx ~ line 61 ~ getOrders ~ data", data);
+  // };
 
   if (session) {
     return (
@@ -102,6 +91,13 @@ export default function Account({ userData }) {
               name="city"
               defaultValue={userData.city}
             />
+            <span>State/Province</span>
+            <input
+              type="text"
+              id="stateProvince"
+              name="stateProvince"
+              defaultValue={userData.stateProvince}
+            />
             <span>Country</span>
             <input
               type="text"
@@ -120,7 +116,7 @@ export default function Account({ userData }) {
           </form>
           <div>
             <h1>Order Request</h1>
-            <button onClick={() => getOrders()}>getPreviousOrders</button>
+            {/* <button onClick={() => getOrders()}>getPreviousOrders</button> */}
           </div>
         </main>
       </div>
@@ -151,10 +147,6 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
-  console.log(
-    "🚀 ~ file: account.jsx ~ line 82 ~ getServerSideProps ~ userData",
-    userData
-  );
 
   return {
     props: { userData },
