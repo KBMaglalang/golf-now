@@ -54,6 +54,7 @@ model User {
   image         String?
   phoneNumber   String?
   country       String?
+  stateProvince String?
   city          String?
   postalCode    String?
   address1      String?
