@@ -33,28 +33,45 @@ export default function Account({ userData, userOrders }) {
   };
 
   const getCheckoutSessionsData = async () => {
-    console.log("in getcheckoutsessions function");
+    // console.log("in getcheckoutsessions function");
+    // const orderIds = userOrders.map((e) => e.stripeOrderId);
+    // console.log(
+    //   "🚀 ~ file: account.jsx ~ line 39 ~ getCheckoutSessionsData ~ orderIds",
+    //   orderIds
+    // );
+    // try {
+    //   const response = await fetch(`/api/stripe/orders?key=${orderIds[0]}`, {
+    //     method: "GET",
+    //     headers: { "Content-Type": "application/json" },
+    //   });
+    //   if (response.statusCode === 500) return;
+    //   const data = await response.json();
+    //   console.log(
+    //     "🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ checkoutSessionData",
+    //     data
+    //   );
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
 
-    const orderIds = userOrders.map((e) => e.stripeOrderId);
-    console.log(
-      "🚀 ~ file: account.jsx ~ line 39 ~ getCheckoutSessionsData ~ orderIds",
-      orderIds
-    );
-
+  const createOrders = async () => {
     try {
-      const response = await fetch(`/api/stripe/orders/`, {
+      await fetch(`/api/prisma/order/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(undefined),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const findOrders = async () => {
+    try {
+      await fetch(`/api/prisma/order/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        params: {
-          order1: orderIds[0],
-        },
       });
-      if (response.statusCode === 500) return;
-      const data = await response.json();
-      console.log(
-        "🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ checkoutSessionData",
-        data
-      );
     } catch (error) {
       console.error(error);
     }
@@ -128,7 +145,9 @@ export default function Account({ userData, userOrders }) {
           </form>
           <div>
             <h1>Order Test</h1>
-            <button onClick={getCheckoutSessionsData}>Get Orders</button>
+            {/* <button onClick={getCheckoutSessionsData}>Get Orders</button> */}
+            <button onClick={createOrders}>Create Orders</button>
+            <button onClick={findOrders}>Find Orders</button>
           </div>
         </main>
       </div>
