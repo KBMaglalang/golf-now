@@ -7,8 +7,13 @@ export default async function handle(req, res) {
         data: {
           stripeOrderId:
             "cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC",
-          quantity: 101,
+          quantity: 1,
           userId: "cl7r8kaqb00064mhdkw5eifzc",
+          status: "pending",
+          productSKU: "4012104301",
+          quantity: 1,
+          productSubTotal: 123,
+          productName: "Pro V1x Golf Balls - Yellow",
         },
       });
       res.json(result);
