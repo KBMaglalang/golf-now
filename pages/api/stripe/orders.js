@@ -42,12 +42,8 @@ export default async function handler(req, res) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else if (req.method === "GET") {
-    console.log("in the stripe orders GET request");
-    console.log("params", req);
-
     try {
-      // const session = await stripe.checkout.sessions.retrieve(req.query.key);
-      const session = undefined;
+      const session = await stripe.checkout.sessions.retrieve(req.query.key);
 
       res.status(200).json({ session });
     } catch (err) {
