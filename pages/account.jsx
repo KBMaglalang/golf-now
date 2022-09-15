@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
+import getStripe from "../lib/stripe";
 
 export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
@@ -31,23 +32,62 @@ export default function Account({ userData }) {
     }
   };
 
-  // ! to be moved to the server side
-  // const getOrders = async () => {
-  //   console.log("in getOrders function");
-
-  //   const response = await fetch(
-  //     `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
-  //     {
+  // const createOrder = async () => {
+  //   try {
+  //     const response = await fetch(`/api/prisma/order/`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       // body: JSON.stringify(undefined),
+  //     });
+  //     if (response.statusCode === 500) return;
+  //     const data = await response.json();
+  //     console.log(
+  //       "🚀 ~ file: account.jsx ~ line 43 ~ createOrder ~ data",
+  //       data
+  //     );
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const findOrder = async () => {
+  //   try {
+  //     const response = await fetch(`/api/prisma/order/`, {
   //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   if (response.statusCode === 500) return;
-  //   const data = await response.json();
-  //   console.log("🚀 ~ file: account.jsx ~ line 61 ~ getOrders ~ data", data);
+  //       headers: { "Content-Type": "application/json" },
+  //       // body: JSON.stringify(undefined),
+  //     });
+  //     if (response.statusCode === 500) return;
+  //     const data = await response.json();
+  //     console.log("🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ data", data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const updateOrder = async () => {
+  //   try {
+  //     const response = await fetch(`/api/prisma/order/`, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       // body: JSON.stringify(undefined),
+  //     });
+  //     if (response.statusCode === 500) return;
+  //     const data = await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const deleteOrder = async () => {
+  //   try {
+  //     const response = await fetch(`/api/prisma/order/`, {
+  //       method: "DELETE",
+  //       headers: { "Content-Type": "application/json" },
+  //       // body: JSON.stringify(undefined),
+  //     });
+  //     if (response.statusCode === 500) return;
+  //     const data = await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
   // };
 
   if (session) {
@@ -115,8 +155,7 @@ export default function Account({ userData }) {
             <button type="submit">Update Account</button>
           </form>
           <div>
-            <h1>Order Request</h1>
-            {/* <button onClick={() => getOrders()}>getPreviousOrders</button> */}
+            <h1>Order Test</h1>
           </div>
         </main>
       </div>
@@ -147,6 +186,59 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
+  console.log(
+    "🚀 ~ file: account.jsx ~ line 190 ~ getServerSideProps ~ userData",
+    userData
+  );
+
+  const userOrders = await prisma.order.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
+  console.log(
+    "🚀 ~ file: account.jsx ~ line 198 ~ getServerSideProps ~ userOrders",
+    userOrders
+  );
+
+  const stripe = await getStripe();
+  console.log(
+    "🚀 ~ file: account.jsx ~ line 205 ~ getServerSideProps ~ stripe",
+    stripe
+  );
+  // const response = stripe.checkout.sessions.retrieve(
+  //   userOrders[0].stripeOrderId
+  // );
+  // // if (response.statusCode === 500) return;
+  // const data = await response.json();
+  // console.log(
+  //   "🚀 ~ file: account.jsx ~ line 210 ~ getServerSideProps ~ data",
+  //   data
+  // );
+
+  // const result = await fetch(
+  //   `/api/stripe/orders?key=${userOrders[0].stripeOrderId}`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // );
+  // console.log(
+  //   "🚀 ~ file: account.jsx ~ line 226 ~ getServerSideProps ~ result",
+  //   result
+  // );
+
+  // const response = await fetch(
+  //   `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // );
 
   return {
     props: { userData },
