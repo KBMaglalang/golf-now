@@ -38,12 +38,16 @@ model Session {
 }
 
 model Order {
-  id            String  @id @default(cuid())
-  orderStatus   String?
-  stripeOrderId String
-  quantity      Int
-  userId        String
-  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  status          String
+  stripeOrderId   String
+  productSKU      String
+  quantity        Int
+  productSubTotal Int
+  productName     String
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
