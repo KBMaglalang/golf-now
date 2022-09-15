@@ -5,7 +5,7 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import getStripe from "../lib/stripe";
 
-export default function Account({ userData }) {
+export default function Account({ userData, userOrders }) {
   const { data: session } = useSession({ required: true });
 
   const updateUser = async (event) => {
@@ -32,63 +32,35 @@ export default function Account({ userData }) {
     }
   };
 
-  // const createOrder = async () => {
-  //   try {
-  //     const response = await fetch(`/api/prisma/order/`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //     if (response.statusCode === 500) return;
-  //     const data = await response.json();
-  //     console.log(
-  //       "🚀 ~ file: account.jsx ~ line 43 ~ createOrder ~ data",
-  //       data
-  //     );
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const findOrder = async () => {
-  //   try {
-  //     const response = await fetch(`/api/prisma/order/`, {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //     if (response.statusCode === 500) return;
-  //     const data = await response.json();
-  //     console.log("🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ data", data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const updateOrder = async () => {
-  //   try {
-  //     const response = await fetch(`/api/prisma/order/`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //     if (response.statusCode === 500) return;
-  //     const data = await response.json();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // const deleteOrder = async () => {
-  //   try {
-  //     const response = await fetch(`/api/prisma/order/`, {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       // body: JSON.stringify(undefined),
-  //     });
-  //     if (response.statusCode === 500) return;
-  //     const data = await response.json();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const getCheckoutSessionsData = async () => {
+    console.log("in getcheckoutsessions function");
+
+    const orderIds = userOrders.map((e) => e.stripeOrderId);
+    console.log(
+      "🚀 ~ file: account.jsx ~ line 39 ~ getCheckoutSessionsData ~ orderIds",
+      orderIds
+    );
+
+    try {
+      const response = await fetch(`/api/stripe/orders/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        params: {
+          order1: orderIds[0],
+        },
+      });
+      if (response.statusCode === 500) return;
+      const data = await response.json();
+      console.log(
+        "🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ checkoutSessionData",
+        data
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {}, []);
 
   if (session) {
     return (
@@ -156,6 +128,7 @@ export default function Account({ userData }) {
           </form>
           <div>
             <h1>Order Test</h1>
+            <button onClick={getCheckoutSessionsData}>Get Orders</button>
           </div>
         </main>
       </div>
@@ -186,26 +159,26 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
-  console.log(
-    "🚀 ~ file: account.jsx ~ line 190 ~ getServerSideProps ~ userData",
-    userData
-  );
+  // console.log(
+  //   "🚀 ~ file: account.jsx ~ line 190 ~ getServerSideProps ~ userData",
+  //   userData
+  // );
 
   const userOrders = await prisma.order.findMany({
     where: {
       userId: session.user.id,
     },
   });
-  console.log(
-    "🚀 ~ file: account.jsx ~ line 198 ~ getServerSideProps ~ userOrders",
-    userOrders
-  );
+  // console.log(
+  //   "🚀 ~ file: account.jsx ~ line 198 ~ getServerSideProps ~ userOrders",
+  //   userOrders
+  // );
 
-  const stripe = await getStripe();
-  console.log(
-    "🚀 ~ file: account.jsx ~ line 205 ~ getServerSideProps ~ stripe",
-    stripe
-  );
+  // const stripe = await getStripe();
+  // console.log(
+  //   "🚀 ~ file: account.jsx ~ line 205 ~ getServerSideProps ~ stripe",
+  //   stripe
+  // );
   // const response = stripe.checkout.sessions.retrieve(
   //   userOrders[0].stripeOrderId
   // );
@@ -241,6 +214,6 @@ export const getServerSideProps = async (context) => {
   // );
 
   return {
-    props: { userData },
+    props: { userData, userOrders },
   };
 };
