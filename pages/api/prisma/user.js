@@ -32,20 +32,26 @@ export default async function handle(req, res) {
   //   // } catch (err) {
   //   // }
   //   res.status(err.statusCode || 500).json(err.message);
-  // } else if (req.method === "GET") {
-  //   // try {
-  //   //   const result = await prisma.user.findUnique({
-  //   //     where: {
-  //   //       email: "asdf@asdf.com",
-  //   //     },
-  //   //   });
-
-  //   //   res.json(result);
-  //   // } catch (err) {
-  //   // }
-  //   res.status(err.statusCode || 500).json(err.message);
   // } else
-  if (req.method === "PUT") {
+  if (req.method === "GET") {
+    console.log("in prisma user get api");
+    console.log(
+      "🚀 ~ file: user.js ~ line 42 ~ handle ~ req.query.key",
+      req.query.key
+    );
+
+    try {
+      const result = await prisma.user.findUnique({
+        where: {
+          email: req.query.key,
+        },
+      });
+      console.log("🚀 ~ file: user.js ~ line 43 ~ handle ~ result", result);
+
+      res.json(result);
+    } catch (err) {}
+    res.status(err.statusCode || 500).json(err.message);
+  } else if (req.method === "PUT") {
     try {
       const result = await prisma.user.update({
         where: {
