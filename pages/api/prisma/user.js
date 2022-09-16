@@ -33,3 +33,51 @@ export default async function handle(req, res) {
     res.status(405).end("Method Not Allowed");
   }
 }
+
+// const createUser = async () => {
+//   try {
+//     await fetch(`/api/prisma/user/`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       // body: JSON.stringify(undefined),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// const updateUser = async () => {
+//   try {
+//     await fetch(`/api/prisma/user/`, {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       // body: JSON.stringify(undefined),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// const findUser = async () => {
+//   try {
+//     await fetch(`/api/prisma/user/`, {
+//       method: "GET",
+//       headers: { "Content-Type": "application/json" },
+//       // body: JSON.stringify(undefined),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// const deleteUser = async () => {
+//   try {
+//     await fetch(`/api/prisma/user/`, {
+//       method: "DELETE",
+//       headers: { "Content-Type": "application/json" },
+//       // body: JSON.stringify(undefined),
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
