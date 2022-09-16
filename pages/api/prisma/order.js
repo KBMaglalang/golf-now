@@ -3,21 +3,13 @@ import prisma from "../../../lib/prisma";
 export default async function handle(req, res) {
   if (req.method === "POST") {
     try {
-      const { stripeData, cartItems } = req.body;
-      console.log(
-        "🚀 ~ file: order.js ~ line 8 ~ handle ~ cartItems",
-        cartItems
-      );
-      console.log(
-        "🚀 ~ file: order.js ~ line 8 ~ handle ~ stripeData",
-        stripeData
-      );
+      const { stripeData, cartItems, userData } = req.body;
 
       const result = await prisma.order.create({
         data: {
           stripeOrderId: stripeData.session.id,
           quantity: cartItems.quantity,
-          userId: "cl7r8kaqb00064mhdkw5eifzc",
+          userId: userData.id,
           status: "pending",
           productSKU: cartItems.sku,
           productSubTotal: parseInt((cartItems.price * 100).toFixed(0)),
@@ -36,7 +28,6 @@ export default async function handle(req, res) {
           userId: "cl7r8kaqb00064mhdkw5eifzc",
         },
       });
-      console.log("🚀 ~ file: order.js ~ line 25 ~ handle ~ result", result);
 
       res.json(result);
     } catch (err) {
