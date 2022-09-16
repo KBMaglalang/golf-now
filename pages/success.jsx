@@ -44,17 +44,19 @@ const Success = () => {
         const prismaUserData = await response.json();
 
         // store the data in prisma
-        const prismaResponse = await fetch(`/api/prisma/order/`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            cartItems: cartItems[0],
-            stripeData,
-            userData: prismaUserData,
-          }),
-        });
-        if (prismaResponse.statusCode === 500) return;
-        const data = await prismaResponse.json();
+        await Promise.all(
+          cartItems.map(async (product) => {
+            await fetch(`/api/prisma/order/`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                cartItems: product,
+                stripeData,
+                userData: prismaUserData,
+              }),
+            });
+          })
+        );
 
         // update the stock amount in sanity
         const sanityCheck = await fetch("/api/sanityUpdate", {
@@ -65,7 +67,7 @@ const Success = () => {
           body: JSON.stringify(cartItems),
         });
         if (sanityCheck.statusCode === 500) return;
-        const dataSanity = await sanityCheck.json();
+        await sanityCheck.json();
 
         // clear out cart items
         setCartItems([]);
