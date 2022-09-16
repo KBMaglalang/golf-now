@@ -49,8 +49,9 @@ export default async function handle(req, res) {
       console.log("🚀 ~ file: user.js ~ line 43 ~ handle ~ result", result);
 
       res.json(result);
-    } catch (err) {}
-    res.status(err.statusCode || 500).json(err.message);
+    } catch (err) {
+      res.status(err.statusCode || 500).json(err.message);
+    }
   } else if (req.method === "PUT") {
     try {
       const result = await prisma.user.update({
