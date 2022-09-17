@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import OrderCard from "../components/ui/OrderCard";
@@ -50,56 +50,71 @@ export default function Account({ userData, userOrders }) {
         <main className={styles.main}>
           <h1>Signed in as: {session.user.name}</h1>
 
-          <form onSubmit={updateUser}>
-            <span>Phone Number</span>
-            <input
-              type="text"
-              id="phoneNumber"
-              className="phoneNumber"
-              defaultValue={userData.phoneNumber}
-            />
-            <span>Address 1</span>
-            <input
-              type="text"
-              id="address1"
-              name="address1"
-              defaultValue={userData.address1}
-            />
-            <span>Address 2</span>
-            <input
-              type="text"
-              id="address2"
-              name="address2"
-              defaultValue={userData.address2}
-            />
-            <span>City</span>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              defaultValue={userData.city}
-            />
-            <span>State/Province</span>
-            <input
-              type="text"
-              id="stateProvince"
-              name="stateProvince"
-              defaultValue={userData.stateProvince}
-            />
-            <span>Country</span>
-            <input
-              type="text"
-              id="country"
-              name="country"
-              defaultValue={userData.country}
-            />
-            <span>Postal Code</span>
-            <input
-              type="text"
-              id="postalCode"
-              name="postalCode"
-              defaultValue={userData.postalCode}
-            />
+          <form onSubmit={updateUser} className={styles.form}>
+            <div className={styles.block}>
+              <span>Phone Number</span>
+              <input
+                type="text"
+                id="phoneNumber"
+                className="phoneNumber"
+                defaultValue={userData.phoneNumber}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>Address 1</span>
+              <input
+                type="text"
+                id="address1"
+                name="address1"
+                defaultValue={userData.address1}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>Address 2</span>
+              <input
+                type="text"
+                id="address2"
+                name="address2"
+                defaultValue={userData.address2}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>City</span>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                defaultValue={userData.city}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>State/Province</span>
+              <input
+                type="text"
+                id="stateProvince"
+                name="stateProvince"
+                defaultValue={userData.stateProvince}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>Country</span>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                defaultValue={userData.country}
+              />
+            </div>
+            <div className={styles.block}>
+              <span>Postal Code</span>
+              <input
+                type="text"
+                id="postalCode"
+                name="postalCode"
+                defaultValue={userData.postalCode}
+              />
+            </div>
+
             <button type="submit">Update Account</button>
           </form>
           <div>
