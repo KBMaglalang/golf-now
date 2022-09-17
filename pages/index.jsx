@@ -4,7 +4,6 @@ import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 import { cmsClient } from "../lib/sanityClient";
 import { useState, useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home({
   balls,
