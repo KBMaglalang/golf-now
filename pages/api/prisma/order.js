@@ -10,7 +10,7 @@ export default async function handle(req, res) {
           stripeOrderId: stripeData.session.id,
           quantity: cartItems.quantity,
           userId: userData.id,
-          status: "pending",
+          status: "Pending",
           productSKU: cartItems.sku,
           productSubTotal: parseInt((cartItems.price * 100).toFixed(0)),
           productName: cartItems.name,
