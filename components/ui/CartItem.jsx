@@ -6,7 +6,7 @@ import { useStateContext } from "../../context/StateContext";
 import styles from "./CartItem.module.css";
 
 export default function CartItem({ product }) {
-  const { onAdd, onRemove, toggleCartItemQuantity } = useStateContext();
+  const { onRemove, toggleCartItemQuantity } = useStateContext();
 
   return (
     <div className={styles.card}>

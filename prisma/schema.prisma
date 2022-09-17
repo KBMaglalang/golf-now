@@ -38,12 +38,16 @@ model Session {
 }
 
 model Order {
-  id          String  @id @default(cuid())
-  orderStatus String?
-  productSKU  String?
-  quantity    Int?
-  userId      String
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  status          String
+  stripeOrderId   String
+  productSKU      String
+  quantity        Int
+  productSubTotal Int
+  productName     String
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -54,6 +58,7 @@ model User {
   image         String?
   phoneNumber   String?
   country       String?
+  stateProvince String?
   city          String?
   postalCode    String?
   address1      String?
