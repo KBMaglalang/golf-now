@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
-import getStripe from "../lib/stripe";
+import OrderCard from "../components/ui/OrderCard";
 
 export default function Account({ userData, userOrders }) {
   const { data: session } = useSession({ required: true });
@@ -32,52 +32,11 @@ export default function Account({ userData, userOrders }) {
     }
   };
 
-  const getCheckoutSessionsData = async () => {
-    // console.log("in getcheckoutsessions function");
-    // const orderIds = userOrders.map((e) => e.stripeOrderId);
-    // console.log(
-    //   "🚀 ~ file: account.jsx ~ line 39 ~ getCheckoutSessionsData ~ orderIds",
-    //   orderIds
-    // );
-    // try {
-    //   const response = await fetch(`/api/stripe/orders?key=${orderIds[0]}`, {
-    //     method: "GET",
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   if (response.statusCode === 500) return;
-    //   const data = await response.json();
-    //   console.log(
-    //     "🚀 ~ file: account.jsx ~ line 60 ~ findOrder ~ checkoutSessionData",
-    //     data
-    //   );
-    // } catch (error) {
-    //   console.error(error);
-    // }
+  const loadOrders = (orders) => {
+    return orders.map((product) => (
+      <OrderCard key={product.id} product={product} />
+    ));
   };
-
-  const createOrders = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(undefined),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const findOrders = async () => {
-    try {
-      await fetch(`/api/prisma/order/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {}, []);
 
   if (session) {
     return (
@@ -144,10 +103,8 @@ export default function Account({ userData, userOrders }) {
             <button type="submit">Update Account</button>
           </form>
           <div>
-            <h1>Order Test</h1>
-            {/* <button onClick={getCheckoutSessionsData}>Get Orders</button> */}
-            <button onClick={createOrders}>Create Orders</button>
-            <button onClick={findOrders}>Find Orders</button>
+            <h1>Order History</h1>
+            {loadOrders(userOrders)}
           </div>
         </main>
       </div>
@@ -173,64 +130,24 @@ export const getServerSideProps = async (context) => {
     };
   }
 
+  // get user information
   const userData = await prisma.user.findUnique({
     where: {
       email: session.user.email,
     },
   });
-  // console.log(
-  //   "🚀 ~ file: account.jsx ~ line 190 ~ getServerSideProps ~ userData",
-  //   userData
-  // );
 
+  // get user orders
   const userOrders = await prisma.order.findMany({
     where: {
       userId: session.user.id,
     },
   });
-  // console.log(
-  //   "🚀 ~ file: account.jsx ~ line 198 ~ getServerSideProps ~ userOrders",
-  //   userOrders
-  // );
 
-  // const stripe = await getStripe();
-  // console.log(
-  //   "🚀 ~ file: account.jsx ~ line 205 ~ getServerSideProps ~ stripe",
-  //   stripe
-  // );
-  // const response = stripe.checkout.sessions.retrieve(
-  //   userOrders[0].stripeOrderId
-  // );
-  // // if (response.statusCode === 500) return;
-  // const data = await response.json();
-  // console.log(
-  //   "🚀 ~ file: account.jsx ~ line 210 ~ getServerSideProps ~ data",
-  //   data
-  // );
-
-  // const result = await fetch(
-  //   `/api/stripe/orders?key=${userOrders[0].stripeOrderId}`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  // );
-  // console.log(
-  //   "🚀 ~ file: account.jsx ~ line 226 ~ getServerSideProps ~ result",
-  //   result
-  // );
-
-  // const response = await fetch(
-  //   `/api/stripe/orders?key=cs_test_a14NWqAPyHcOFzFEMKVmOatz2NKaVj4k7DWBvJnxODTMHRIT5JpsGixvaC`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  // );
+  // deal with error of prisma dateTime unable to be stringified
+  for (const order of userOrders) {
+    order.createdAt = order.createdAt.toISOString();
+  }
 
   return {
     props: { userData, userOrders },
