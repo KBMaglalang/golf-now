@@ -5,20 +5,17 @@ import styles from "./NavigationBar.module.css";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { AiOutlineRight } from "react-icons/ai";
 
 export default function NavigationBar() {
   const { data: session } = useSession();
   const router = useRouter();
   const { searchTerm, setSearchTerm } = useStateContext();
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const handleSearch = (event) => {
+    event.preventDefault();
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      router.push(`/search?=${encodeURIComponent(searchTerm)}`);
-    }
+    router.push(`/search?=${encodeURIComponent(event.target.search.value)}`);
   };
 
   return (
@@ -27,23 +24,21 @@ export default function NavigationBar() {
         <div className={styles.logo}>
           <Link href="/">Golf Now</Link>
         </div>
-        <div className="search-input">
+
+        <form className="searchForm" onSubmit={handleSearch} role="search">
+          <label htmlFor="search">Search for stuff</label>
           <input
-            type="text"
+            id="search"
+            type="search"
             placeholder="Search..."
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
+            autoFocus
+            required
           />
-          <button
-            type="button"
-            className="btn"
-            onClick={() => {
-              router.push(`/search?=${encodeURIComponent(searchTerm)}`);
-            }}
-          >
-            Search
+          <button type="submit">
+            <AiOutlineRight />
           </button>
-        </div>
+        </form>
+
         <nav>
           <ul>
             {session && (
