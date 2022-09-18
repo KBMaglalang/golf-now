@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "../styles/InputBox.scss";
+import "../styles/SearchBox.scss";
 import Layout from "../components/layout/Layout";
 import { Toaster } from "react-hot-toast";
 import { StateContext } from "../context/StateContext";
