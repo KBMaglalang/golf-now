@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 2rem;
+  padding: 1rem;
+  width: 50rem;
+}
+
+.date {
+  color: #cfcfcf;
+}
+
+.productName {
+  display: block;
+  width:300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  font-weight: bold;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.title {
+  font-weight: bold;
+}

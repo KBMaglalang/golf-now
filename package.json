@@ -28,6 +28,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
+    "sass": "^1.54.9",
     "stripe": "^10.6.0"
   },
   "devDependencies": {
