@@ -4,6 +4,7 @@ import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import OrderCard from "../components/ui/OrderCard";
+import InputBox from "../components/ui/InputBox";
 
 export default function Account({ userData, userOrders }) {
   const { data: session } = useSession({ required: true });
@@ -51,76 +52,48 @@ export default function Account({ userData, userOrders }) {
           <h1>Signed in as: {session.user.name}</h1>
 
           <form onSubmit={updateUser} className={styles.form}>
-            <div className={styles.block}>
-              <span>Phone Number</span>
-              <input
-                type="text"
-                id="phoneNumber"
-                className="phoneNumber"
-                defaultValue={userData.phoneNumber}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>Address 1</span>
-              <input
-                type="text"
-                id="address1"
-                name="address1"
-                defaultValue={userData.address1}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>Address 2</span>
-              <input
-                type="text"
-                id="address2"
-                name="address2"
-                defaultValue={userData.address2}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>City</span>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                defaultValue={userData.city}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>State/Province</span>
-              <input
-                type="text"
-                id="stateProvince"
-                name="stateProvince"
-                defaultValue={userData.stateProvince}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>Country</span>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                defaultValue={userData.country}
-              />
-            </div>
-            <div className={styles.block}>
-              <span>Postal Code</span>
-              <input
-                type="text"
-                id="postalCode"
-                name="postalCode"
-                defaultValue={userData.postalCode}
-              />
-            </div>
-
-            <button type="submit">Update Account</button>
+            <InputBox
+              inputTitle="Phone Number"
+              inputId="phoneNumber"
+              inputDefaultValue={userData.phoneNumber}
+            />
+            <InputBox
+              inputTitle="Address 1"
+              inputId="address1"
+              inputDefaultValue={userData.address1}
+            />
+            <InputBox
+              inputTitle="Address 2"
+              inputId="address2"
+              inputDefaultValue={userData.address2}
+            />
+            <InputBox
+              inputTitle="City"
+              inputId="city"
+              inputDefaultValue={userData.city}
+            />
+            <InputBox
+              inputTitle="State/Province"
+              inputId="stateProvince"
+              inputDefaultValue={userData.stateProvince}
+            />
+            <InputBox
+              inputTitle="Country"
+              inputId="country"
+              inputDefaultValue={userData.country}
+            />
+            <InputBox
+              inputTitle="Postal Code"
+              inputId="postalCode"
+              inputDefaultValue={userData.postalCode}
+            />
+            <button className={styles.updateAccountButton} type="submit">
+              Update Account
+            </button>
           </form>
-          <div>
-            <h1>Order History</h1>
-            {loadOrders(userOrders)}
-          </div>
+
+          <h1>Order History</h1>
+          {loadOrders(userOrders)}
         </main>
       </div>
     );
