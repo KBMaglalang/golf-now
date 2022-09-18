@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { useStateContext } from "../context/StateContext";
 import Card from "../components/ui/Card";
 import Head from "next/head";
 import { cmsClient } from "../lib/sanityClient";
+import styles from "../styles/Home.module.css";
 
 export default function search({ products }) {
   const listProducts = (items) => {
@@ -10,17 +9,17 @@ export default function search({ products }) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
-        <title>Golf Now</title>
+        <title>Golf Now | Search</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main>
-        <div>
-          <h1>Products Found</h1>
-          <div>{listProducts(products)}</div>
+      <main className={styles.main}>
+        <h1>Products Found</h1>
+        <div className={styles.categoryTopContainer}>
+          {listProducts(products)}
         </div>
       </main>
     </div>
@@ -32,6 +31,8 @@ export const getServerSideProps = async (context) => {
   const searchTerm = Object.values(context.query)[0];
 
   products = await cmsClient.fetch(`*[[_type, name] match "${searchTerm}"]`);
+
+  // * some other search methods that could be implemented later on
   // const queryDescription = await cmsClient.fetch(
   //   `*[description[].children[].text match "${searchTerm}"]`
   // );
