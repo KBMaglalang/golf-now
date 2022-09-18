@@ -114,7 +114,7 @@
   align-items: flex-start;
 }
 .productDescriptionContainer div{
-  max-width: 40vw;
+  width: 40vw;
   padding: 1rem
 }
 
