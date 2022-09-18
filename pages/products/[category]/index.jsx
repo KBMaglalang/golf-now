@@ -42,7 +42,7 @@ export default function ClubsBase({ products }) {
       ));
     }
     return products.map((product) => (
-      <Card key={product.sku} product={product} />
+      <Card key={product._id} product={product} />
     ));
   };
 
@@ -68,7 +68,7 @@ export default function ClubsBase({ products }) {
 
         {!router.query.category.includes("brand") && (
           <div className={styles.filterContainer}>
-            <h3>Filter Products</h3>
+            {/* <h3>Filter Products</h3> */}
             {/* <h2>Filter</h2>
         <p>Brand</p>
         <p>Price</p>
