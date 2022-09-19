@@ -3,11 +3,10 @@ import Head from "next/head";
 import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
-import OrderCard from "../components/ui/OrderCard";
 import InputBox from "../components/ui/InputBox";
 import toast from "react-hot-toast";
 
-export default function Account({ userData, userOrders }) {
+export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
 
   // update information in prisma
@@ -37,13 +36,6 @@ export default function Account({ userData, userOrders }) {
     toast.success("Update Complete");
   };
 
-  // load previous orders associated with the account
-  const loadOrders = (orders) => {
-    return orders.map((product) => (
-      <OrderCard key={product.id} product={product} />
-    ));
-  };
-
   // show if the user is logged in
   if (session) {
     return (
@@ -55,9 +47,7 @@ export default function Account({ userData, userOrders }) {
         </Head>
 
         <main className={styles.main}>
-          <h1>Signed in as: {session.user.name}</h1>
-
-          <h2>Account Information</h2>
+          <h1>Account Information</h1>
           <form onSubmit={updateUser} className={styles.form}>
             <InputBox
               inputTitle="Phone Number"
@@ -98,9 +88,6 @@ export default function Account({ userData, userOrders }) {
               Update Account
             </button>
           </form>
-          <br />
-          <h1>Order History</h1>
-          {loadOrders(userOrders)}
         </main>
       </div>
     );
@@ -134,19 +121,7 @@ export const getServerSideProps = async (context) => {
     },
   });
 
-  // get user orders
-  const userOrders = await prisma.order.findMany({
-    where: {
-      userId: session.user.id,
-    },
-  });
-
-  // deal with error of prisma dateTime unable to be stringified
-  for (const order of userOrders) {
-    order.createdAt = order.createdAt.toISOString();
-  }
-
   return {
-    props: { userData, userOrders },
+    props: { userData },
   };
 };
