@@ -1,7 +1,6 @@
 import styles from "./Card.module.css";
 import Link from "next/link";
 import { urlFor } from "../../lib/sanityClient";
-import Image from "next/image";
 
 export default function Card({ product }) {
   return (

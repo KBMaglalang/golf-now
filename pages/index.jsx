@@ -21,9 +21,7 @@ export default function Home({
       ...golfTech,
     ];
 
-    if (!products.length) {
-      return;
-    }
+    if (!products.length) return;
 
     const results = products
       .sort((a, b) => a.stock - b.stock)
