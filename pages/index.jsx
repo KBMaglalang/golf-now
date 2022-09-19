@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 import { cmsClient } from "../lib/sanityClient";
-import { useState, useEffect } from "react";
 
 export default function Home({
   balls,
@@ -13,12 +11,6 @@ export default function Home({
   bagCarts,
   golfTech,
 }) {
-  const [topProduct, setTopProduct] = useState([]);
-
-  useEffect(() => {
-    topProductsList();
-  }, []);
-
   const topProductsList = () => {
     const products = [
       ...balls,
@@ -33,15 +25,12 @@ export default function Home({
       return;
     }
 
-    const results = [];
+    const results = products
+      .sort((a, b) => a.stock - b.stock)
+      .filter((e) => e.stock > 1);
+    results.splice(3, results.length);
 
-    for (let counter = 0; counter < 3; counter++) {
-      const rand = Math.floor(Math.random() * products.length);
-      const temp = products[rand];
-      results.push(temp);
-    }
-
-    setTopProduct(listProducts(results));
+    return listProducts(results);
   };
 
   const listProducts = (products) => {
@@ -64,7 +53,7 @@ export default function Home({
         {/* <Banner /> */}
 
         <h1>Top Selling Products</h1>
-        <div className={styles.topProductsContainer}>{topProduct}</div>
+        <div className={styles.topProductsContainer}>{topProductsList()}</div>
         <h1>Balls</h1>
         <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
         <h1>Clubs</h1>
