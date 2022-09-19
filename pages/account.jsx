@@ -12,6 +12,7 @@ export default function Account({ userData, userOrders }) {
   const updateUser = async (event) => {
     event.preventDefault();
 
+    // setup data to pass over db
     const formData = {
       phoneNumber: event.target.phoneNumber.value,
       address1: event.target.address1.value,
@@ -22,15 +23,11 @@ export default function Account({ userData, userOrders }) {
       postalCode: event.target.postalCode.value,
     };
 
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formData, userData }),
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await fetch(`/api/prisma/user/`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formData, userData }),
+    });
   };
 
   const loadOrders = (orders) => {
