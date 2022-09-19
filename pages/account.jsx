@@ -5,12 +5,14 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import OrderCard from "../components/ui/OrderCard";
 import InputBox from "../components/ui/InputBox";
+import toast from "react-hot-toast";
 
 export default function Account({ userData, userOrders }) {
   const { data: session } = useSession({ required: true });
 
   const updateUser = async (event) => {
     event.preventDefault();
+    const loading = toast.loading("Updating Account Information");
 
     // setup data to pass over db
     const formData = {
@@ -28,6 +30,9 @@ export default function Account({ userData, userOrders }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ formData, userData }),
     });
+
+    toast.remove(loading);
+    toast.success("Update Complete");
   };
 
   const loadOrders = (orders) => {
