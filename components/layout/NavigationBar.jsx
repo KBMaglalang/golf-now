@@ -1,16 +1,14 @@
 import React, { Fragment } from "react";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import styles from "./NavigationBar.module.css";
 import { useRouter } from "next/router";
-import { useStateContext } from "../../context/StateContext";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { AiOutlineRight } from "react-icons/ai";
+import styles from "./NavigationBar.module.css";
 
 export default function NavigationBar() {
   const { data: session } = useSession();
   const router = useRouter();
-  const { searchTerm, setSearchTerm } = useStateContext();
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -75,36 +73,27 @@ export default function NavigationBar() {
       <div>
         <nav className={styles.navigation}>
           <ul>
-            {/* <li>
-              <Link href="/products/new">New</Link>
-            </li> */}
             <li>
-              <Link href="/products/clubs">Clubs</Link>
+              <a href="/products/clubs">Clubs</a>
             </li>
             <li>
-              <Link href="/products/balls">Balls</Link>
+              <a href="/products/balls">Balls</a>
             </li>
             <li>
-              <Link href="/products/shoes">Shoes</Link>
+              <a href="/products/shoes">Shoes</a>
             </li>
             <li>
-              <Link href="/products/clothing">Clothing</Link>
+              <a href="/products/clothing">Clothing</a>
             </li>
             <li>
-              <Link href="/products/bag-carts">Bags & Carts</Link>
+              <a href="/products/bag-carts">Bags & Carts</a>
             </li>
             <li>
-              <Link href="/products/golf-tech">Golf Tech</Link>
+              <a href="/products/golf-tech">Golf Tech</a>
             </li>
-            {/* <li>
-              <Link href="/products/accessories">Accessories</Link>
-            </li> */}
             <li>
-              <Link href="/products/brand">Brand</Link>
+              <a href="/products/brand">Brand</a>
             </li>
-            {/* <li>
-              <Link href="/products/golf-deals">Golf Deals</Link>
-            </li> */}
           </ul>
         </nav>
       </div>
