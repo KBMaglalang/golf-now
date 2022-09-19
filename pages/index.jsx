@@ -11,6 +11,7 @@ export default function Home({
   bagCarts,
   golfTech,
 }) {
+  // list top selling products
   const topProductsList = () => {
     const products = [
       ...balls,
@@ -23,6 +24,7 @@ export default function Home({
 
     if (!products.length) return;
 
+    // sort products from lowest stock and filter products that in stock
     const results = products
       .sort((a, b) => a.stock - b.stock)
       .filter((e) => e.stock > 1);
@@ -32,7 +34,6 @@ export default function Home({
   };
 
   const listProducts = (products) => {
-    // filter down products into the card
     return products
       ?.filter((product) => product.stock > 0)
       .slice(0, 3)
@@ -76,6 +77,7 @@ export default function Home({
 }
 
 export const getServerSideProps = async () => {
+  // get products from sanity
   const balls = await cmsClient.fetch(
     '*[_type == "balls"]{..., brand->{_id,title}}'
   );

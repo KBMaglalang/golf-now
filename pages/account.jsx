@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 export default function Account({ userData, userOrders }) {
   const { data: session } = useSession({ required: true });
 
+  // update information in prisma
   const updateUser = async (event) => {
     event.preventDefault();
     const loading = toast.loading("Updating Account Information");
@@ -25,6 +26,7 @@ export default function Account({ userData, userOrders }) {
       postalCode: event.target.postalCode.value,
     };
 
+    // update content in prisma
     await fetch(`/api/prisma/user/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -35,12 +37,14 @@ export default function Account({ userData, userOrders }) {
     toast.success("Update Complete");
   };
 
+  // load previous orders associated with the account
   const loadOrders = (orders) => {
     return orders.map((product) => (
       <OrderCard key={product.id} product={product} />
     ));
   };
 
+  // show if the user is logged in
   if (session) {
     return (
       <div className={styles.container}>
@@ -102,6 +106,7 @@ export default function Account({ userData, userOrders }) {
     );
   }
 
+  // show this if user is not logged in
   return (
     <>
       Not signed in <br />
@@ -113,6 +118,7 @@ export default function Account({ userData, userOrders }) {
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
+  // check if the user is logged in, redirect to homepage if not
   if (!session) {
     return {
       redirect: {

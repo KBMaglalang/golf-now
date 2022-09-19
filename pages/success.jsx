@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 const Success = () => {
   const router = useRouter();
   const { setCartItems, cartItems } = useStateContext();
-  const { data: session } = useSession({ required: true });
+  const { data: session } = useSession();
 
   const processData = async () => {
     if (!router.isReady) return;

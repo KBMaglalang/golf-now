@@ -5,7 +5,7 @@ import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
 import { useRouter } from "next/router";
 import BrandCard from "../../../components/ui/BrandCard";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export default function ClubsBase({ products }) {
   const [productList, setProductList] = useState([]);
@@ -20,6 +20,7 @@ export default function ClubsBase({ products }) {
     setSelectedBrand("");
   }, [products]);
 
+  // get products from a specific brand
   const getProducts = async (brandId) => {
     const sanityData = await fetch(`/api/sanityUpdate?id=${brandId}`, {
       method: "GET",
@@ -33,6 +34,7 @@ export default function ClubsBase({ products }) {
     setSelectedBrand(data.response[0].brand.title);
   };
 
+  // list products associated with type or brand
   const listProducts = (products) => {
     const isProductsBrands = productList?.filter((e) => e._type === "brand");
     if (router.query.category.includes("brand") && isProductsBrands.length) {
