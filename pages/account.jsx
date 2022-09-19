@@ -53,6 +53,7 @@ export default function Account({ userData, userOrders }) {
         <main className={styles.main}>
           <h1>Signed in as: {session.user.name}</h1>
 
+          <h2>Account Information</h2>
           <form onSubmit={updateUser} className={styles.form}>
             <InputBox
               inputTitle="Phone Number"
@@ -93,7 +94,7 @@ export default function Account({ userData, userOrders }) {
               Update Account
             </button>
           </form>
-
+          <br />
           <h1>Order History</h1>
           {loadOrders(userOrders)}
         </main>
