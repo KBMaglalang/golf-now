@@ -3,15 +3,18 @@ import Head from "next/head";
 import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
-import OrderCard from "../components/ui/OrderCard";
 import InputBox from "../components/ui/InputBox";
+import toast from "react-hot-toast";
 
-export default function Account({ userData, userOrders }) {
+export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
 
+  // update information in prisma
   const updateUser = async (event) => {
     event.preventDefault();
+    const loading = toast.loading("Updating Account Information");
 
+    // setup data to pass over db
     const formData = {
       phoneNumber: event.target.phoneNumber.value,
       address1: event.target.address1.value,
@@ -22,23 +25,18 @@ export default function Account({ userData, userOrders }) {
       postalCode: event.target.postalCode.value,
     };
 
-    try {
-      await fetch(`/api/prisma/user/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formData, userData }),
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    // update content in prisma
+    await fetch(`/api/prisma/user/`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formData, userData }),
+    });
+
+    toast.remove(loading);
+    toast.success("Update Complete");
   };
 
-  const loadOrders = (orders) => {
-    return orders.map((product) => (
-      <OrderCard key={product.id} product={product} />
-    ));
-  };
-
+  // show if the user is logged in
   if (session) {
     return (
       <div className={styles.container}>
@@ -49,8 +47,7 @@ export default function Account({ userData, userOrders }) {
         </Head>
 
         <main className={styles.main}>
-          <h1>Signed in as: {session.user.name}</h1>
-
+          <h1>Account Information</h1>
           <form onSubmit={updateUser} className={styles.form}>
             <InputBox
               inputTitle="Phone Number"
@@ -91,14 +88,12 @@ export default function Account({ userData, userOrders }) {
               Update Account
             </button>
           </form>
-
-          <h1>Order History</h1>
-          {loadOrders(userOrders)}
         </main>
       </div>
     );
   }
 
+  // show this if user is not logged in
   return (
     <>
       Not signed in <br />
@@ -110,6 +105,7 @@ export default function Account({ userData, userOrders }) {
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
 
+  // check if the user is logged in, redirect to homepage if not
   if (!session) {
     return {
       redirect: {
@@ -125,19 +121,7 @@ export const getServerSideProps = async (context) => {
     },
   });
 
-  // get user orders
-  const userOrders = await prisma.order.findMany({
-    where: {
-      userId: session.user.id,
-    },
-  });
-
-  // deal with error of prisma dateTime unable to be stringified
-  for (const order of userOrders) {
-    order.createdAt = order.createdAt.toISOString();
-  }
-
   return {
-    props: { userData, userOrders },
+    props: { userData },
   };
 };

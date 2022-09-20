@@ -1,6 +1,4 @@
-// import styles from "./Card.module.css";
 import { urlFor } from "../../lib/sanityClient";
-import Image from "next/image";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
 import styles from "./CartItem.module.css";

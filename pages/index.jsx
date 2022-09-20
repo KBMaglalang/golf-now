@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 import { cmsClient } from "../lib/sanityClient";
-import { useState, useEffect } from "react";
 
 export default function Home({
   balls,
@@ -13,12 +11,7 @@ export default function Home({
   bagCarts,
   golfTech,
 }) {
-  const [topProduct, setTopProduct] = useState([]);
-
-  useEffect(() => {
-    topProductsList();
-  }, []);
-
+  // list top selling products
   const topProductsList = () => {
     const products = [
       ...balls,
@@ -29,23 +22,18 @@ export default function Home({
       ...golfTech,
     ];
 
-    if (!products.length) {
-      return;
-    }
+    if (!products.length) return;
 
-    const results = [];
+    // sort products from lowest stock and filter products that in stock
+    const results = products
+      .sort((a, b) => a.stock - b.stock)
+      .filter((e) => e.stock > 1);
+    results.splice(3, results.length);
 
-    for (let counter = 0; counter < 3; counter++) {
-      const rand = Math.floor(Math.random() * products.length);
-      const temp = products[rand];
-      results.push(temp);
-    }
-
-    setTopProduct(listProducts(results));
+    return listProducts(results);
   };
 
   const listProducts = (products) => {
-    // filter down products into the card
     return products
       ?.filter((product) => product.stock > 0)
       .slice(0, 3)
@@ -64,7 +52,7 @@ export default function Home({
         {/* <Banner /> */}
 
         <h1>Top Selling Products</h1>
-        <div className={styles.topProductsContainer}>{topProduct}</div>
+        <div className={styles.topProductsContainer}>{topProductsList()}</div>
         <h1>Balls</h1>
         <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
         <h1>Clubs</h1>
@@ -89,6 +77,7 @@ export default function Home({
 }
 
 export const getServerSideProps = async () => {
+  // get products from sanity
   const balls = await cmsClient.fetch(
     '*[_type == "balls"]{..., brand->{_id,title}}'
   );

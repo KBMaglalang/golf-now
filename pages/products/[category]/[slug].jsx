@@ -65,7 +65,7 @@ export default function ClubsDetails({ product }) {
             <span>{`$${product?.price}`}</span>
             <div>
               <div>
-                <p className="quantity-desc">
+                <span className="quantity-desc">
                   <span
                     className={styles.minus}
                     onClick={() => updateQuantity("dec")}
@@ -79,7 +79,7 @@ export default function ClubsDetails({ product }) {
                   >
                     <AiOutlinePlus />
                   </span>
-                </p>
+                </span>
               </div>
             </div>
             <div className={styles.buttonContainer}>
@@ -122,48 +122,6 @@ export default function ClubsDetails({ product }) {
     </div>
   );
 }
-
-// export const getStaticPaths = async () => {
-//   const query = `*[_type == "clubs"] {_type, slug {current}}`;
-//   const products = await cmsClient.fetch(query);
-//   console.log(
-//     "🚀 ~ file: [slug].jsx ~ line 97 ~ getStaticPaths ~ products",
-//     products
-//   );
-//   const paths = products.map((product) => ({
-//     params: {
-//       category: product._type,
-//       slug: product.slug.current,
-//     },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// };
-
-// export const getStaticProps = async ({ params: { category, slug } }) => {
-//   console.log("🚀 ~ file: [slug].jsx ~ line 112 ~ getStaticProps ~ slug", slug);
-//   console.log(
-//     "🚀 ~ file: [slug].jsx ~ line 112 ~ getStaticProps ~ category",
-//     category
-//   );
-//   const products = await cmsClient.fetch(
-//     `*[_type == "${category}"]{_id, _type, slug, image, name, price, stock, brand->{_id,title}}`
-//   );
-//   const product = await cmsClient.fetch(
-//     `*[_type == "${category}" && slug.current == '${slug}'][0]`
-//   );
-//   const productBrand = await cmsClient.fetch(
-//     `*[_type == "brand" && _id == '${product?.brand._ref}'][0]`
-//   );
-
-//   return {
-//     props: { productBrand, product, products },
-//     revalidate: 1,
-//   };
-// };
 
 export const getServerSideProps = async (context) => {
   const product = await cmsClient.fetch(

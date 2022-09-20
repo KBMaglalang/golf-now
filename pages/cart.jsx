@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
@@ -7,8 +6,9 @@ import toast from "react-hot-toast";
 import styles from "../styles/Product.module.css";
 
 export default function Cart() {
-  const { cartItems, onRemove, toggleCartItemQuantity } = useStateContext();
+  const { cartItems } = useStateContext();
 
+  // list items in the cart
   const listCartItems = (items) => {
     if (!items?.length) {
       return;
@@ -18,6 +18,7 @@ export default function Cart() {
     return temp;
   };
 
+  // calculate cart total
   const getTotal = (items) => {
     if (!items?.length) {
       return;

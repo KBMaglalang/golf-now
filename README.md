@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GolfNow - WIP
 
-## Getting Started
+An ecommerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, and NextAuth for user authentication.
 
-First, run the development server:
+# Dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- @sanity/base: ^2.30.1,
+- @sanity/core: ^2.30.2,
+- @sanity/default-layout: ^2.30.1,
+- @sanity/default-login: ^2.30.1,
+- @sanity/desk-tool: ^2.30.1,
+- @sanity/eslint-config-studio: ^2.0.0,
+- @sanity/vision: ^2.30.1,
+- prop-types: ^15.7,
+- react: ^17.0,
+- react-barcode: ^1.3.2,
+- react-dom: ^17.0,
+- styled-components: ^5.2.0
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Screenshots
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+!['homepage'](doc/1-homepage.png)
+!['product-page'](doc/2-productPage.png)
+!['brand-search'](doc/3-brandSearch.png)
+!['product-categories'](doc/4-productCategories.png)
+!['product-search'](doc/5-productSearch.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# Getting Started
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
+2. Update the .env file with your correct local information
+3. Install dependencies: `npm i`
+4. Run the server: `npm run dev`
+5. Visit `http://localhost:3000/`
 
-## Learn More
+## Sanity Setup and Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. setup an account with sanity
+2. grab the sanity token associated with the account
+3. populate the token in `.env`
+4. will need to restart the server if it is already running
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stripe Setup and Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. grab stripe publishable key and stripe secret key from you stripe account
+2. populate the information in the `.env` file
+3. will need to restart the server if it is already running
 
-## Deploy on Vercel
+## NextAuth Setup and Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create OAuth credentials in Google
+2. grab the Google Client ID and Google Secret Key
+3. populate the information in the `.env` file
+4. will need to restart the server if it is already running
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Prisma Setup and Usage
+
+1. run `npm i` or `npm install` to install the new packages added to package.json (prisma and @prisma/client)
+2. copy `.env.example` to `.env` and fill in the details
+3. run `npx prisma init`
+4. run `npx prisma migrate dev`
+5. run `npm run seed` to populate the datbase with default user information
+6. can run the prisma studio `npx prisma studio` to see the database

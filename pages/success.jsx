@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import { useStateContext } from "../context/StateContext";
 import { runFireworks } from "../lib/fireworks";
 import { useSession } from "next-auth/react";
+import styles from "../styles/Home.module.css";
+import payStyles from "../styles/Payment.module.css";
+import Head from "next/head";
 
 const Success = () => {
   const router = useRouter();
   const { setCartItems, cartItems } = useStateContext();
-  const { data: session } = useSession({ required: true });
+  const { data: session } = useSession();
 
   const processData = async () => {
     if (!router.isReady) return;
@@ -81,19 +84,28 @@ const Success = () => {
   }, [session]); // ! this may not be necessary when actually deployed
 
   return (
-    <div className="success-wrapper">
-      <div className="success">
-        <p className="icon">
-          <BsBagCheckFill />
-        </p>
-        <h2>Thank you for your order!</h2>
-        <p className="email-msg">Check your email inbox for the receipt</p>
-        <Link href="/">
-          <button type="button" width="300px" className="btn">
-            Continue Shopping
-          </button>
-        </Link>
-      </div>
+    <div className={styles.container}>
+      <Head>
+        <title>Golf Now - Payment Success</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
+      <main className={styles.main}>
+        <div className={payStyles.wrapper}>
+          <span className={payStyles.icon}>
+            <BsBagCheckFill />
+          </span>
+          <div className={payStyles.success}>
+            <h2>Thank you for your order!</h2>
+          </div>
+          <Link href="/">
+            <button type="button" width="300px" className={payStyles.btn}>
+              Continue Shopping
+            </button>
+          </Link>
+        </div>
+      </main>
     </div>
   );
 };

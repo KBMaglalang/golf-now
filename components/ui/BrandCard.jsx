@@ -1,6 +1,5 @@
 import styles from "./BrandCard.module.css";
 import { urlFor } from "../../lib/sanityClient";
-import Image from "next/image";
 
 export default function BrandCard({ brand: { logo, title, _id }, handler }) {
   return (

@@ -1,12 +1,11 @@
-import Banner from "../../../components/ui/Banner";
 import Card from "../../../components/ui/Card";
 import Image from "next/image";
-import { cmsClient, urlFor } from "../../../lib/sanityClient";
+import { cmsClient } from "../../../lib/sanityClient";
 import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
 import { useRouter } from "next/router";
 import BrandCard from "../../../components/ui/BrandCard";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 export default function ClubsBase({ products }) {
   const [productList, setProductList] = useState([]);
@@ -21,6 +20,7 @@ export default function ClubsBase({ products }) {
     setSelectedBrand("");
   }, [products]);
 
+  // get products from a specific brand
   const getProducts = async (brandId) => {
     const sanityData = await fetch(`/api/sanityUpdate?id=${brandId}`, {
       method: "GET",
@@ -34,6 +34,7 @@ export default function ClubsBase({ products }) {
     setSelectedBrand(data.response[0].brand.title);
   };
 
+  // list products associated with type or brand
   const listProducts = (products) => {
     const isProductsBrands = productList?.filter((e) => e._type === "brand");
     if (router.query.category.includes("brand") && isProductsBrands.length) {
@@ -56,7 +57,6 @@ export default function ClubsBase({ products }) {
       </Head>
 
       <main className={styles.main}>
-        {/* <Banner /> */}
         {selectedBrand && (
           <h1 className={styles.categoryTitle}>
             {categoryName} | {selectedBrand}
@@ -67,18 +67,7 @@ export default function ClubsBase({ products }) {
         )}
 
         {!router.query.category.includes("brand") && (
-          <div className={styles.filterContainer}>
-            {/* <h3>Filter Products</h3> */}
-            {/* <h2>Filter</h2>
-        <p>Brand</p>
-        <p>Price</p>
-        <p>Size</p>
-        <p>Hand</p>
-        <p>Shaft</p>
-        <p>Flex</p>
-        <p>Loft</p>
-        <p>Wedge Head</p> */}
-          </div>
+          <div className={styles.filterContainer}></div>
         )}
         <div className={styles.productsContainer}>
           {listProducts(productList)}

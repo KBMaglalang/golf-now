@@ -12,7 +12,7 @@ export default function TermsConditions() {
 
       <main className={styles.main}>
         <h1>Terms & Conditions</h1>
-        <p>
+        <span>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
           eius modi accusantium exercitationem, provident illum, perspiciatis
           vel rerum ducimus reiciendis sunt magni natus eligendi eum maiores,
@@ -126,7 +126,7 @@ export default function TermsConditions() {
           fugit voluptate, laboriosam dolorum dicta maiores nostrum. Rem cumque
           dolorum, earum consequatur ratione dolorem voluptas illum id
           consequuntur sapiente eveniet placeat animi. Placeat, labore?
-        </p>
+        </span>
       </main>
     </div>
   );
