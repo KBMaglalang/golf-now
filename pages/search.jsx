@@ -17,7 +17,8 @@ export default function search({ products }) {
       </Head>
 
       <main className={styles.main}>
-        <h1>Products Found</h1>
+        <h1>{`Products Found (${products.length})`}</h1>
+        {!products.length && <span>Nothing Found</span>}
         <div className={styles.categoryTopContainer}>
           {listProducts(products)}
         </div>
