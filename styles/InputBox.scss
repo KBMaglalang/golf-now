@@ -90,24 +90,9 @@
   }
 }
 
-// html {
-//   box-sizing: border-box;
-//   -webkit-font-smoothing: antialiased;
-// }
-
-// * {
-//   box-sizing: inherit;
-//   &:before,
-//   &:after {
-//       box-sizing: inherit;
-//   }
-// }
-
-// Center
 body {
   font-family: 'Mukta Malar', Arial;
   .form-group {
-    //   max-width: 360px;
       &:not(:last-child) {
           margin-bottom: 1rem;
       }
