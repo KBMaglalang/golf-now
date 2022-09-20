@@ -64,7 +64,7 @@ export default function NavigationBar() {
             <li>
               <Link href="/cart">
                 <div>
-                  <AiOutlineShoppingCart className={styles.cart} />
+                  <AiOutlineShoppingCart className={styles.cart} alt="cart" />
                 </div>
               </Link>
             </li>
