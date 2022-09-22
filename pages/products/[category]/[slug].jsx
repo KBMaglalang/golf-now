@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import styles from "../../../styles/Product.module.css";
-import { cmsClient, urlFor } from "../../../lib/sanityClient";
+import { sanityClient } from "../../../lib/sanity.server";
+import { urlForImage } from "../../../lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
@@ -44,13 +45,15 @@ export default function ClubsDetails({ product }) {
         <div className={styles.productContainer}>
           <div className={styles.productImagesContainer}>
             <div className={styles.imageContainer}>
-              <img src={product.image[index] && urlFor(product.image[index])} />
+              <img
+                src={product.image[index] && urlForImage(product.image[index])}
+              />
             </div>
             <div className={styles.smallImagesContainer}>
               {product.image?.map((item, i) => (
                 <img
                   key={i}
-                  src={item && urlFor(item)}
+                  src={item && urlForImage(item)}
                   onMouseEnter={() => setIndex(i)}
                 />
               ))}
@@ -124,10 +127,9 @@ export default function ClubsDetails({ product }) {
 }
 
 export const getServerSideProps = async (context) => {
-  const product = await cmsClient.fetch(
+  const product = await sanityClient.fetch(
     `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}']{..., brand->{_id,title}}[0]`
   );
-
   return {
     props: { product },
   };

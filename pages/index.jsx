@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Card from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
-import { cmsClient } from "../lib/sanityClient";
+import { sanityClient } from "../lib/sanity.server";
 
 export default function Home({
   balls,
@@ -78,26 +78,24 @@ export default function Home({
 
 export const getServerSideProps = async () => {
   // get products from sanity
-  const balls = await cmsClient.fetch(
+  const balls = await sanityClient.fetch(
     '*[_type == "balls"]{..., brand->{_id,title}}'
   );
-
-  const clubs = await cmsClient.fetch(
+  const clubs = await sanityClient.fetch(
     '*[_type == "clubs"]{..., brand->{_id,title}}'
   );
-  const shoes = await cmsClient.fetch(
+  const shoes = await sanityClient.fetch(
     '*[_type == "shoes"]{..., brand->{_id,title}}'
   );
-  const clothing = await cmsClient.fetch(
+  const clothing = await sanityClient.fetch(
     '*[_type == "clothing"]{..., brand->{_id,title}}'
   );
-  const bagCarts = await cmsClient.fetch(
+  const bagCarts = await sanityClient.fetch(
     '*[_type == "bag-carts"]{..., brand->{_id,title}}'
   );
-  const golfTech = await cmsClient.fetch(
+  const golfTech = await sanityClient.fetch(
     '*[_type == "golf-tech"]{..., brand->{_id,title}}'
   );
-
   return {
     props: { balls, clubs, shoes, clothing, bagCarts, golfTech },
   };

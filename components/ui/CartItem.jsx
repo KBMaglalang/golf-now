@@ -1,4 +1,4 @@
-import { urlFor } from "../../lib/sanityClient";
+import { urlForImage } from "../../lib/sanity";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
 import styles from "./CartItem.module.css";
@@ -10,7 +10,7 @@ export default function CartItem({ product }) {
     <div className={styles.card}>
       <div className={styles.image}>
         <img
-          src={urlFor(product?.image && product?.image[0])}
+          src={urlForImage(product?.image && product?.image[0])}
           width={"100%"}
           height={"auto"}
           object-fit={"contain"}

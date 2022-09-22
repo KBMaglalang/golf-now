@@ -1,6 +1,6 @@
 import Card from "../components/ui/Card";
 import Head from "next/head";
-import { cmsClient } from "../lib/sanityClient";
+import { sanityClient } from "../lib/sanity.server";
 import styles from "../styles/Home.module.css";
 
 export default function search({ products }) {
@@ -31,7 +31,7 @@ export const getServerSideProps = async (context) => {
   let products = undefined;
   const searchTerm = Object.values(context.query)[0];
 
-  products = await cmsClient.fetch(`*[[_type, name] match "${searchTerm}"]`);
+  products = await sanityClient.fetch(`*[[_type, name] match "${searchTerm}"]`);
 
   // * some other search methods that could be implemented later on
   // const queryDescription = await cmsClient.fetch(
