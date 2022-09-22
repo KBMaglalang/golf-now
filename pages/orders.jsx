@@ -5,7 +5,7 @@ import OrderCard from "../components/ui/OrderCard";
 import { useSession, getSession } from "next-auth/react";
 import styles from "../styles/Account.module.css";
 
-export default function Orders({ userData, userOrders }) {
+export default function Orders({ userOrders }) {
   const { data: session } = useSession({ required: true });
 
   // load previous orders associated with the account
