@@ -2,11 +2,42 @@ import React from "react";
 import Head from "next/head";
 import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
-// import prisma from "../lib/prisma";
 import toast from "react-hot-toast";
 
 export default function Favorites({ userFavorites }) {
   const { data: session } = useSession({ required: true });
+
+  const handleFavoriteCreate = async () => {
+    const response = await fetch(`/api/prisma/favorite`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ testString: "post test" }),
+    });
+    if (response.statusCode === 500) return;
+    const prismaUserData = await response.json();
+  };
+
+  const handleFavoriteGet = async () => {
+    const response = await fetch(
+      `/api/prisma/favorite?key=${session.user.email}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (response.statusCode === 500) return;
+    const prismaUserData = await response.json();
+  };
+
+  const handleFavoriteRemove = async () => {
+    const response = await fetch(`/api/prisma/favorite`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ testString: "putTest" }),
+    });
+    if (response.statusCode === 500) return;
+    const prismaUserData = await response.json();
+  };
 
   // show if the user is logged in
   if (session) {
@@ -20,6 +51,9 @@ export default function Favorites({ userFavorites }) {
 
         <main className={styles.main}>
           <h1>Favorites</h1>
+          <button onClick={handleFavoriteCreate}>create Fav</button>
+          <button onClick={handleFavoriteGet}>get Fav</button>
+          <button onClick={handleFavoriteRemove}>remove Fav</button>
         </main>
       </div>
     );
