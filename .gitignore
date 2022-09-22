@@ -35,3 +35,7 @@ yarn-error.log*
 
 /productDocs
 productDocs
+
+# sanity env
+/golf-sanity-studio/.env.development
+/golf-sanity-studio/.env.production

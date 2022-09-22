@@ -1,6 +1,6 @@
 import Card from "../../../components/ui/Card";
 import Image from "next/image";
-import { cmsClient } from "../../../lib/sanityClient";
+import { sanityClient } from "../../../lib/sanity.server";
 import Head from "next/head";
 import styles from "../../../styles/Category.module.css";
 import { useRouter } from "next/router";
@@ -80,9 +80,9 @@ export default function ClubsBase({ products }) {
 export const getServerSideProps = async ({ params: { category } }) => {
   let products = undefined;
   if (category === "brand") {
-    products = await cmsClient.fetch(`*[_type == "${category}"]`);
+    products = await sanityClient.fetch(`*[_type == "${category}"]`);
   } else {
-    products = await cmsClient.fetch(
+    products = await sanityClient.fetch(
       `*[_type == "${category}"]{..., brand->{_id,title}}`
     );
   }

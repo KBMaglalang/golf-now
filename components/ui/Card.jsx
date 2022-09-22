@@ -1,6 +1,6 @@
 import styles from "./Card.module.css";
 import Link from "next/link";
-import { urlFor } from "../../lib/sanityClient";
+import { urlForImage } from "../../lib/sanity";
 
 export default function Card({ product }) {
   return (
@@ -9,7 +9,7 @@ export default function Card({ product }) {
         <a>
           <div>
             <img
-              src={urlFor(product?.image && product?.image[0])}
+              src={urlForImage(product?.image && product?.image[0])}
               width={"100%"}
               height={"auto"}
               object-fit={"contain"}

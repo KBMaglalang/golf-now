@@ -3,10 +3,6 @@
   "project": {
     "name": "golf-sanity-studio"
   },
-  "api": {
-    "projectId": "96naymmp",
-    "dataset": "production"
-  },
   "plugins": [
     "@sanity/base",
     "@sanity/default-layout",

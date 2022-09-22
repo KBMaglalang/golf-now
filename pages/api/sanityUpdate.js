@@ -1,11 +1,11 @@
-import { cmsClient } from "../../lib/sanityClient";
+import { sanityClient } from "../../lib/sanity.server";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
       await Promise.all(
         req.body.map(async (product) => {
-          await cmsClient
+          await sanityClient
             .patch(product._id)
             .dec({ stock: product.quantity })
             .commit();
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "GET") {
     try {
-      const response = await cmsClient.fetch(
+      const response = await sanityClient.fetch(
         `*[brand._ref == '${req.query.id}']{..., brand->{_id,title}}`
       );
 

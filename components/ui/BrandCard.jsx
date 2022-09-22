@@ -1,5 +1,5 @@
 import styles from "./BrandCard.module.css";
-import { urlFor } from "../../lib/sanityClient";
+import { urlForImage } from "../../lib/sanity";
 
 export default function BrandCard({ brand: { logo, title, _id }, handler }) {
   return (
@@ -12,7 +12,7 @@ export default function BrandCard({ brand: { logo, title, _id }, handler }) {
       <a>
         <div>
           <img
-            src={urlFor(logo)}
+            src={urlForImage(logo)}
             width={"100%"}
             height={"auto"}
             object-fit={"contain"}
