@@ -7,8 +7,11 @@ import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function ClubsDetails({ product }) {
+  const { data: session } = useSession();
   const router = useRouter();
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
@@ -31,6 +34,37 @@ export default function ClubsDetails({ product }) {
   const handleBuyNow = () => {
     onAdd(product, productQuantity);
     router.push("/cart");
+  };
+
+  const handleAddToFavorite = async () => {
+    if (session) {
+      // get information about the logged in user
+      const prismaUserResponse = await fetch(
+        `/api/prisma/user?key=${session.user.email}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (prismaUserResponse.statusCode === 500) return;
+      const prismaUserData = await prismaUserResponse.json();
+
+      // ! should check if the product already exists in the favorites table - then choose to remove it or add it to the table
+
+      // add product to favorites
+      const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product, prismaUserData }),
+      });
+      if (prismaFavoriteResponse.statusCode === 500) return;
+      const prismaFavoriteData = await prismaFavoriteResponse.json();
+
+      toast.success("Added To Favorites");
+      return;
+    }
+
+    toast.error("Login or Sign Up to Add to Favorites");
   };
 
   return (
@@ -63,6 +97,7 @@ export default function ClubsDetails({ product }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${product?.brand?.title}`}</h3>
             <h2>{product?.name}</h2>
+            <button onClick={handleAddToFavorite}>AddToFavorite</button>
             {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>
