@@ -4,51 +4,43 @@ import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
-export default function Favorites({ userFavorites }) {
-  const { data: session } = useSession({ required: true });
-
-  const handleFavoriteCreate = async () => {
-    const response = await fetch(`/api/prisma/favorite`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ testString: "post test" }),
-    });
-    if (response.statusCode === 500) return;
-    const prismaUserData = await response.json();
-  };
-
-  const handleFavoriteGet = async () => {
-    const response = await fetch(
-      `/api/prisma/favorite?key=${session.user.email}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    if (response.statusCode === 500) return;
-    const prismaUserData = await response.json();
-  };
-
-  const handleFavoriteRemove = async () => {
-    const response = await fetch(`/api/prisma/favorite`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ testString: "putTest" }),
-    });
-    if (response.statusCode === 500) return;
-    const prismaUserData = await response.json();
-  };
-
+const BasicCard = ({ favorites }) => {
+  const router = useRouter();
   const handleFavoriteDelete = async () => {
     const response = await fetch(`/api/prisma/favorite`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ testString: "deleteTest" }),
+      body: JSON.stringify({
+        favoriteId: favorites.id,
+      }),
     });
     if (response.statusCode === 500) return;
-    const prismaUserData = await response.json();
+    const prismaFavoritesResponse = await response.json();
+    if (prismaFavoritesResponse) {
+      toast.success("Product Removed From Favorites");
+    } else {
+      toast.error("Unable to Remove Product");
+    }
+    router.reload(window.location.pathname);
   };
+
+  return (
+    <div>
+      <h1>{favorites.id}</h1>
+      <h1>{favorites.createdAt}</h1>
+      <h1>{favorites.productSKU}</h1>
+      <h1>{favorites.productName}</h1>
+      <h1>{favorites.productSanityId}</h1>
+      <h1>{favorites.userId}</h1>
+      <button onClick={handleFavoriteDelete}>Remove</button>
+    </div>
+  );
+};
+
+export default function Favorites({ userFavorites }) {
+  const { data: session } = useSession({ required: true });
 
   // show if the user is logged in
   if (session) {
@@ -62,10 +54,9 @@ export default function Favorites({ userFavorites }) {
 
         <main className={styles.main}>
           <h1>Favorites</h1>
-          <button onClick={handleFavoriteCreate}>create Fav</button>
-          <button onClick={handleFavoriteGet}>get Fav</button>
-          <button onClick={handleFavoriteRemove}>remove Fav</button>
-          <button onClick={handleFavoriteDelete}>Delete Fav</button>
+          {userFavorites.map((e) => (
+            <BasicCard key={e.id} favorites={e} />
+          ))}
         </main>
       </div>
     );
@@ -111,6 +102,6 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props: { userFavorites },
+    props: { userData, userFavorites },
   };
 };
