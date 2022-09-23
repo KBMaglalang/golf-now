@@ -11,15 +11,22 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 export default function ClubsDetails({ product }) {
-  const { data: session } = useSession();
   const router = useRouter();
+  const { data: session } = useSession();
+  const { onAdd } = useStateContext();
+  const [favState, setFavState] = useState(false);
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
-  const { onAdd } = useStateContext();
 
   useEffect(() => {
     setProductQuantity(1);
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      getUserFavorite();
+    }
+  }, [session]);
 
   const updateQuantity = (state) => {
     if (state === "inc" && productQuantity + 1 <= product.stock) {
@@ -36,7 +43,36 @@ export default function ClubsDetails({ product }) {
     router.push("/cart");
   };
 
-  const handleAddToFavorite = async () => {
+  const getUserFavorite = async () => {
+    // get information about the logged in user
+    const prismaUserResponse = await fetch(
+      `/api/prisma/user?key=${session.user.email}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (prismaUserResponse.statusCode === 500) return;
+    const prismaUserData = await prismaUserResponse.json();
+
+    const response = await fetch(
+      `/api/prisma/favorite?userId=${prismaUserData.id}&productSanityId=${product._id}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (response.statusCode === 500) return;
+    const productFavorite = await response.json();
+    if (productFavorite.length) {
+      setFavState(true);
+      return;
+    }
+
+    setFavState(false);
+  };
+
+  const handleProductFavorite = async () => {
     if (session) {
       // get information about the logged in user
       const prismaUserResponse = await fetch(
@@ -49,7 +85,20 @@ export default function ClubsDetails({ product }) {
       if (prismaUserResponse.statusCode === 500) return;
       const prismaUserData = await prismaUserResponse.json();
 
-      // ! should check if the product already exists in the favorites table - then choose to remove it or add it to the table
+      // check if the product should be removed from favorites
+      if (favState) {
+        // remove product
+        const response = await fetch(`/api/prisma/favorite`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ product, prismaUserData }),
+        });
+        if (response.statusCode === 500) return;
+        const prismaProductDelete = await response.json();
+        setFavState(false);
+        toast.success("Product Removed From Favorites");
+        return;
+      }
 
       // add product to favorites
       const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
@@ -59,7 +108,7 @@ export default function ClubsDetails({ product }) {
       });
       if (prismaFavoriteResponse.statusCode === 500) return;
       const prismaFavoriteData = await prismaFavoriteResponse.json();
-
+      setFavState(true);
       toast.success("Added To Favorites");
       return;
     }
@@ -97,7 +146,9 @@ export default function ClubsDetails({ product }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${product?.brand?.title}`}</h3>
             <h2>{product?.name}</h2>
-            <button onClick={handleAddToFavorite}>AddToFavorite</button>
+            <button onClick={handleProductFavorite}>
+              {favState ? "Remove From Favorites" : "Add to Favorites"}
+            </button>
             {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>
