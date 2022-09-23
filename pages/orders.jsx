@@ -53,10 +53,17 @@ export const getServerSideProps = async (context) => {
     };
   }
 
+  // get user information
+  const userData = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
   // get user orders
   const userOrders = await prisma.order.findMany({
     where: {
-      userId: session.user.id,
+      userId: userData.id,
     },
   });
 
