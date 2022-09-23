@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
+import prisma from "../lib/prisma";
 import toast from "react-hot-toast";
 
 export default function Favorites({ userFavorites }) {
@@ -89,18 +90,26 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  // get user favorites
-  const userFavorites = null;
 
-  // const userOrders = await prisma.order.findMany({
-  //   where: {
-  //     userId: session.user.id,
-  //   },
-  // });
-  // // deal with error of prisma dateTime unable to be stringified
-  // for (const order of userOrders) {
-  //   order.createdAt = order.createdAt.toISOString();
-  // }
+  // get user information
+  const userData = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
+  // get user favorites
+  const userFavorites = await prisma.favorite.findMany({
+    where: {
+      userId: userData.id,
+    },
+  });
+
+  // deal with error of prisma dateTime unable to be stringified
+  for (const favorite of userFavorites) {
+    favorite.createdAt = favorite.createdAt.toISOString();
+  }
+
   return {
     props: { userFavorites },
   };
