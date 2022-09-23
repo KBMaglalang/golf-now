@@ -128,7 +128,8 @@ export const getServerSideProps = async (context) => {
   });
 
   // deal with prisma dateTime error
-  userData.emailVerified = userData.emailVerified.toISOString();
+  if (userData.emailVerified)
+    userData.emailVerified = userData?.emailVerified.toISOString();
 
   return {
     props: { userData },

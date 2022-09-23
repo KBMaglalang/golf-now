@@ -89,6 +89,10 @@ export const getServerSideProps = async (context) => {
     },
   });
 
+  // deal with prisma dateTime error
+  if (userData.emailVerified)
+    userData.emailVerified = userData?.emailVerified.toISOString();
+
   // get user favorites
   const userFavorites = await prisma.favorite.findMany({
     where: {
