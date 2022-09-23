@@ -42,7 +42,7 @@ const BasicCard = ({ favorites }) => {
 export default function Favorites({ userFavorites }) {
   const { data: session } = useSession({ required: true });
 
-  // show if the user is logged in
+  // If session exists, display content
   if (session) {
     return (
       <div className={styles.container}>
@@ -88,6 +88,10 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
+
+  // deal with prisma dateTime error
+  if (userData.emailVerified)
+    userData.emailVerified = userData?.emailVerified.toISOString();
 
   // get user favorites
   const userFavorites = await prisma.favorite.findMany({

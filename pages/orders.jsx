@@ -15,6 +15,7 @@ export default function Orders({ userOrders }) {
     ));
   };
 
+  // If session exists, display content
   if (session) {
     return (
       <div className={styles.container}>
