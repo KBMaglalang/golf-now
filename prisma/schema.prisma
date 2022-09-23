@@ -57,6 +57,7 @@ model Favorite {
   productSKU      String
   productName     String
   productSanityId String
+  productType     String
   removed         Boolean
 
   userId String
