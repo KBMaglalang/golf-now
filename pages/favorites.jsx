@@ -28,12 +28,12 @@ const BasicCard = ({ favorites }) => {
 
   return (
     <div>
-      <h1>{favorites.id}</h1>
-      <h1>{favorites.createdAt}</h1>
-      <h1>{favorites.productSKU}</h1>
-      <h1>{favorites.productName}</h1>
-      <h1>{favorites.productSanityId}</h1>
-      <h1>{favorites.userId}</h1>
+      <span>{favorites.id}</span>
+      <span>{favorites.createdAt}</span>
+      <span>{favorites.productSKU}</span>
+      <h5>{favorites.productName}</h5>
+      <span>{favorites.productSanityId}</span>
+      <span>{favorites.userId}</span>
       <button onClick={handleFavoriteDelete}>Remove</button>
     </div>
   );
