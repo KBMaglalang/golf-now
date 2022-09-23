@@ -5,6 +5,7 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const BasicCard = ({ favorites }) => {
   const router = useRouter();
@@ -27,15 +28,17 @@ const BasicCard = ({ favorites }) => {
   };
 
   return (
-    <div>
-      <span>{favorites.id}</span>
-      <span>{favorites.createdAt}</span>
-      <span>{favorites.productSKU}</span>
-      <h5>{favorites.productName}</h5>
-      <span>{favorites.productSanityId}</span>
-      <span>{favorites.userId}</span>
-      <button onClick={handleFavoriteDelete}>Remove</button>
-    </div>
+    <Link href={`/products/${favorites.productType}/${favorites.productSKU}`}>
+      <div>
+        <span>{favorites.id}</span>
+        <span>{favorites.createdAt}</span>
+        <span>{favorites.productSKU}</span>
+        <h5>{favorites.productName}</h5>
+        <span>{favorites.productSanityId}</span>
+        <span>{favorites.userId}</span>
+        <button onClick={handleFavoriteDelete}>Remove</button>
+      </div>
+    </Link>
   );
 };
 
