@@ -39,6 +39,16 @@ export default function Favorites({ userFavorites }) {
     const prismaUserData = await response.json();
   };
 
+  const handleFavoriteDelete = async () => {
+    const response = await fetch(`/api/prisma/favorite`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ testString: "deleteTest" }),
+    });
+    if (response.statusCode === 500) return;
+    const prismaUserData = await response.json();
+  };
+
   // show if the user is logged in
   if (session) {
     return (
@@ -54,6 +64,7 @@ export default function Favorites({ userFavorites }) {
           <button onClick={handleFavoriteCreate}>create Fav</button>
           <button onClick={handleFavoriteGet}>get Fav</button>
           <button onClick={handleFavoriteRemove}>remove Fav</button>
+          <button onClick={handleFavoriteDelete}>Delete Fav</button>
         </main>
       </div>
     );
