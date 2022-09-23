@@ -15,6 +15,7 @@ export default function ClubsDetails({ product }) {
   const { data: session } = useSession();
   const { onAdd } = useStateContext();
   const [favState, setFavState] = useState(false);
+  const [favoriteId, setFavoriteId] = useState("");
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
 
@@ -66,10 +67,12 @@ export default function ClubsDetails({ product }) {
     const productFavorite = await response.json();
     if (productFavorite.length) {
       setFavState(true);
+      setFavoriteId(productFavorite[0].id);
       return;
     }
 
     setFavState(false);
+    setFavoriteId("");
   };
 
   const handleProductFavorite = async () => {
@@ -91,25 +94,26 @@ export default function ClubsDetails({ product }) {
         const response = await fetch(`/api/prisma/favorite`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ product, prismaUserData }),
+          body: JSON.stringify({ favoriteId }),
         });
         if (response.statusCode === 500) return;
         const prismaProductDelete = await response.json();
-        setFavState(false);
+        // setFavState(false);
         toast.success("Product Removed From Favorites");
-        return;
+      } else {
+        // add product to favorites
+        const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ product, prismaUserData }),
+        });
+        if (prismaFavoriteResponse.statusCode === 500) return;
+        const prismaFavoriteData = await prismaFavoriteResponse.json();
+        // setFavState(true);
+        toast.success("Added To Favorites");
       }
 
-      // add product to favorites
-      const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product, prismaUserData }),
-      });
-      if (prismaFavoriteResponse.statusCode === 500) return;
-      const prismaFavoriteData = await prismaFavoriteResponse.json();
-      setFavState(true);
-      toast.success("Added To Favorites");
+      getUserFavorite();
       return;
     }
 
