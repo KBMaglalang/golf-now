@@ -10,6 +10,7 @@ export default async function handle(req, res) {
           productSKU: product.sku,
           productName: product.name,
           productSanityId: product._id,
+          productType: product._type,
           removed: false,
           userId: prismaUserData.id,
         },
