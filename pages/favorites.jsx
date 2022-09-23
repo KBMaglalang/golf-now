@@ -42,7 +42,7 @@ const BasicCard = ({ favorites }) => {
 export default function Favorites({ userFavorites }) {
   const { data: session } = useSession({ required: true });
 
-  // show if the user is logged in
+  // If session exists, display content
   if (session) {
     return (
       <div className={styles.container}>
