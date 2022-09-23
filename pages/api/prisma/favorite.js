@@ -3,17 +3,15 @@ import prisma from "../../../lib/prisma";
 export default async function handle(req, res) {
   if (req.method === "POST") {
     try {
-      const { stripeData, cartItems, userData } = req.body;
+      const { product, prismaUserData } = req.body;
 
-      const result = await prisma.order.create({
+      const result = await prisma.favorite.create({
         data: {
-          stripeOrderId: stripeData.session.id,
-          quantity: cartItems.quantity,
-          userId: userData.id,
-          status: "Pending",
-          productSKU: cartItems.sku,
-          productSubTotal: parseInt((cartItems.price * 100).toFixed(0)),
-          productName: cartItems.name,
+          productSKU: product.sku,
+          productName: product.name,
+          productSanityId: product._id,
+          removed: false,
+          userId: prismaUserData.id,
         },
       });
 
@@ -23,30 +21,29 @@ export default async function handle(req, res) {
     }
   } else if (req.method === "GET") {
     try {
-      const result = await prisma.user.findUnique({
+      const result = await prisma.favorite.findMany({
         where: {
-          email: req.query.key,
+          ...req.query,
         },
       });
-
       res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
-  } else if (req.method === "PUT") {
+  } else if (req.method === "DELETE") {
     try {
-      const result = await prisma.user.findUnique({
+      const { favoriteId } = req.body;
+      const result = await prisma.favorite.delete({
         where: {
-          email: req.query.key,
+          id: favoriteId,
         },
       });
-
       res.json(result);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
-    res.setHeader("Allow", "POST, GET, PUT");
+    res.setHeader("Allow", "POST, GET, DELETE");
     res.status(405).end("Method Not Allowed");
   }
 }

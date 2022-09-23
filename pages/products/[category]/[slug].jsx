@@ -7,16 +7,27 @@ import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function ClubsDetails({ product }) {
   const router = useRouter();
+  const { data: session } = useSession();
+  const { onAdd } = useStateContext();
+  const [favState, setFavState] = useState(false);
+  const [favoriteId, setFavoriteId] = useState("");
   const [index, setIndex] = useState(0);
   const [productQuantity, setProductQuantity] = useState(1);
-  const { onAdd } = useStateContext();
 
   useEffect(() => {
     setProductQuantity(1);
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      getUserFavorite();
+    }
+  }, [session]);
 
   const updateQuantity = (state) => {
     if (state === "inc" && productQuantity + 1 <= product.stock) {
@@ -31,6 +42,82 @@ export default function ClubsDetails({ product }) {
   const handleBuyNow = () => {
     onAdd(product, productQuantity);
     router.push("/cart");
+  };
+
+  const getUserFavorite = async () => {
+    // get information about the logged in user
+    const prismaUserResponse = await fetch(
+      `/api/prisma/user?key=${session.user.email}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (prismaUserResponse.statusCode === 500) return;
+    const prismaUserData = await prismaUserResponse.json();
+
+    const response = await fetch(
+      `/api/prisma/favorite?userId=${prismaUserData.id}&productSanityId=${product._id}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (response.statusCode === 500) return;
+    const productFavorite = await response.json();
+    if (productFavorite.length) {
+      setFavState(true);
+      setFavoriteId(productFavorite[0].id);
+      return;
+    }
+
+    setFavState(false);
+    setFavoriteId("");
+  };
+
+  const handleProductFavorite = async () => {
+    if (session) {
+      // get information about the logged in user
+      const prismaUserResponse = await fetch(
+        `/api/prisma/user?key=${session.user.email}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (prismaUserResponse.statusCode === 500) return;
+      const prismaUserData = await prismaUserResponse.json();
+
+      // check if the product should be removed from favorites
+      if (favState) {
+        // remove product
+        const response = await fetch(`/api/prisma/favorite`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ favoriteId }),
+        });
+        if (response.statusCode === 500) return;
+        const prismaProductDelete = await response.json();
+        // setFavState(false);
+        toast.success("Product Removed From Favorites");
+      } else {
+        // add product to favorites
+        const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ product, prismaUserData }),
+        });
+        if (prismaFavoriteResponse.statusCode === 500) return;
+        const prismaFavoriteData = await prismaFavoriteResponse.json();
+        // setFavState(true);
+        toast.success("Added To Favorites");
+      }
+
+      getUserFavorite();
+      return;
+    }
+
+    toast.error("Login or Sign Up to Add to Favorites");
   };
 
   return (
@@ -63,6 +150,9 @@ export default function ClubsDetails({ product }) {
             <h4>{`SKU: ${product?.sku}`}</h4>
             <h3>{`${product?.brand?.title}`}</h3>
             <h2>{product?.name}</h2>
+            <button onClick={handleProductFavorite}>
+              {favState ? "Remove From Favorites" : "Add to Favorites"}
+            </button>
             {/* <span>--- can add variations here ---</span> */}
             <span>{`Available Stock: ${product?.stock}`}</span>
             <span>{`$${product?.price}`}</span>

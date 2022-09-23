@@ -48,6 +48,7 @@ export default function NavigationBar() {
                   <div className={styles.dropdownContent}>
                     <a href="/account">Account</a>
                     <a href="/orders">Orders</a>
+                    <a href="/favorites">Favorites</a>
                     <a onClick={() => signOut()}>Sign Out</a>
                   </div>
                 </div>
