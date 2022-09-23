@@ -43,7 +43,9 @@ export default function NavigationBar() {
               <li>
                 <div className={styles.dropdown}>
                   <button className={styles.dropbtn}>
-                    {session.user.name}
+                    {session.user?.name
+                      ? session.user.name
+                      : session.user.email}
                   </button>
                   <div className={styles.dropdownContent}>
                     <a href="/account">Account</a>

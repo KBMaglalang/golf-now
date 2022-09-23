@@ -16,6 +16,7 @@ export default function Account({ userData }) {
 
     // setup data to pass over db
     const formData = {
+      name: event.target.name.value,
       phoneNumber: event.target.phoneNumber.value,
       address1: event.target.address1.value,
       address2: event.target.address2.value,
@@ -36,7 +37,7 @@ export default function Account({ userData }) {
     toast.success("Update Complete");
   };
 
-  // show if the user is logged in
+  // If session exists, display content
   if (session) {
     return (
       <div className={styles.container}>
@@ -49,6 +50,11 @@ export default function Account({ userData }) {
         <main className={styles.main}>
           <h1>Account Information</h1>
           <form onSubmit={updateUser} className={styles.form}>
+            <InputBox
+              inputTitle="Name"
+              inputId="name"
+              inputDefaultValue={userData?.name}
+            />
             <InputBox
               inputTitle="Phone Number"
               inputId="phoneNumber"
@@ -120,6 +126,10 @@ export const getServerSideProps = async (context) => {
       email: session.user.email,
     },
   });
+
+  // deal with prisma dateTime error
+  if (userData.emailVerified)
+    userData.emailVerified = userData?.emailVerified.toISOString();
 
   return {
     props: { userData },
