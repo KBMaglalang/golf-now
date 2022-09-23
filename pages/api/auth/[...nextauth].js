@@ -13,7 +13,8 @@ export const authOptions = {
     }),
   ],
   theme: {
-    colorScheme: "dark",
+    colorScheme: "auto",
+    logo: "/golf-ball-icon.png",
   },
 
   adapter: PrismaAdapter(prisma),
