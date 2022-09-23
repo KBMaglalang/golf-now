@@ -32,11 +32,10 @@ export default async function handle(req, res) {
     }
   } else if (req.method === "DELETE") {
     try {
-      const { product, prismaUserData } = req.body;
-      const result = await prisma.favorite.deleteMany({
+      const { favoriteId } = req.body;
+      const result = await prisma.favorite.delete({
         where: {
-          userId: prismaUserData.id,
-          productSanityId: product._id,
+          id: favoriteId,
         },
       });
       res.json(result);
