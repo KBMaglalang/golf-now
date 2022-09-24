@@ -1,36 +1,23 @@
 import "../styles/globals.css";
 import "../styles/InputBox.scss";
 import "../styles/SearchBox.scss";
-import Layout from "../components/layout/Layout";
-import { Toaster } from "react-hot-toast";
-import { StateContext } from "../context/StateContext";
-import { SessionProvider } from "next-auth/react";
 
+import Layout from "../components/layout/Layout";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
+
+import { SessionProvider } from "next-auth/react";
+import { StateContext } from "../context/StateContext";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
+import { Toaster } from "react-hot-toast";
+
 import theme from "../lib/theme";
 import createEmotionCache from "../lib/createEmotionCache";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
-
-// function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-//   return (
-//     <SessionProvider session={session}>
-//       <StateContext>
-//         <Layout>
-//           <Toaster />
-//           <Component {...pageProps} />
-//         </Layout>
-//       </StateContext>
-//     </SessionProvider>
-//   );
-// }
-
-// export default MyApp;
 
 export default function MyApp(props) {
   const {
