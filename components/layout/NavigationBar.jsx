@@ -21,6 +21,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import GolfCourseIcon from "@mui/icons-material/GolfCourse";
 
 const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -90,17 +91,32 @@ export default function NavigationBar() {
       <AppBar position="relative" color="primary">
         <Toolbar>
           <Link href="/">
-            <Typography variant="h5" color="secondary">
+            <Typography variant="h5" color="secondary" icon>
+              <GolfCourseIcon />
               Golf Now
             </Typography>
           </Link>
           <Container maxWidth="lg">
             <TextField
-              id="standard-basic"
+              id="search"
+              type="search"
               label="Search"
               variant="outlined"
-              sx={{ width: "50%" }}
+              // sx={{ width: "50%" }}
             />
+            {/*  <form className="searchForm" onSubmit={handleSearch} role="search">
+          <label htmlFor="search">Search for stuff</label>
+          <input
+            id="search"
+            type="search"
+            placeholder="Search..."
+            autoFocus
+            required
+          />
+          <button type="submit">
+            <AiOutlineRight />
+          </button>
+        </form> */}
           </Container>
 
           {session && <ProfileMenu />}
