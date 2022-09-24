@@ -1,4 +1,4 @@
-import Card from "../../../components/ui/Card";
+import ProductCard from "../../../components/ui/Card";
 import Image from "next/image";
 import { sanityClient } from "../../../lib/sanity.server";
 import Head from "next/head";
@@ -43,7 +43,7 @@ export default function ClubsBase({ products }) {
       ));
     }
     return products.map((product) => (
-      <Card key={product._id} product={product} />
+      <ProductCard key={product._id} product={product} />
     ));
   };
 

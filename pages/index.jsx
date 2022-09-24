@@ -1,7 +1,9 @@
 import Head from "next/head";
-import Card from "../components/ui/Card";
+import ProductCard from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 import { sanityClient } from "../lib/sanity.server";
+import { Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 export default function Home({
   balls,
@@ -37,7 +39,7 @@ export default function Home({
     return products
       ?.filter((product) => product.stock > 0)
       .slice(0, 3)
-      .map((product) => <Card key={product._id} product={product} />);
+      .map((product) => <ProductCard key={product._id} product={product} />);
   };
 
   return (
@@ -49,25 +51,37 @@ export default function Home({
       </Head>
 
       <main className={styles.main}>
-        {/* <Banner /> */}
-
-        <h1>Top Selling Products</h1>
+        <Typography variant="h3" color="primary">
+          Top Selling Products
+        </Typography>
         <div className={styles.topProductsContainer}>{topProductsList()}</div>
-        <h1>Balls</h1>
+        <Typography variant="h4" color="primary">
+          Golf Balls
+        </Typography>
         <div className={styles.categoryTopContainer}>{listProducts(balls)}</div>
-        <h1>Clubs</h1>
+        <Typography variant="h4" color="primary">
+          Golf Clubs
+        </Typography>
         <div className={styles.categoryTopContainer}>{listProducts(clubs)}</div>
-        <h1>Shoes</h1>
+        <Typography variant="h4" color="primary">
+          Golf Shoes
+        </Typography>
         <div className={styles.categoryTopContainer}>{listProducts(shoes)}</div>
-        <h1>Clothing</h1>
+        <Typography variant="h4" color="primary">
+          Clothing
+        </Typography>
         <div className={styles.categoryTopContainer}>
           {listProducts(clothing)}
         </div>
-        <h1>Bags & Carts</h1>
+        <Typography variant="h4" color="primary">
+          Bags & Carts
+        </Typography>
         <div className={styles.categoryTopContainer}>
           {listProducts(bagCarts)}
         </div>
-        <h1>Golf Tech</h1>
+        <Typography variant="h4" color="primary">
+          Golf Tech
+        </Typography>
         <div className={styles.categoryTopContainer}>
           {listProducts(golfTech)}
         </div>

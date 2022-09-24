@@ -1,12 +1,23 @@
 import styles from "./Card.module.css";
 import Link from "next/link";
 import { urlForImage } from "../../lib/sanity";
+import { Button } from "@mui/material";
 
-export default function Card({ product }) {
+import {
+  Typography,
+  // Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Toolbar,
+} from "@mui/material";
+
+export default function ProductCard({ product }) {
   return (
     <div className={styles.card}>
       <Link href={`/products/${product?._type}/${product?.slug.current}`}>
-        <a>
+        <Button variant="contained" color="primary">
           <div>
             <img
               src={urlForImage(product?.image && product?.image[0])}
@@ -27,7 +38,7 @@ export default function Card({ product }) {
               <label> SOLD OUT</label>
             </div>
           )}
-        </a>
+        </Button>
       </Link>
     </div>
   );
