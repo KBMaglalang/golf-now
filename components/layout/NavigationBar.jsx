@@ -56,7 +56,9 @@ export default function NavigationBar() {
             </IconButton>
           </Link>
         </Toolbar>
-        <CategoryBar />
+        <Container>
+          <CategoryBar />
+        </Container>
       </AppBar>
     </>
   );
