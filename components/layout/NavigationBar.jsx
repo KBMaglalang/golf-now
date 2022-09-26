@@ -39,8 +39,8 @@ const ProfileMenu = () => {
       <IconButton
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-haspopup={true}
+        aria-expanded={open ? true : undefined}
         onClick={handleClick}
       >
         <PersonOutlineOutlinedIcon />
@@ -91,7 +91,7 @@ export default function NavigationBar() {
       <AppBar position="relative" color="primary">
         <Toolbar>
           <Link href="/">
-            <Typography variant="h5" color="secondary" icon>
+            <Typography variant="h5" color="secondary">
               <GolfCourseIcon />
               Golf Now
             </Typography>
@@ -104,7 +104,9 @@ export default function NavigationBar() {
               variant="outlined"
               // sx={{ width: "50%" }}
             />
-            {/*  <form className="searchForm" onSubmit={handleSearch} role="search">
+            {/*
+            // ! reference
+            <form className="searchForm" onSubmit={handleSearch} role="search">
           <label htmlFor="search">Search for stuff</label>
           <input
             id="search"
