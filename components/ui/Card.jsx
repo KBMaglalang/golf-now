@@ -1,45 +1,55 @@
 import styles from "./Card.module.css";
 import Link from "next/link";
 import { urlForImage } from "../../lib/sanity";
-import { Button } from "@mui/material";
 
-import {
-  Typography,
-  // Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Toolbar,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import { Container } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (
-    <div className={styles.card}>
-      <Link href={`/products/${product?._type}/${product?.slug.current}`}>
-        <Button variant="contained" color="primary">
-          <div>
-            <img
-              src={urlForImage(product?.image && product?.image[0])}
-              width={"100%"}
-              height={"auto"}
-              object-fit={"contain"}
-              alt={`${product?._type}-${product?.slug.current}`}
-            />
-          </div>
-          <div className={styles.brand}>{product?.brand?.title}</div>
-          <h3>{product?.name}</h3>
-          {product?.stock > 0 && <label>${product?.price}</label>}
-          {!product?.stock && (
-            <div>
-              <label
-                className={!product?.stock && styles.strike}
-              >{`$${product?.price}`}</label>
-              <label> SOLD OUT</label>
-            </div>
-          )}
-        </Button>
-      </Link>
-    </div>
+    <Link href={`/products/${product?._type}/${product?.slug.current}`}>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height={"auto"}
+            width={"100%"}
+            image={urlForImage(product?.image && product?.image[0])}
+            alt={`${product?._type}-${product?.slug.current}`}
+          />
+          <CardContent>
+            <Typography variant="h5" color="primary">
+              {product?.name}
+            </Typography>
+            <Container maxWidth="xl">
+              <Typography gutterBottom variant="subtitle2" component="div">
+                {product?.brand?.title}
+              </Typography>
+              {product?.stock > 0 && (
+                <Typography variant="h6">${product?.price}</Typography>
+              )}
+              {!product?.stock && (
+                <Container>
+                  <Typography
+                    variant="body1"
+                    color="primary"
+                    className={!product?.stock && styles.strike}
+                  >
+                    {`$${product?.price}`}
+                  </Typography>
+                  <Typography variant="body2" color="secondary">
+                    SOLD OUT
+                  </Typography>
+                </Container>
+              )}
+            </Container>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   );
 }
