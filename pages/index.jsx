@@ -2,8 +2,10 @@ import Head from "next/head";
 import ProductCard from "../components/ui/Card";
 import styles from "../styles/Home.module.css";
 import { sanityClient } from "../lib/sanity.server";
+
 import { Typography } from "@mui/material";
 import { Container } from "@mui/material";
+import HeroBanner from "../components/layout/HeroBanner";
 
 export default function Home({
   balls,
@@ -51,6 +53,7 @@ export default function Home({
       </Head>
 
       <main className={styles.main}>
+        <HeroBanner />
         <Typography variant="h3" color="primary">
           Top Selling Products
         </Typography>
