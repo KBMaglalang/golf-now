@@ -1,20 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useSession, signIn } from "next-auth/react";
 
 // Material UI components
 import {
   Typography,
-  Grid,
   Toolbar,
   AppBar,
   Container,
-  TextField,
-  Button,
   IconButton,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
