@@ -11,25 +11,25 @@ import { Container, Grid } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (
-    <Link href={`/products/${product?._type}/${product?.slug.current}`}>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height={"auto"}
-            width={"100%"}
-            image={urlForImage(product?.image && product?.image[0])
-              .width(345)
-              .url()}
-            alt={`${product?._type}-${product?.slug.current}`}
-          />
-          <CardContent>
-            <Typography variant="h5" color="primary">
-              {product?.name}
-            </Typography>
-            <Container maxWidth="xl">
+    <Grid item>
+      <Link href={`/products/${product?._type}/${product?.slug.current}`}>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height={"auto"}
+              width={"100%"}
+              image={urlForImage(product?.image && product?.image[0])
+                .width(345)
+                .url()}
+              alt={`${product?._type}-${product?.slug.current}`}
+            />
+            <CardContent>
               <Typography gutterBottom variant="subtitle2" component="div">
                 {product?.brand?.title}
+              </Typography>
+              <Typography variant="h5" color="primary">
+                {product?.name}
               </Typography>
               {product?.stock > 0 && (
                 <Typography variant="h6">${product?.price}</Typography>
@@ -48,10 +48,10 @@ export default function ProductCard({ product }) {
                   </Typography>
                 </Container>
               )}
-            </Container>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Link>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Link>
+    </Grid>
   );
 }
