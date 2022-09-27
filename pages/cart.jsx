@@ -3,7 +3,6 @@ import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
 import toast from "react-hot-toast";
-// import styles from "../styles/Product.module.css";
 
 import { Typography, Container, Grid, Button } from "@mui/material";
 
