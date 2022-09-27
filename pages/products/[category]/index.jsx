@@ -58,7 +58,7 @@ export default function ClubsBase({ products }) {
       </Head>
 
       <main>
-        <Container>
+        <Container maxWidth="lg">
           {selectedBrand && (
             <Typography variant="h3" color="primary">
               {categoryName} | {selectedBrand}
