@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (
@@ -18,7 +18,9 @@ export default function ProductCard({ product }) {
             component="img"
             height={"auto"}
             width={"100%"}
-            image={urlForImage(product?.image && product?.image[0])}
+            image={urlForImage(product?.image && product?.image[0])
+              .width(345)
+              .url()}
             alt={`${product?._type}-${product?.slug.current}`}
           />
           <CardContent>
