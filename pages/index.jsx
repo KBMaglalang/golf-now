@@ -26,7 +26,7 @@ export default function Home({ allProducts }) {
   };
 
   return (
-    <div>
+    <>
       <Head>
         <title>Golf Now</title>
         <meta name="description" content="Golf Products" />
@@ -56,7 +56,7 @@ export default function Home({ allProducts }) {
           </Container>
         </Container>
       </main>
-    </div>
+    </>
   );
 }
 
