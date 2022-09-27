@@ -1,58 +1,68 @@
 import { urlForImage } from "../../lib/sanity";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useStateContext } from "../../context/StateContext";
-import styles from "./CartItem.module.css";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Container, Grid } from "@mui/material";
 
 export default function CartItem({ product }) {
   const { onRemove, toggleCartItemQuantity } = useStateContext();
 
   return (
-    <div className={styles.card}>
-      <div className={styles.image}>
-        <img
-          src={urlForImage(product?.image && product?.image[0])}
-          width={"100%"}
-          height={"auto"}
-          object-fit={"contain"}
+    <Grid item>
+      <Card sx={{ width: 600 }}>
+        <CardMedia
+          component="img"
+          height={"100px"}
+          width={"100px"}
+          image={urlForImage(product?.image && product?.image[0])
+            .width(345)
+            .url()}
           alt={`${product?._type}-${product?.slug.current}`}
+          sx={{ padding: "1rem", objectFit: "contain" }}
         />
-      </div>
-
-      <div className={styles.productInfo}>
-        <div className={styles.productName}>
-          <span className={styles.productBrand}>{product?.brand?.title}</span>
-          <span>{product?.name}</span>
-        </div>
-      </div>
-
-      <div className={styles.priceContainer}>
-        <span>{`Price: $${product?.price}`}</span>
-
-        <span className={styles.productQuantity}>
-          <span
-            className={styles.minus}
-            onClick={() => toggleCartItemQuantity(product._id, "dec")}
-          >
-            <AiOutlineMinus />
-          </span>
-          <span className={styles.num}>{product?.quantity}</span>
-          <span
-            className={styles.plus}
-            onClick={() => toggleCartItemQuantity(product._id, "inc")}
-          >
-            <AiOutlinePlus />
-          </span>
-        </span>
-
-        <div>
-          <span className={styles.remove} onClick={() => onRemove(product)}>
-            Remove
-          </span>
-        </div>
-        <span className={styles.priceTotal}>{`Total: $${(
-          product?.price * product?.quantity
-        ).toFixed(2)}`}</span>
-      </div>
-    </div>
+        <CardContent>
+          <Typography variant="subtitle2" color="primary">
+            {product?.brand?.title}
+          </Typography>
+          <Typography variant="h5">{product?.name}</Typography>
+          <Container>
+            <Typography variant="h6" color="primary">
+              {`Price: $${product?.price}`}
+            </Typography>
+            <Container>
+              <Typography
+                variant="h6"
+                color="primary"
+                onClick={() => toggleCartItemQuantity(product._id, "dec")}
+              >
+                <AiOutlineMinus />
+              </Typography>
+              <Typography variant="h6">{product?.quantity}</Typography>
+              <Typography
+                variant="h6"
+                color="primary"
+                onClick={() => toggleCartItemQuantity(product._id, "inc")}
+              >
+                <AiOutlinePlus />
+              </Typography>
+            </Container>
+            <Typography
+              variant="h5"
+              color="secondary"
+              onClick={() => onRemove(product)}
+            >
+              Remove
+            </Typography>
+            <Typography variant="body1">{`Total: $${(
+              product?.price * product?.quantity
+            ).toFixed(2)}`}</Typography>
+          </Container>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }

@@ -1,75 +1,96 @@
+import React from "react";
 import Link from "next/link";
-import React, { Fragment } from "react";
+
+// Material UI components
 import {
-  AiFillFacebook,
-  AiFillTwitterCircle,
-  AiFillInstagram,
-  AiFillYoutube,
-} from "react-icons/ai";
-import styles from "./Footer.module.css";
+  Typography,
+  Grid,
+  Toolbar,
+  AppBar,
+  Container,
+  TextField,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 export default function FooterBar() {
   return (
-    <Fragment>
-      <div className={styles.footerCustomerContainer}>
-        <h2>Customer Care</h2>
-        <ul>
-          <li>
-            <Link href="/contact-us">Contact Us</Link>
-          </li>
-          <li>
-            <Link href="/returns">Returns & Refunds</Link>
-          </li>
-          <li>
-            <Link href="/shipping">Shipping Policies</Link>
-          </li>
-        </ul>
+    <>
+      <div>
+        <Typography variant="h5" color="primary">
+          Customer Care
+        </Typography>
+        <Link href="/contact-us">
+          <Typography variant="body1" color="secondary">
+            Contact Us
+          </Typography>
+        </Link>
+        <Link href="/returns">
+          <Typography variant="body1" color="secondary">
+            Returns & Refunds
+          </Typography>
+        </Link>
+        <Link href="/shipping">
+          <Typography variant="body1" color="secondary">
+            Shipping Policies
+          </Typography>
+        </Link>
       </div>
-      <div className={styles.footerAboutUsContainer}>
-        <h2>About Us</h2>
-        <ul>
-          <li>
-            <Link href="/about">About Us</Link>
-          </li>
-          <li>
-            <Link href="/careers">Careers</Link>
-          </li>
-          <li>
-            <Link href="/policy">Privacy Policy</Link>
-          </li>
-          <li>
-            <Link href="/accessibility">Accessibility</Link>
-          </li>
-          <li>
-            <Link href="/terms-conditions">Terms & Conditions</Link>
-          </li>
-        </ul>
+      <div>
+        <Typography variant="h5" color="primary">
+          About Us
+        </Typography>
+
+        <Link href="/about">
+          <Typography variant="body1" color="secondary">
+            About Us
+          </Typography>
+        </Link>
+        <Link href="/careers">
+          <Typography variant="body1" color="secondary">
+            Careers
+          </Typography>
+        </Link>
+        <Link href="/policy">
+          <Typography variant="body1" color="secondary">
+            Privacy Policy
+          </Typography>
+        </Link>
+        <Link href="/accessibility">
+          <Typography variant="body1" color="secondary">
+            Accessibility
+          </Typography>
+        </Link>
+        <Link href="/terms-conditions">
+          <Typography variant="body1" color="secondary">
+            Terms & Conditions
+          </Typography>
+        </Link>
       </div>
-      <div className={styles.footerConnectContainer}>
-        <h2>Connect With Us</h2>
-        <ul>
-          <li>
-            <a href="https://www.facebook.com/">
-              <AiFillFacebook className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.twitter.com/">
-              <AiFillTwitterCircle className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/">
-              <AiFillInstagram className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/">
-              <AiFillYoutube className={styles.logo} />
-            </a>
-          </li>
-        </ul>
+      <div>
+        <Typography variant="h5" color="primary">
+          Connect With Us
+        </Typography>
+
+        <a href="https://www.facebook.com/">
+          <FacebookIcon />
+        </a>
+        <a href="https://www.twitter.com/">
+          <TwitterIcon />
+        </a>
+        <a href="https://www.instagram.com/">
+          <InstagramIcon />
+        </a>
+        <a href="https://www.youtube.com/">
+          <YouTubeIcon />
+        </a>
       </div>
-    </Fragment>
+    </>
   );
 }

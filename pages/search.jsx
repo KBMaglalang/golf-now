@@ -1,11 +1,13 @@
-import Card from "../components/ui/Card";
+import ProductCard from "../components/ui/Card";
 import Head from "next/head";
 import { sanityClient } from "../lib/sanity.server";
 import styles from "../styles/Home.module.css";
 
 export default function search({ products }) {
   const listProducts = (items) => {
-    return items.map((product) => <Card key={product.sku} product={product} />);
+    return items.map((product) => (
+      <ProductCard key={product.sku} product={product} />
+    ));
   };
 
   return (
