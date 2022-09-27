@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./OrderCard.module.css";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -30,7 +29,7 @@ export default function OrderCard({ product }) {
             ).toFixed(2)}`}</Typography>
           </Container>
           <Container>
-            <Typography className={styles.title}>Order Status</Typography>
+            <Typography>Order Status</Typography>
             <Typography>{product.status}</Typography>
           </Container>
         </CardContent>
