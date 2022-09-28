@@ -35,7 +35,9 @@ export default function Orders({ userOrders }) {
             </Typography>
             <Container>
               {userOrders.length >= 1 ? (
-                <Grid container>{loadOrders(userOrders)}</Grid>
+                <Grid container spacing={4}>
+                  {loadOrders(userOrders)}
+                </Grid>
               ) : (
                 <Typography variant="body1">No Previous Orders</Typography>
               )}
