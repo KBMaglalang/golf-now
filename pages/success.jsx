@@ -93,7 +93,7 @@ const Success = () => {
       </Head>
 
       <main>
-        <Container>
+        <Container maxWidth="lg">
           <LocalMallIcon />
 
           <Typography>Thank you for your order!</Typography>
