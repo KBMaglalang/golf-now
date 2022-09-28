@@ -36,7 +36,7 @@ export default function FavoriteCard({ favorites }) {
         >
           <CardActionArea>
             <CardContent>
-              <Typography variant="h5" color="primary" noWrap>
+              <Typography variant="h5" color="primary" noWrap gutterBottom>
                 {favorites.productName}
               </Typography>
               <Typography variant="h6" color="secondary">
