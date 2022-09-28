@@ -23,8 +23,8 @@ export default function Favorites({ userFavorites }) {
         </Head>
 
         <main>
-          <Container maxWidth="lg">
-            <Typography variant="h3" color="primary">
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
               Favorites
             </Typography>
 
@@ -44,8 +44,8 @@ export default function Favorites({ userFavorites }) {
   // show this if user is not logged in
   return (
     <>
-      <Container maxWidth="lg">
-        <Typography variant="h1" color="error">
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Typography variant="h1" color="error" gutterbottom>
           Not signed in
         </Typography>
         <Button onClick={() => signIn()}>Sign in</Button>
