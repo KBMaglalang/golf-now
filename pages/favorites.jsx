@@ -24,7 +24,7 @@ export default function Favorites({ userFavorites }) {
 
         <main>
           <Container maxWidth="lg">
-            <Typography variant="h5" color="primary">
+            <Typography variant="h3" color="primary">
               Favorites
             </Typography>
 
