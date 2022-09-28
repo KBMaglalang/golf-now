@@ -13,8 +13,8 @@ export default function Returns() {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Typography variant="h3" color="primary">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography variant="h3" color="primary" gutterBottom>
             Returns & Refunds
           </Typography>
           <Typography variant="body1">

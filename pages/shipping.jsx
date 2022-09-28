@@ -13,8 +13,8 @@ export default function Shipping() {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Typography variant="h3" color="primary">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography variant="h3" color="primary" gutterBottom>
             Shipping Policies
           </Typography>
           <Typography variant="body1">
