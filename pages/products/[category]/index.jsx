@@ -60,14 +60,14 @@ export default function ClubsBase({ products }) {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
           {selectedBrand && (
-            <Typography variant="h3" color="primary">
+            <Typography variant="h3" color="primary" sx={{ mb: 2 }}>
               {categoryName} | {selectedBrand}
             </Typography>
           )}
           {!selectedBrand && (
-            <Typography variant="h3" color="primary">
+            <Typography variant="h3" color="primary" sx={{ mb: 2 }}>
               {categoryName}
             </Typography>
           )}
