@@ -1,7 +1,9 @@
 import ProductCard from "../components/ui/Card";
 import Head from "next/head";
 import { sanityClient } from "../lib/sanity.server";
-import styles from "../styles/Home.module.css";
+
+// material ui
+import { Typography, Container, Grid, Button } from "@mui/material";
 
 export default function search({ products }) {
   const listProducts = (items) => {
@@ -11,21 +13,28 @@ export default function search({ products }) {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Golf Now | Search</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <h1>{`Products Found (${products.length})`}</h1>
-        {!products.length && <span>Nothing Found</span>}
-        <div className={styles.categoryTopContainer}>
-          {listProducts(products)}
-        </div>
+      <main>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h3"
+            color="primary"
+          >{`Products Found (${products.length})`}</Typography>
+          {!products.length && <Typography>Nothing Found</Typography>}
+          <Container>
+            <Grid container spacing={4}>
+              {listProducts(products)}
+            </Grid>
+          </Container>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }
 
