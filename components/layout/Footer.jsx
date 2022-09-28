@@ -2,18 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 // Material UI components
-import {
-  Typography,
-  Grid,
-  Toolbar,
-  AppBar,
-  Container,
-  TextField,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { Typography, IconButton, Box } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -22,7 +11,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 export default function FooterBar() {
   return (
     <>
-      <div>
+      <Box>
         <Typography variant="h5" color="primary">
           Customer Care
         </Typography>
@@ -41,8 +30,8 @@ export default function FooterBar() {
             Shipping Policies
           </Typography>
         </Link>
-      </div>
-      <div>
+      </Box>
+      <Box>
         <Typography variant="h5" color="primary">
           About Us
         </Typography>
@@ -72,25 +61,33 @@ export default function FooterBar() {
             Terms & Conditions
           </Typography>
         </Link>
-      </div>
-      <div>
+      </Box>
+      <Box>
         <Typography variant="h5" color="primary">
           Connect With Us
         </Typography>
 
         <a href="https://www.facebook.com/">
-          <FacebookIcon />
+          <IconButton aria-label="facebook">
+            <FacebookIcon fontSize="large" />
+          </IconButton>
         </a>
         <a href="https://www.twitter.com/">
-          <TwitterIcon />
+          <IconButton aria-label="twitter">
+            <TwitterIcon fontSize="large" />
+          </IconButton>
         </a>
         <a href="https://www.instagram.com/">
-          <InstagramIcon />
+          <IconButton aria-label="instagram">
+            <InstagramIcon fontSize="large" />
+          </IconButton>
         </a>
         <a href="https://www.youtube.com/">
-          <YouTubeIcon />
+          <IconButton aria-label="youtube">
+            <YouTubeIcon fontSize="large" />
+          </IconButton>
         </a>
-      </div>
+      </Box>
     </>
   );
 }
