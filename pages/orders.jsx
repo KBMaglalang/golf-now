@@ -3,7 +3,7 @@ import prisma from "../lib/prisma";
 import { useSession, getSession } from "next-auth/react";
 
 // material ui
-import { Typography, Container, Grid } from "@mui/material";
+import { Typography, Container, Grid, Button } from "@mui/material";
 
 // components
 import OrderCard from "../components/ui/OrderCard";
@@ -29,12 +29,16 @@ export default function Orders({ userOrders }) {
         </Head>
 
         <main>
-          <Container maxWidth="lg">
-            <Typography variant="h3" color="primary">
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
               Order History
             </Typography>
             <Container>
-              <Grid container>{loadOrders(userOrders)}</Grid>
+              {userOrders.length >= 1 ? (
+                <Grid container>{loadOrders(userOrders)}</Grid>
+              ) : (
+                <Typography variant="body1">No Previous Orders</Typography>
+              )}
             </Container>
           </Container>
         </main>
@@ -45,8 +49,12 @@ export default function Orders({ userOrders }) {
   // show this if user is not logged in
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Typography variant="h1" color="error" gutterbottom>
+          Not signed in
+        </Typography>
+        <Button onClick={() => signIn()}>Sign in</Button>
+      </Container>
     </>
   );
 }
