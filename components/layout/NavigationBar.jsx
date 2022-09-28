@@ -1,14 +1,15 @@
 import React from "react";
-import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 
 // Material UI components
+import Link from "@mui/material/Link";
 import {
   Typography,
   Toolbar,
   AppBar,
   Container,
   IconButton,
+  Box,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
@@ -26,29 +27,43 @@ export default function NavigationBar() {
     <>
       <AppBar position="relative" color="primary">
         <Toolbar>
-          <Link href="/">
-            <Typography variant="h5" color="secondary">
-              <GolfCourseIcon />
-              Golf Now
-            </Typography>
-          </Link>
+          <Container
+            maxWidth="xl"
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+            }}
+          >
+            <Box>
+              <Link href="/">
+                <Typography variant="h5" color="secondary.contrastText" noWrap>
+                  <GolfCourseIcon />
+                  Golf Now
+                </Typography>
+              </Link>
+            </Box>
 
-          <Container maxWidth="lg">
-            <SearchBar />
+            <Box sx={{ flexGrow: 1 }}>
+              <SearchBar />
+            </Box>
+
+            <Box>
+              {session && <LoginProfileButton />}
+              {!session && (
+                <IconButton aria-label="login" onClick={signIn}>
+                  <LoginOutlinedIcon />
+                </IconButton>
+              )}
+
+              <Link href="/cart">
+                <IconButton aria-label="cart">
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Link>
+            </Box>
           </Container>
-
-          {session && <LoginProfileButton />}
-          {!session && (
-            <IconButton aria-label="login" onClick={signIn}>
-              <LoginOutlinedIcon />
-            </IconButton>
-          )}
-
-          <Link href="/cart">
-            <IconButton aria-label="cart">
-              <ShoppingCartIcon />
-            </IconButton>
-          </Link>
         </Toolbar>
       </AppBar>
       <AppBar position="relative" color="categoryBar">
