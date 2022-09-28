@@ -3,7 +3,7 @@ import Head from "next/head";
 import { sanityClient } from "../lib/sanity.server";
 
 // material ui
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Grid } from "@mui/material";
 
 export default function search({ products }) {
   const listProducts = (items) => {
@@ -21,10 +21,11 @@ export default function search({ products }) {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
           <Typography
             variant="h3"
             color="primary"
+            gutterBottom
           >{`Products Found (${products.length})`}</Typography>
           {!products.length && <Typography>Nothing Found</Typography>}
           <Container>
