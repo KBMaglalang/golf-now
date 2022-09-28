@@ -2,7 +2,10 @@ import Head from "next/head";
 import ProductCard from "../components/ui/Card";
 import { sanityClient } from "../lib/sanity.server";
 
+// material ui
 import { Typography, Container, Grid } from "@mui/material";
+
+// components
 import HeroBanner from "../components/layout/HeroBanner";
 
 export default function Home({ allProducts }) {
