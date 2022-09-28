@@ -44,10 +44,12 @@ export default function Favorites({ userFavorites }) {
   // show this if user is not logged in
   return (
     <>
-      <Typography variant="h1" color="error">
-        Not signed in
-      </Typography>
-      <Button onClick={() => signIn()}>Sign in</Button>
+      <Container maxWidth="lg">
+        <Typography variant="h1" color="error">
+          Not signed in
+        </Typography>
+        <Button onClick={() => signIn()}>Sign in</Button>
+      </Container>
     </>
   );
 }
