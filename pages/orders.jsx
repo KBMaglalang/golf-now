@@ -1,9 +1,12 @@
-import React from "react";
 import Head from "next/head";
 import prisma from "../lib/prisma";
-import OrderCard from "../components/ui/OrderCard";
 import { useSession, getSession } from "next-auth/react";
-import styles from "../styles/Account.module.css";
+
+// material ui
+import { Typography, Container, Grid } from "@mui/material";
+
+// components
+import OrderCard from "../components/ui/OrderCard";
 
 export default function Orders({ userOrders }) {
   const { data: session } = useSession({ required: true });
@@ -18,18 +21,24 @@ export default function Orders({ userOrders }) {
   // If session exists, display content
   if (session) {
     return (
-      <div className={styles.container}>
+      <>
         <Head>
           <title>Golf Now | Orders</title>
           <meta name="description" content="Golf Products" />
           <link rel="icon" href="/golf-ball-icon.png" />
         </Head>
 
-        <main className={styles.main}>
-          <h1>Order History</h1>
-          {loadOrders(userOrders)}
+        <main>
+          <Container maxWidth="lg">
+            <Typography variant="h3" color="primary">
+              Order History
+            </Typography>
+            <Container>
+              <Grid container>{loadOrders(userOrders)}</Grid>
+            </Container>
+          </Container>
         </main>
-      </div>
+      </>
     );
   }
 
