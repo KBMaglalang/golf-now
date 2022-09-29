@@ -4,7 +4,7 @@ import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
 import toast from "react-hot-toast";
 
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 export default function Cart() {
   const { cartItems } = useStateContext();
@@ -66,22 +66,36 @@ export default function Cart() {
           <Container>
             {cartItems.length >= 1 ? (
               <>
-                <Grid container spacing={4}>
+                <Grid
+                  container
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                  spacing={4}
+                >
                   {listCartItems(cartItems)}
                 </Grid>
-                <Typography
-                  variant="h4"
-                  color="primary"
-                  sx={{ my: 2 }}
-                >{`Cart Total: $${getTotal(cartItems)}`}</Typography>
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleCheckout}
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent="flex-end"
+                  alignItems="flex-end"
                 >
-                  Pay with Stripe
-                </Button>
+                  <Typography
+                    variant="h4"
+                    color="primary"
+                    sx={{ my: 2 }}
+                  >{`Cart Total: $${getTotal(cartItems)}`}</Typography>
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCheckout}
+                  >
+                    Pay with Stripe
+                  </Button>
+                </Box>
               </>
             ) : (
               <Typography variant="body1">Cart is Empty</Typography>
