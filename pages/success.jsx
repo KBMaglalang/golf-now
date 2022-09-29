@@ -93,13 +93,24 @@ const Success = () => {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <LocalMallIcon />
+        <Container
+          maxWidth="lg"
+          sx={{
+            my: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <LocalMallIcon fontSize="large" sx={{ mb: 2 }} />
 
-          <Typography>Thank you for your order!</Typography>
+          <Typography variant="h1" gutterBottom>
+            Thank you for your order!
+          </Typography>
 
           <Link href="/">
-            <Button>Continue Shopping</Button>
+            <Button variant="contained">Continue Shopping</Button>
           </Link>
         </Container>
       </main>
