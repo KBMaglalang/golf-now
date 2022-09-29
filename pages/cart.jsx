@@ -58,36 +58,36 @@ export default function Cart() {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Typography variant="h5" color="primary">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography variant="h3" color="primary" gutterBottom>
             {`Your Cart ${cartItems.length ? `(${cartItems.length}) ` : ""}`}
           </Typography>
-          {!cartItems.length && (
-            <Typography variant="body1">Cart is Empty</Typography>
-          )}
-        </Container>
 
-        <Container>
-          <Grid container spacing={4}>
-            {listCartItems(cartItems)}
-          </Grid>
-        </Container>
-
-        {!!cartItems.length && (
           <Container>
-            <Typography variant="h4" color="primary">{`Cart Total: $${getTotal(
-              cartItems
-            )}`}</Typography>
+            {cartItems.length >= 1 ? (
+              <>
+                <Grid container spacing={4}>
+                  {listCartItems(cartItems)}
+                </Grid>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                  sx={{ my: 2 }}
+                >{`Cart Total: $${getTotal(cartItems)}`}</Typography>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCheckout}
-            >
-              Pay with Stripe
-            </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleCheckout}
+                >
+                  Pay with Stripe
+                </Button>
+              </>
+            ) : (
+              <Typography variant="body1">Cart is Empty</Typography>
+            )}
           </Container>
-        )}
+        </Container>
       </main>
     </>
   );
