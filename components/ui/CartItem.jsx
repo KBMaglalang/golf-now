@@ -1,66 +1,93 @@
 import { urlForImage } from "../../lib/sanity";
 import { useStateContext } from "../../context/StateContext";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box, Button, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function CartItem({ product }) {
   const { onRemove, toggleCartItemQuantity } = useStateContext();
 
   return (
     <Grid item>
-      <Card sx={{ width: 600 }}>
-        <CardMedia
-          component="img"
-          height={"100px"}
-          width={"100px"}
-          image={urlForImage(product?.image && product?.image[0])
-            .width(345)
-            .url()}
-          alt={`${product?._type}-${product?.slug.current}`}
-          sx={{ padding: "1rem", objectFit: "contain" }}
-        />
-        <CardContent>
-          <Typography variant="subtitle2" color="primary">
-            {product?.brand?.title}
-          </Typography>
-          <Typography variant="h5">{product?.name}</Typography>
-          <Container>
-            <Typography variant="h6" color="primary">
-              {`Price: $${product?.price}`}
+      <Card>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box>
+            <CardMedia
+              component="img"
+              height={"auto"}
+              width={"100px"}
+              image={urlForImage(product?.image && product?.image[0])
+                .width(100)
+                .url()}
+              alt={`${product?._type}-${product?.slug.current}`}
+              sx={{ padding: "1rem", objectFit: "contain" }}
+            />
+          </Box>
+          <Box sx={{ flexGrow: 1, ml: 2 }}>
+            <Typography variant="subtitle2" color="primary">
+              {product?.brand?.title}
             </Typography>
+            <Typography variant="h5" noWrap>
+              {product?.name}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <Container>
-              <Typography
-                variant="h6"
-                color="primary"
-                onClick={() => toggleCartItemQuantity(product._id, "dec")}
-              >
-                <AiOutlineMinus />
-              </Typography>
-              <Typography variant="h6">{product?.quantity}</Typography>
-              <Typography
-                variant="h6"
-                color="primary"
-                onClick={() => toggleCartItemQuantity(product._id, "inc")}
-              >
-                <AiOutlinePlus />
+              <Typography variant="h6" color="primary" gutterBottom>
+                {`$${product?.price}`}
               </Typography>
             </Container>
-            <Typography
-              variant="h5"
-              color="secondary"
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+              }}
+            >
+              <IconButton
+                color="primary"
+                sx={{ display: "inline" }}
+                onClick={() => toggleCartItemQuantity(product._id, "dec")}
+              >
+                <RemoveIcon />
+              </IconButton>
+              <Typography variant="h6" sx={{ display: "inline" }}>
+                {product?.quantity}
+              </Typography>
+              <IconButton
+                color="primary"
+                sx={{ display: "inline" }}
+                onClick={() => toggleCartItemQuantity(product._id, "inc")}
+              >
+                <AddIcon />
+              </IconButton>
+            </Box>
+            <Button
+              variant="contained"
+              color="error"
               onClick={() => onRemove(product)}
             >
               Remove
-            </Typography>
-            <Typography variant="body1">{`Total: $${(
-              product?.price * product?.quantity
-            ).toFixed(2)}`}</Typography>
-          </Container>
+            </Button>
+          </Box>
         </CardContent>
       </Card>
     </Grid>

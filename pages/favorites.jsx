@@ -1,46 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
-import toast from "react-hot-toast";
-import { useRouter } from "next/router";
-import Link from "next/link";
 
-const BasicCard = ({ favorites }) => {
-  const router = useRouter();
-  const handleFavoriteDelete = async () => {
-    const response = await fetch(`/api/prisma/favorite`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        favoriteId: favorites.id,
-      }),
-    });
-    if (response.statusCode === 500) return;
-    const prismaFavoritesResponse = await response.json();
-    if (prismaFavoritesResponse) {
-      toast.success("Product Removed From Favorites");
-    } else {
-      toast.error("Unable to Remove Product");
-    }
-    router.reload(window.location.pathname);
-  };
+// material ui
+import { Typography, Container, Grid, Button } from "@mui/material";
 
-  return (
-    <Link href={`/products/${favorites.productType}/${favorites.productSKU}`}>
-      <div>
-        <span>{favorites.id}</span>
-        <span>{favorites.createdAt}</span>
-        <span>{favorites.productSKU}</span>
-        <h5>{favorites.productName}</h5>
-        <span>{favorites.productSanityId}</span>
-        <span>{favorites.userId}</span>
-        <button onClick={handleFavoriteDelete}>Remove</button>
-      </div>
-    </Link>
-  );
-};
+// components
+import FavoriteCard from "../components/layout/FavoriteCard";
 
 export default function Favorites({ userFavorites }) {
   const { data: session } = useSession({ required: true });
@@ -48,28 +15,45 @@ export default function Favorites({ userFavorites }) {
   // If session exists, display content
   if (session) {
     return (
-      <div className={styles.container}>
+      <>
         <Head>
           <title>Golf Now | Favorites</title>
           <meta name="description" content="Golf Products" />
           <link rel="icon" href="/golf-ball-icon.png" />
         </Head>
 
-        <main className={styles.main}>
-          <h1>Favorites</h1>
-          {userFavorites.map((e) => (
-            <BasicCard key={e.id} favorites={e} />
-          ))}
+        <main>
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
+              Favorites
+            </Typography>
+
+            <Container>
+              {userFavorites.length >= 1 ? (
+                <Grid container spacing={4}>
+                  {userFavorites.map((e) => (
+                    <FavoriteCard key={e.id} favorites={e} />
+                  ))}
+                </Grid>
+              ) : (
+                <Typography variant="body1">No Favorites</Typography>
+              )}
+            </Container>
+          </Container>
         </main>
-      </div>
+      </>
     );
   }
 
   // show this if user is not logged in
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Typography variant="h1" color="error" gutterBottom>
+          Not signed in
+        </Typography>
+        <Button onClick={() => signIn()}>Sign in</Button>
+      </Container>
     </>
   );
 }

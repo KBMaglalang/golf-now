@@ -1,11 +1,19 @@
 import React from "react";
 
-import { Toolbar, Button } from "@mui/material";
+import { Toolbar, Button, Container } from "@mui/material";
 
 export default function CategoryBar() {
   return (
-    <>
-      <Toolbar>
+    <Toolbar>
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "baseline",
+        }}
+      >
         <Button color="secondary" variant="text" href="/products/clubs">
           Clubs
         </Button>
@@ -27,7 +35,7 @@ export default function CategoryBar() {
         <Button color="secondary" variant="text" href="/products/brand">
           Brand
         </Button>
-      </Toolbar>
-    </>
+      </Container>
+    </Toolbar>
   );
 }

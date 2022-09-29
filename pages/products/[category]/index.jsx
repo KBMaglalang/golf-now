@@ -1,10 +1,12 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import { sanityClient } from "../../../lib/sanity.server";
 
+// material ui
 import { Typography, Container, Grid } from "@mui/material";
 
+// components
 import BrandCard from "../../../components/ui/BrandCard";
 import ProductCard from "../../../components/ui/Card";
 
@@ -58,14 +60,14 @@ export default function ClubsBase({ products }) {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
           {selectedBrand && (
-            <Typography variant="h3" color="primary">
+            <Typography variant="h3" color="primary" gutterBottom>
               {categoryName} | {selectedBrand}
             </Typography>
           )}
           {!selectedBrand && (
-            <Typography variant="h3" color="primary">
+            <Typography variant="h3" color="primary" gutterBottom>
               {categoryName}
             </Typography>
           )}

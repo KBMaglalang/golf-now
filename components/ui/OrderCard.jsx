@@ -1,38 +1,48 @@
 import React from "react";
-import styles from "./OrderCard.module.css";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
 
 export default function OrderCard({ product }) {
   return (
     <Grid item>
-      <Card>
+      <Card sx={{ width: 345 }}>
         <CardContent>
-          <Container>
-            <Typography>{product.createdAt.split("T")[0]}</Typography>
-            <Typography>
+          <Typography variant="h5" color="primary" noWrap gutterBottom>
+            {product.productName}
+          </Typography>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              Order Date:
+            </Typography>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              {product.createdAt.split("T")[0]}
+            </Typography>
+            <Typography sx={{ display: "inline" }}>
               {product.createdAt.split("T")[1].slice(0, 5)}
             </Typography>
-          </Container>
-          <Typography>{product.productName}</Typography>
-          <Container>
-            <Typography>Quantity</Typography>
-            <Typography>{product.quantity}</Typography>
-          </Container>
-          <Container>
-            <Typography>Total</Typography>
-            <Typography>{`$${(
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>Quantity:</Typography>
+            <Typography sx={{ display: "inline" }}>
+              {product.quantity}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>Total:</Typography>
+            <Typography sx={{ display: "inline" }}>{`$${(
               (product.productSubTotal * product.quantity) /
               100
             ).toFixed(2)}`}</Typography>
-          </Container>
-          <Container>
-            <Typography className={styles.title}>Order Status</Typography>
-            <Typography>{product.status}</Typography>
-          </Container>
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              Order Status:
+            </Typography>
+            <Typography sx={{ display: "inline" }}>{product.status}</Typography>
+          </Box>
         </CardContent>
       </Card>
     </Grid>

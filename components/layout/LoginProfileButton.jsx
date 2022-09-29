@@ -18,44 +18,42 @@ export default function LoginProfileButton() {
 
   return (
     <>
-      <Container maxWidth="xs">
-        <IconButton
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup={true}
-          aria-expanded={open ? true : undefined}
-          onClick={handleClick}
-        >
-          <PersonOutlineOutlinedIcon />
-        </IconButton>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
+      <IconButton
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup={true}
+        aria-expanded={open ? true : undefined}
+        onClick={handleClick}
+      >
+        <PersonOutlineOutlinedIcon />
+      </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <Link href="/account">Account</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link href="/orders">Orders</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link href="/favorites">Favorites</Link>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            signOut();
           }}
         >
-          <MenuItem onClick={handleClose}>
-            <Link href="/account">Account</Link>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Link href="/orders">Orders</Link>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Link href="/favorites">Favorites</Link>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              handleClose();
-              signOut();
-            }}
-          >
-            Logout
-          </MenuItem>
-        </Menu>
-      </Container>
+          Logout
+        </MenuItem>
+      </Menu>
     </>
   );
 }

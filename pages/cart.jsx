@@ -3,9 +3,8 @@ import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
 import toast from "react-hot-toast";
-// import styles from "../styles/Product.module.css";
 
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 export default function Cart() {
   const { cartItems } = useStateContext();
@@ -59,36 +58,50 @@ export default function Cart() {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Typography variant="h5" color="primary">
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography variant="h3" color="primary" gutterBottom>
             {`Your Cart ${cartItems.length ? `(${cartItems.length}) ` : ""}`}
           </Typography>
-          {!cartItems.length && (
-            <Typography variant="body1">Cart is Empty</Typography>
-          )}
-        </Container>
 
-        <Container>
-          <Grid container spacing={4}>
-            {listCartItems(cartItems)}
-          </Grid>
-        </Container>
-
-        {!!cartItems.length && (
           <Container>
-            <Typography variant="h4" color="primary">{`Cart Total: $${getTotal(
-              cartItems
-            )}`}</Typography>
+            {cartItems.length >= 1 ? (
+              <>
+                <Grid
+                  container
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                  spacing={4}
+                >
+                  {listCartItems(cartItems)}
+                </Grid>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent="flex-end"
+                  alignItems="flex-end"
+                >
+                  <Typography
+                    variant="h4"
+                    color="primary"
+                    sx={{ my: 2 }}
+                  >{`Cart Total: $${getTotal(cartItems)}`}</Typography>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCheckout}
-            >
-              Pay with Stripe
-            </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCheckout}
+                  >
+                    Pay with Stripe
+                  </Button>
+                </Box>
+              </>
+            ) : (
+              <Typography variant="body1">Cart is Empty</Typography>
+            )}
           </Container>
-        )}
+        </Container>
       </main>
     </>
   );

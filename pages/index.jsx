@@ -2,7 +2,10 @@ import Head from "next/head";
 import ProductCard from "../components/ui/Card";
 import { sanityClient } from "../lib/sanity.server";
 
+// material ui
 import { Typography, Container, Grid } from "@mui/material";
+
+// components
 import HeroBanner from "../components/layout/HeroBanner";
 
 export default function Home({ allProducts }) {
@@ -34,12 +37,12 @@ export default function Home({ allProducts }) {
       </Head>
 
       <main>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ mb: 2 }}>
           <HeroBanner />
         </Container>
-        <Container>
+        <Container sx={{ mb: 4 }}>
           <Container>
-            <Typography variant="h3" color="primary">
+            <Typography variant="h3" color="primary" gutterBottom>
               Top Selling Products
             </Typography>
             <Grid container spacing={4}>
@@ -47,7 +50,7 @@ export default function Home({ allProducts }) {
             </Grid>
           </Container>
           <Container>
-            <Typography variant="h4" color="primary">
+            <Typography variant="h4" color="primary" sx={{ my: 2 }}>
               Check Out These Products
             </Typography>
             <Grid container spacing={4}>

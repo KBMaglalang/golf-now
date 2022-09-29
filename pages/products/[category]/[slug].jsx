@@ -1,14 +1,26 @@
-import { useState, useEffect } from "react";
 import Head from "next/head";
-import styles from "../../../styles/Product.module.css";
+import { useState, useEffect } from "react";
 import { sanityClient } from "../../../lib/sanity.server";
 import { urlForImage } from "../../../lib/sanity";
-import { PortableText } from "@portabletext/react";
+// import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { toPlainText } from "@portabletext/react";
+
+// material ui
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import {
+  CardActionArea,
+  Container,
+  Grid,
+  Button,
+  CardMedia,
+} from "@mui/material";
 
 export default function ClubsDetails({ product }) {
   const router = useRouter();
@@ -121,98 +133,101 @@ export default function ClubsDetails({ product }) {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>{`Golf Now | ${product?.brand?.title} - ${product?.name}`}</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <div className={styles.productContainer}>
-          <div className={styles.productImagesContainer}>
-            <div className={styles.imageContainer}>
-              <img
-                src={product.image[index] && urlForImage(product.image[index])}
-              />
-            </div>
-            <div className={styles.smallImagesContainer}>
-              {product.image?.map((item, i) => (
-                <img
-                  key={i}
-                  src={item && urlForImage(item)}
-                  onMouseEnter={() => setIndex(i)}
+      <main>
+        <Container maxWidth="lg">
+          <Container>
+            <Card>
+              <Container>
+                <CardMedia
+                  component="img"
+                  height={"auto"}
+                  width={"100%"}
+                  image={
+                    product.image[index] &&
+                    urlForImage(product.image[index]).width(345).url()
+                  }
+                  alt={`${product?._type}-${product?.slug.current}`}
                 />
-              ))}
-            </div>
-          </div>
-          <div className={styles.productDetailsContainer}>
-            <h4>{`SKU: ${product?.sku}`}</h4>
-            <h3>{`${product?.brand?.title}`}</h3>
-            <h2>{product?.name}</h2>
-            <button onClick={handleProductFavorite}>
-              {favState ? "Remove From Favorites" : "Add to Favorites"}
-            </button>
-            {/* <span>--- can add variations here ---</span> */}
-            <span>{`Available Stock: ${product?.stock}`}</span>
-            <span>{`$${product?.price}`}</span>
-            <div>
+              </Container>
               <div>
-                <span className="quantity-desc">
-                  <span
-                    className={styles.minus}
-                    onClick={() => updateQuantity("dec")}
-                  >
-                    <AiOutlineMinus />
-                  </span>
-                  <span className={styles.num}>{productQuantity}</span>
-                  <span
-                    className={styles.plus}
-                    onClick={() => updateQuantity("inc")}
-                  >
-                    <AiOutlinePlus />
-                  </span>
-                </span>
+                {product.image?.map((item, i) => (
+                  <CardMedia
+                    key={i}
+                    component="img"
+                    height={"auto"}
+                    width={"100%"}
+                    image={item && urlForImage(item).width(345).url()}
+                    onMouseEnter={() => setIndex(i)}
+                  />
+                ))}
               </div>
-            </div>
-            <div className={styles.buttonContainer}>
-              <button
-                className={
-                  !product?.stock
-                    ? styles.disabledBuyNowButton
-                    : styles.buyNowButton
-                }
-                disabled={!product?.stock ? true : false}
-                onClick={handleBuyNow}
-              >
-                Buy it Now
-              </button>
-              <button
-                className={
-                  !product?.stock
-                    ? styles.disabledAddToCartButton
-                    : styles.addToCartButton
-                }
-                disabled={!product?.stock ? true : false}
-                onClick={() => onAdd(product, productQuantity)}
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.productDescriptionContainer}>
-          <div>
-            <h3>Product Description</h3>
-            <PortableText value={product?.description} />
-          </div>
-          <div>
-            <h3>Product Features</h3>
-            <PortableText value={product?.features} />
-          </div>
-        </div>
+            </Card>
+            <Card>
+              <CardContent>
+                <Typography>{`SKU: ${product?.sku}`}</Typography>
+                <Typography>{`${product?.brand?.title}`}</Typography>
+                <Typography>{product?.name}</Typography>
+                <Button onClick={handleProductFavorite}>
+                  {favState ? "Remove From Favorites" : "Add to Favorites"}
+                </Button>
+                <Typography>{`Available Stock: ${product?.stock}`}</Typography>
+                <Typography>{`$${product?.price}`}</Typography>
+                <Container>
+                  <Typography onClick={() => updateQuantity("dec")}>
+                    <AiOutlineMinus />
+                  </Typography>
+                  <Typography>{productQuantity}</Typography>
+                  <Typography onClick={() => updateQuantity("inc")}>
+                    <AiOutlinePlus />
+                  </Typography>
+                </Container>
+                <Container>
+                  <Button
+                    disabled={!product?.stock ? true : false}
+                    onClick={handleBuyNow}
+                  >
+                    Buy it Now
+                  </Button>
+                  <Button
+                    disabled={!product?.stock ? true : false}
+                    onClick={() => onAdd(product, productQuantity)}
+                  >
+                    Add to Cart
+                  </Button>
+                </Container>
+              </CardContent>
+            </Card>
+          </Container>
+          <Container>
+            <Grid container spacing={4}>
+              <Grid item>
+                <Card>
+                  <CardContent>
+                    <Typography>Product Description</Typography>
+                    <Typography>{toPlainText(product?.description)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item>
+                <Card>
+                  <CardContent>
+                    <Typography>Product Features</Typography>
+                    <Typography>{toPlainText(product?.features)}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Container>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }
 

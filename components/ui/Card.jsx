@@ -28,7 +28,7 @@ export default function ProductCard({ product }) {
               <Typography gutterBottom variant="subtitle2" component="div">
                 {product?.brand?.title}
               </Typography>
-              <Typography variant="h5" color="primary" noWrap>
+              <Typography variant="h5" color="primary" noWrap gutterBottom>
                 {product?.name}
               </Typography>
               {product?.stock > 0 && (
