@@ -17,11 +17,22 @@ const Canceled = () => {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Typography>Forgot to add something to your cart?</Typography>
+        <Container
+          maxWidth="lg"
+          sx={{
+            my: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h2" gutterBottom>
+            Forgot Something?
+          </Typography>
 
           <Link href="/">
-            <Button>Return Home</Button>
+            <Button variant="contained">Return Home</Button>
           </Link>
         </Container>
       </main>
