@@ -27,11 +27,14 @@ export default function search({ products }) {
             color="primary"
             gutterBottom
           >{`Products Found (${products.length})`}</Typography>
-          {!products.length && <Typography>Nothing Found</Typography>}
           <Container>
-            <Grid container spacing={4}>
-              {listProducts(products)}
-            </Grid>
+            {products.length >= 1 ? (
+              <Grid container spacing={4}>
+                {listProducts(products)}
+              </Grid>
+            ) : (
+              <Typography variant="body1">Nothing Found</Typography>
+            )}
           </Container>
         </Container>
       </main>
