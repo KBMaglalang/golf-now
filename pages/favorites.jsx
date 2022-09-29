@@ -29,11 +29,15 @@ export default function Favorites({ userFavorites }) {
             </Typography>
 
             <Container>
-              <Grid container spacing={4}>
-                {userFavorites.map((e) => (
-                  <FavoriteCard key={e.id} favorites={e} />
-                ))}
-              </Grid>
+              {userFavorites.length >= 1 ? (
+                <Grid container spacing={4}>
+                  {userFavorites.map((e) => (
+                    <FavoriteCard key={e.id} favorites={e} />
+                  ))}
+                </Grid>
+              ) : (
+                <Typography variant="body1">No Favorites</Typography>
+              )}
             </Container>
           </Container>
         </main>
@@ -45,7 +49,7 @@ export default function Favorites({ userFavorites }) {
   return (
     <>
       <Container maxWidth="lg" sx={{ my: 4 }}>
-        <Typography variant="h1" color="error" gutterbottom>
+        <Typography variant="h1" color="error" gutterBottom>
           Not signed in
         </Typography>
         <Button onClick={() => signIn()}>Sign in</Button>
