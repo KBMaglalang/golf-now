@@ -39,7 +39,7 @@ export default function FavoriteCard({ favorites }) {
               <Typography variant="h5" color="primary" noWrap gutterBottom>
                 {favorites.productName}
               </Typography>
-              <Typography variant="h6" color="secondary">
+              <Typography variant="h6">
                 {`SKU: ${favorites.productSKU}`}
               </Typography>
               <Typography variant="subtitle2">{`Added: ${favorites.createdAt}`}</Typography>
