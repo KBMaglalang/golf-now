@@ -4,7 +4,14 @@ import toast from "react-hot-toast";
 import prisma from "../lib/prisma";
 
 // material ui
-import { Typography, Container, Grid, Button, TextField } from "@mui/material";
+import {
+  Typography,
+  Container,
+  Grid,
+  Button,
+  TextField,
+  Card,
+} from "@mui/material";
 
 export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
@@ -48,60 +55,91 @@ export default function Account({ userData }) {
         </Head>
 
         <main>
-          <Container maxWidth="lg">
-            <Typography variant="h3" color="primary">
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
               Account Information
             </Typography>
+
             <form onSubmit={updateUser}>
-              <TextField
-                id="name"
-                label="Name"
-                type="text"
-                defaultValue={userData?.name}
-              />
-              <TextField
-                id="phoneNumber"
-                label="Phone Number"
-                type="tel"
-                defaultValue={userData.phoneNumber}
-              />
-              <TextField
-                id="address1"
-                label="Address 1"
-                type="text"
-                defaultValue={userData.address1}
-              />
-              <TextField
-                id="address2"
-                label="Address 2"
-                type="text"
-                defaultValue={userData.address2}
-              />
-              <TextField
-                id="city"
-                label="City"
-                type="text"
-                defaultValue={userData.city}
-              />
-              <TextField
-                id="stateProvince"
-                label="State/Province"
-                type="text"
-                defaultValue={userData.stateProvince}
-              />
-              <TextField
-                id="country"
-                label="Country"
-                type="text"
-                defaultValue={userData.country}
-              />
-              <TextField
-                id="postalCode"
-                label="Postal Code"
-                type="text"
-                defaultValue={userData.postalCode}
-              />
-              <Button type="submit">Update Account</Button>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <TextField
+                    id="name"
+                    label="Name"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData?.name}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="phoneNumber"
+                    label="Phone Number"
+                    type="tel"
+                    fullWidth
+                    defaultValue={userData.phoneNumber}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="address1"
+                    label="Address 1"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.address1}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="address2"
+                    label="Address 2"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.address2}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="city"
+                    label="City"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.city}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="stateProvince"
+                    label="State/Province"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.stateProvince}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="country"
+                    label="Country"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.country}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="postalCode"
+                    label="Postal Code"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.postalCode}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" type="submit" fullWidth>
+                    Update Account
+                  </Button>
+                </Grid>
+              </Grid>
             </form>
           </Container>
         </main>
