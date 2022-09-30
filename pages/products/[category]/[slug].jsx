@@ -2,12 +2,10 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { sanityClient } from "../../../lib/sanity.server";
 import { urlForImage } from "../../../lib/sanity";
-// import { PortableText } from "@portabletext/react";
 import { useStateContext } from "../../../context/StateContext";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { toPlainText } from "@portabletext/react";
 
 // material ui
@@ -15,12 +13,15 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
-  CardActionArea,
   Container,
   Grid,
   Button,
   CardMedia,
+  Box,
+  IconButton,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function ClubsDetails({ product }) {
   const router = useRouter();
@@ -141,90 +142,142 @@ export default function ClubsDetails({ product }) {
       </Head>
 
       <main>
-        <Container maxWidth="lg">
-          <Container>
-            <Card>
-              <Container>
-                <CardMedia
-                  component="img"
-                  height={"auto"}
-                  width={"100%"}
-                  image={
-                    product.image[index] &&
-                    urlForImage(product.image[index]).width(345).url()
-                  }
-                  alt={`${product?._type}-${product?.slug.current}`}
-                />
-              </Container>
-              <div>
-                {product.image?.map((item, i) => (
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Grid container spacing={4}>
+            <Grid item xs={6}>
+              <Card>
+                <CardContent>
                   <CardMedia
-                    key={i}
                     component="img"
                     height={"auto"}
                     width={"100%"}
-                    image={item && urlForImage(item).width(345).url()}
-                    onMouseEnter={() => setIndex(i)}
+                    image={
+                      product.image[index] &&
+                      urlForImage(product.image[index]).width(500).url()
+                    }
+                    alt={`${product?._type}-${product?.slug.current}`}
                   />
-                ))}
-              </div>
-            </Card>
-            <Card>
-              <CardContent>
-                <Typography>{`SKU: ${product?.sku}`}</Typography>
-                <Typography>{`${product?.brand?.title}`}</Typography>
-                <Typography>{product?.name}</Typography>
-                <Button onClick={handleProductFavorite}>
-                  {favState ? "Remove From Favorites" : "Add to Favorites"}
-                </Button>
-                <Typography>{`Available Stock: ${product?.stock}`}</Typography>
-                <Typography>{`$${product?.price}`}</Typography>
-                <Container>
-                  <Typography onClick={() => updateQuantity("dec")}>
-                    <AiOutlineMinus />
-                  </Typography>
-                  <Typography>{productQuantity}</Typography>
-                  <Typography onClick={() => updateQuantity("inc")}>
-                    <AiOutlinePlus />
-                  </Typography>
-                </Container>
-                <Container>
-                  <Button
-                    disabled={!product?.stock ? true : false}
-                    onClick={handleBuyNow}
-                  >
-                    Buy it Now
-                  </Button>
-                  <Button
-                    disabled={!product?.stock ? true : false}
-                    onClick={() => onAdd(product, productQuantity)}
-                  >
-                    Add to Cart
-                  </Button>
-                </Container>
-              </CardContent>
-            </Card>
-          </Container>
-          <Container>
-            <Grid container spacing={4}>
-              <Grid item>
-                <Card>
-                  <CardContent>
-                    <Typography>Product Description</Typography>
-                    <Typography>{toPlainText(product?.description)}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item>
-                <Card>
-                  <CardContent>
-                    <Typography>Product Features</Typography>
-                    <Typography>{toPlainText(product?.features)}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+                  <Grid container spacing={4}>
+                    {product.image?.map((item, i) => (
+                      <Grid item key={i}>
+                        <CardMedia
+                          component="img"
+                          height={"auto"}
+                          width={"auto"}
+                          image={item && urlForImage(item).width(100).url()}
+                          onMouseEnter={() => setIndex(i)}
+                          sx={{ width: 100 }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
-          </Container>
+
+            <Grid item xs={6}>
+              <Card>
+                <CardContent>
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                  >{`SKU: ${product?.sku}`}</Typography>
+                  <Typography
+                    variant="subtitle2"
+                    gutterBottom
+                  >{`${product?.brand?.title}`}</Typography>
+                  <Typography variant="h5" color="primary" noWrap gutterBottom>
+                    {product?.name}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color={favState ? "error" : "primary"}
+                    onClick={handleProductFavorite}
+                    fullWidth
+                    sx={{ my: 4 }}
+                  >
+                    {favState ? "Remove From Favorites" : "Add to Favorites"}
+                  </Button>
+                  <Typography>{`Available Stock: ${product?.stock}`}</Typography>
+                  <Typography variant="h6">{`$${product?.price}`}</Typography>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "baseline",
+                    }}
+                  >
+                    <IconButton
+                      color="primary"
+                      sx={{ display: "inline" }}
+                      onClick={() => updateQuantity("dec")}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography variant="h6" sx={{ display: "inline" }}>
+                      {productQuantity}
+                    </Typography>
+                    <IconButton
+                      color="primary"
+                      sx={{ display: "inline" }}
+                      onClick={() => updateQuantity("inc")}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "baseline",
+                      my: 2,
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      disabled={!product?.stock ? true : false}
+                      onClick={handleBuyNow}
+                    >
+                      Buy it Now
+                    </Button>
+                    <Button
+                      variant="contained"
+                      disabled={!product?.stock ? true : false}
+                      onClick={() => onAdd(product, productQuantity)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    Product Description
+                  </Typography>
+                  <Typography>{toPlainText(product?.description)}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    Product Features
+                  </Typography>
+                  <Typography>{toPlainText(product?.features)}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Container>
       </main>
     </>
