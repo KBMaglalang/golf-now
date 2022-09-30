@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession, signIn } from "next-auth/react";
+import { useStateContext } from "../../context/StateContext";
 
 // Material UI components
 import Link from "@mui/material/Link";
@@ -10,6 +11,7 @@ import {
   Container,
   IconButton,
   Box,
+  Badge,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
@@ -22,6 +24,7 @@ import SearchBar from "./SearchBar";
 
 export default function NavigationBar() {
   const { data: session } = useSession();
+  const { cartItems } = useStateContext();
 
   return (
     <>
@@ -59,7 +62,13 @@ export default function NavigationBar() {
 
               <Link href="/cart">
                 <IconButton aria-label="cart">
-                  <ShoppingCartIcon />
+                  {cartItems.length >= 1 ? (
+                    <Badge color="error" variant="dot">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  ) : (
+                    <ShoppingCartIcon />
+                  )}
                 </IconButton>
               </Link>
             </Box>
