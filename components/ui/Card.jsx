@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (
@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
               alt={`${product?._type}-${product?.slug.current}`}
             />
             <CardContent>
-              <Typography gutterBottom variant="subtitle2" component="div">
+              <Typography variant="subtitle2" gutterBottom>
                 {product?.brand?.title}
               </Typography>
               <Typography variant="h5" color="primary" noWrap gutterBottom>
@@ -35,18 +35,22 @@ export default function ProductCard({ product }) {
                 <Typography variant="h6">${product?.price}</Typography>
               )}
               {!product?.stock && (
-                <Container>
+                <Box>
                   <Typography
-                    variant="body1"
-                    color="primary"
+                    variant="h5"
                     className={!product?.stock && styles.strike}
+                    sx={{ display: "inline", mr: 2 }}
                   >
                     {`$${product?.price}`}
                   </Typography>
-                  <Typography variant="body2" color="secondary">
+                  <Typography
+                    variant="h5"
+                    color="error"
+                    sx={{ display: "inline" }}
+                  >
                     SOLD OUT
                   </Typography>
-                </Container>
+                </Box>
               )}
             </CardContent>
           </CardActionArea>

@@ -14,14 +14,24 @@ export default function ClubsBase({ products }) {
   const [productList, setProductList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   const router = useRouter();
-  const categoryName =
-    router?.query?.category.charAt(0).toUpperCase() +
-    router?.query?.category.slice(1);
 
   useEffect(() => {
     setProductList(products);
     setSelectedBrand("");
   }, [products]);
+
+  const toUpperCaseWords = () => {
+    if (!router?.query?.category) return;
+
+    return router?.query?.category
+      .split("-")
+      .map((e) => {
+        return e.charAt(0).toUpperCase() + e.slice(1);
+      })
+      .join(" ");
+  };
+
+  const categoryName = toUpperCaseWords();
 
   // get products from a specific brand
   const getProducts = async (brandId) => {

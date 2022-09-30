@@ -14,25 +14,25 @@ export default function CategoryBar() {
           alignItems: "baseline",
         }}
       >
-        <Button color="secondary" variant="text" href="/products/clubs">
+        <Button color="categoryText" variant="text" href="/products/clubs">
           Clubs
         </Button>
-        <Button color="secondary" variant="text" href="/products/balls">
+        <Button color="categoryText" variant="text" href="/products/balls">
           Balls
         </Button>
-        <Button color="secondary" variant="text" href="/products/shoes">
+        <Button color="categoryText" variant="text" href="/products/shoes">
           Shoes
         </Button>
-        <Button color="secondary" variant="text" href="/products/clothing">
+        <Button color="categoryText" variant="text" href="/products/clothing">
           Clothing
         </Button>
-        <Button color="secondary" variant="text" href="/products/bag-carts">
+        <Button color="categoryText" variant="text" href="/products/bag-carts">
           {"Bags & Carts"}
         </Button>
-        <Button color="secondary" variant="text" href="/products/golf-tech">
+        <Button color="categoryText" variant="text" href="/products/golf-tech">
           Golf Tech
         </Button>
-        <Button color="secondary" variant="text" href="/products/brand">
+        <Button color="categoryText" variant="text" href="/products/brand">
           Brand
         </Button>
       </Container>

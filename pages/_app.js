@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 
+import { StateContext, useStateContext } from "../context/StateContext";
 import { SessionProvider } from "next-auth/react";
-import { StateContext } from "../context/StateContext";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
@@ -23,7 +23,7 @@ export default function MyApp(props) {
   const {
     Component,
     emotionCache = clientSideEmotionCache,
-    pageProps: { session, ...pageProps },
+    pageProps: { useStateContext, session, ...pageProps },
   } = props;
 
   return (
