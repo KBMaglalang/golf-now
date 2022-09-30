@@ -86,7 +86,7 @@ export default function Cart() {
                     variant="h4"
                     color="primary"
                     sx={{ my: 2 }}
-                  >{`Cart Total: $${getTotal(cartItems)}`}</Typography>
+                  >{`Subtotal: $${getTotal(cartItems)}`}</Typography>
 
                   <Button
                     variant="contained"

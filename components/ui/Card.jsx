@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
               alt={`${product?._type}-${product?.slug.current}`}
             />
             <CardContent>
-              <Typography gutterBottom variant="subtitle2" component="div">
+              <Typography variant="subtitle2" gutterBottom>
                 {product?.brand?.title}
               </Typography>
               <Typography variant="h5" color="primary" noWrap gutterBottom>
