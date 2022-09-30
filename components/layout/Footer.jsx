@@ -16,19 +16,13 @@ export default function FooterBar() {
           Customer Care
         </Typography>
         <Link href="/contact-us">
-          <Typography variant="body1" color="secondary">
-            Contact Us
-          </Typography>
+          <Typography variant="body1">Contact Us</Typography>
         </Link>
         <Link href="/returns">
-          <Typography variant="body1" color="secondary">
-            Returns & Refunds
-          </Typography>
+          <Typography variant="body1">Returns & Refunds</Typography>
         </Link>
         <Link href="/shipping">
-          <Typography variant="body1" color="secondary">
-            Shipping Policies
-          </Typography>
+          <Typography variant="body1">Shipping Policies</Typography>
         </Link>
       </Box>
       <Box>
@@ -37,29 +31,19 @@ export default function FooterBar() {
         </Typography>
 
         <Link href="/about">
-          <Typography variant="body1" color="secondary">
-            About Us
-          </Typography>
+          <Typography variant="body1">About Us</Typography>
         </Link>
         <Link href="/careers">
-          <Typography variant="body1" color="secondary">
-            Careers
-          </Typography>
+          <Typography variant="body1">Careers</Typography>
         </Link>
         <Link href="/policy">
-          <Typography variant="body1" color="secondary">
-            Privacy Policy
-          </Typography>
+          <Typography variant="body1">Privacy Policy</Typography>
         </Link>
         <Link href="/accessibility">
-          <Typography variant="body1" color="secondary">
-            Accessibility
-          </Typography>
+          <Typography variant="body1">Accessibility</Typography>
         </Link>
         <Link href="/terms-conditions">
-          <Typography variant="body1" color="secondary">
-            Terms & Conditions
-          </Typography>
+          <Typography variant="body1">Terms & Conditions</Typography>
         </Link>
       </Box>
       <Box>
