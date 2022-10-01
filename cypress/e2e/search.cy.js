@@ -4,15 +4,13 @@ describe("Search", () => {
   });
 
   it("search for a product that exists", () => {
-    cy.get('[class="searchForm"]').type("Batteries");
-    cy.get('[class="searchForm"]').find("button").click();
+    cy.get('[aria-label="search"]').type("Wingman{enter}");
 
-    cy.get("main div").should("contain", "CR2 Rechargable Batteries");
+    cy.get("main div").should("contain", "Wingman GPS Speaker");
   });
 
   it("search for a product that does not exit", () => {
-    cy.get('[class="searchForm"]').type("Car");
-    cy.get('[class="searchForm"]').find("button").click();
+    cy.get('[aria-label="search"]').type("Car{enter}");
 
     cy.get("main div").should("contain", "Nothing Found");
   });
