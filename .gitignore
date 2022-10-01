@@ -28,6 +28,8 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.development
+.env.production
 .env
 
 # vercel
@@ -35,3 +37,7 @@ yarn-error.log*
 
 /productDocs
 productDocs
+
+# sanity env
+/golf-sanity-studio/.env.development
+/golf-sanity-studio/.env.production

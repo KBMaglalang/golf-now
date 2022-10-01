@@ -1,12 +1,10 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 
-  min-height: 100vh;
-  padding: 0 4rem 0 4rem;
+  padding: 4rem;
 }
 
 .productsContainer{
@@ -27,5 +25,3 @@
   width: 100%;
   border-bottom: 1px solid #eaeaea;
 }
-
-.categoryTitle {}

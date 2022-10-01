@@ -1,11 +1,9 @@
 .main {
-  min-height: 100vh;
-  padding: 0 4rem 0 4rem;
-
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+
+  padding: 4rem;
 }
 
 .productContainer{
@@ -145,7 +143,6 @@
   align-items: center;
   overflow-x: auto;
 
-  /* gap: 1rem; */
   width: 100vw;
   height: 50%;
 }
@@ -168,28 +165,3 @@
   font-size: 20px;
   pointer-events: none;
 }
-
-/* .marquee {
-  position: relative;
-  height: 400px;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-.may like-products-container{
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.track {
-  position: absolute;
-  white-space: nowrap;
-  will-change: transform;
-  animation: marquee 15s linear infinite;
-  width: 180%;
-}
-.track:hover {
-  animation-play-state: paused;
-} */

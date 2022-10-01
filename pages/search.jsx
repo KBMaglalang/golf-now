@@ -1,29 +1,44 @@
-import Card from "../components/ui/Card";
+import ProductCard from "../components/ui/Card";
 import Head from "next/head";
-import { cmsClient } from "../lib/sanityClient";
-import styles from "../styles/Home.module.css";
+import { sanityClient } from "../lib/sanity.server";
+
+// material ui
+import { Typography, Container, Grid } from "@mui/material";
 
 export default function search({ products }) {
   const listProducts = (items) => {
-    return items.map((product) => <Card key={product.sku} product={product} />);
+    return items.map((product) => (
+      <ProductCard key={product.sku} product={product} />
+    ));
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Golf Now | Search</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <h1>{`Products Found (${products.length})`}</h1>
-        {!products.length && <span>Nothing Found</span>}
-        <div className={styles.categoryTopContainer}>
-          {listProducts(products)}
-        </div>
+      <main>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography
+            variant="h3"
+            color="primary"
+            gutterBottom
+          >{`Products Found (${products.length})`}</Typography>
+          <Container>
+            {products.length >= 1 ? (
+              <Grid container spacing={4}>
+                {listProducts(products)}
+              </Grid>
+            ) : (
+              <Typography variant="body1">Nothing Found</Typography>
+            )}
+          </Container>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }
 
@@ -31,7 +46,7 @@ export const getServerSideProps = async (context) => {
   let products = undefined;
   const searchTerm = Object.values(context.query)[0];
 
-  products = await cmsClient.fetch(`*[[_type, name] match "${searchTerm}"]`);
+  products = await sanityClient.fetch(`*[[_type, name] match "${searchTerm}"]`);
 
   // * some other search methods that could be implemented later on
   // const queryDescription = await cmsClient.fetch(

@@ -1,11 +1,14 @@
-import React from "react";
 import Head from "next/head";
 import prisma from "../lib/prisma";
-import OrderCard from "../components/ui/OrderCard";
 import { useSession, getSession } from "next-auth/react";
-import styles from "../styles/Account.module.css";
 
-export default function Orders({ userData, userOrders }) {
+// material ui
+import { Typography, Container, Grid, Button } from "@mui/material";
+
+// components
+import OrderCard from "../components/ui/OrderCard";
+
+export default function Orders({ userOrders }) {
   const { data: session } = useSession({ required: true });
 
   // load previous orders associated with the account
@@ -15,28 +18,45 @@ export default function Orders({ userData, userOrders }) {
     ));
   };
 
+  // If session exists, display content
   if (session) {
     return (
-      <div className={styles.container}>
+      <>
         <Head>
           <title>Golf Now | Orders</title>
           <meta name="description" content="Golf Products" />
           <link rel="icon" href="/golf-ball-icon.png" />
         </Head>
 
-        <main className={styles.main}>
-          <h1>Order History</h1>
-          {loadOrders(userOrders)}
+        <main>
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
+              Order History
+            </Typography>
+            <Container>
+              {userOrders.length >= 1 ? (
+                <Grid container spacing={4}>
+                  {loadOrders(userOrders)}
+                </Grid>
+              ) : (
+                <Typography variant="body1">No Previous Orders</Typography>
+              )}
+            </Container>
+          </Container>
         </main>
-      </div>
+      </>
     );
   }
 
   // show this if user is not logged in
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Typography variant="h1" color="error" gutterbottom>
+          Not signed in
+        </Typography>
+        <Button onClick={() => signIn()}>Sign in</Button>
+      </Container>
     </>
   );
 }
@@ -53,10 +73,17 @@ export const getServerSideProps = async (context) => {
     };
   }
 
+  // get user information
+  const userData = await prisma.user.findUnique({
+    where: {
+      email: session.user.email,
+    },
+  });
+
   // get user orders
   const userOrders = await prisma.order.findMany({
     where: {
-      userId: session.user.id,
+      userId: userData.id,
     },
   });
 

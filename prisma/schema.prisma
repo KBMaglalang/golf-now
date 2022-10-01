@@ -50,6 +50,20 @@ model Order {
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Favorite {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  productSKU      String
+  productName     String
+  productSanityId String
+  productType     String
+  removed         Boolean
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -67,6 +81,7 @@ model User {
   accounts Account[]
   sessions Session[]
   orders   Order[]
+  Favorite Favorite[]
 }
 
 model VerificationToken {

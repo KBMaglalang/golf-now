@@ -36,7 +36,6 @@
 .productQuantity {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
 }
 
 .productQuantity > span{
