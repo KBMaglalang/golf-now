@@ -19,7 +19,7 @@
     "@next-auth/prisma-adapter": "^1.0.4",
     "@popperjs/core": "^2.11.6",
     "@portabletext/react": "^1.0.6",
-    "@prisma/client": "^4.3.1",
+    "@prisma/client": "^4.4.0",
     "@sanity/cli": "^2.30.2",
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
