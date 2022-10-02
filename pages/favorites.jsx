@@ -4,10 +4,11 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 
 // material ui
-import { Typography, Container, Grid, Button, Box } from "@mui/material";
+import { Typography, Container, Grid, Button } from "@mui/material";
 
 // components
 import FavoriteCard from "../components/layout/FavoriteCard";
+import NotSignedIn from "../components/layout/NotSignedIn";
 
 export default function Favorites({ userFavorites }) {
   const { data: session } = useSession({ required: true });
@@ -46,38 +47,7 @@ export default function Favorites({ userFavorites }) {
   }
 
   // show this if user is not logged in
-  return (
-    <>
-      <Head>
-        <title>Golf Now | Not Signed In</title>
-        <meta name="description" content="Golf Products" />
-        <link rel="icon" href="/golf-ball-icon.png" />
-      </Head>
-
-      <main>
-        <Container maxWidth="lg" sx={{ my: 4 }}>
-          <Grid
-            container
-            direction={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            spacing={4}
-          >
-            <Grid item>
-              <Typography variant="h3" color="error" gutterBottom>
-                Not signed in
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" onClick={() => signIn()}>
-                Sign in
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
-    </>
-  );
+  return <NotSignedIn />;
 }
 
 export const getServerSideProps = async (context) => {
