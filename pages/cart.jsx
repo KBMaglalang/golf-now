@@ -3,11 +3,13 @@ import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 export default function Cart() {
   const { cartItems } = useStateContext();
+  const router = useRouter();
 
   // list items in the cart
   const listCartItems = (items) => {
@@ -32,7 +34,13 @@ export default function Cart() {
   };
 
   const handleCheckout = async () => {
-    toast.loading("Redirecting...");
+    // ! for deployment purposes only
+    if (process.env.NODE_ENV === "production") {
+      router.push("/success");
+      return;
+    }
+
+    const toastNotification = toast.loading("Redirecting...");
 
     // process the order with stripe
     const stripe = await getStripe();
