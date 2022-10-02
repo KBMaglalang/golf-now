@@ -40,7 +40,7 @@ export default function Cart() {
       return;
     }
 
-    const toastNotification = toast.loading("Redirecting...");
+    toast.loading("Redirecting...");
 
     // process the order with stripe
     const stripe = await getStripe();
@@ -103,6 +103,11 @@ export default function Cart() {
                   >
                     Pay with Stripe
                   </Button>
+                  {process.env.NODE_ENV === "production" && (
+                    <Typography variant="subtitle1" color="error">
+                      Redirection to Stripe Page Disabled for Deployment
+                    </Typography>
+                  )}
                 </Box>
               </>
             ) : (
