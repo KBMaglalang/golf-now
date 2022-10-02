@@ -13,6 +13,9 @@ import {
   Card,
 } from "@mui/material";
 
+// components
+import NotSignedIn from "../components/layout/NotSignedIn";
+
 export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
 
@@ -148,16 +151,7 @@ export default function Account({ userData }) {
   }
 
   // show this if user is not logged in
-  return (
-    <>
-      <Container maxWidth="lg">
-        <Typography variant="h1" color="error">
-          Not signed in
-        </Typography>
-        <Button onClick={() => signIn()}>Sign in</Button>
-      </Container>
-    </>
-  );
+  return <NotSignedIn />;
 }
 
 export const getServerSideProps = async (context) => {

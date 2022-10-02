@@ -6,7 +6,7 @@ import Link from "next/link";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Container, Grid, Button } from "@mui/material";
+import { CardActionArea, Grid, Button, Box } from "@mui/material";
 
 export default function FavoriteCard({ favorites }) {
   const router = useRouter();
@@ -46,9 +46,16 @@ export default function FavoriteCard({ favorites }) {
             </CardContent>
           </CardActionArea>
         </Link>
-        <Container>
-          <Button onClick={handleFavoriteDelete}>Remove</Button>
-        </Container>
+        <Box>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleFavoriteDelete}
+            fullWidth
+          >
+            Remove
+          </Button>
+        </Box>
       </Card>
     </Grid>
   );
