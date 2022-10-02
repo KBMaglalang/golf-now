@@ -19,6 +19,12 @@ const Success = () => {
     if (!router.isReady) return;
     if (!router.query?.session_id) return;
 
+    // ! for deployment purposes only
+    if (process.env.NODE_ENV === "production") {
+      runFireworks();
+      return;
+    }
+
     // get stripe checkout information
     const stripeResponse = await fetch(
       `/api/stripe/orders?key=${router.query.session_id}`,
