@@ -4,7 +4,7 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 
 // material ui
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 // components
 import FavoriteCard from "../components/layout/FavoriteCard";
@@ -48,12 +48,34 @@ export default function Favorites({ userFavorites }) {
   // show this if user is not logged in
   return (
     <>
-      <Container maxWidth="lg" sx={{ my: 4 }}>
-        <Typography variant="h1" color="error" gutterBottom>
-          Not signed in
-        </Typography>
-        <Button onClick={() => signIn()}>Sign in</Button>
-      </Container>
+      <Head>
+        <title>Golf Now | Not Signed In</title>
+        <meta name="description" content="Golf Products" />
+        <link rel="icon" href="/golf-ball-icon.png" />
+      </Head>
+
+      <main>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Grid
+            container
+            direction={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            spacing={4}
+          >
+            <Grid item>
+              <Typography variant="h3" color="error" gutterBottom>
+                Not signed in
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" onClick={() => signIn()}>
+                Sign in
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </main>
     </>
   );
 }
