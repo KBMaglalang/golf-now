@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
+import Head from "next/head";
 import Link from "next/link";
-import { BsBagCheckFill } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useStateContext } from "../context/StateContext";
 import { runFireworks } from "../lib/fireworks";
 import { useSession } from "next-auth/react";
-import styles from "../styles/Home.module.css";
-import payStyles from "../styles/Payment.module.css";
-import Head from "next/head";
+
+// material ui
+import { Typography, Container, Grid, Button } from "@mui/material";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 const Success = () => {
   const router = useRouter();
@@ -17,6 +18,12 @@ const Success = () => {
   const processData = async () => {
     if (!router.isReady) return;
     if (!router.query?.session_id) return;
+
+    // ! for deployment purposes only
+    if (process.env.NODE_ENV === "production") {
+      runFireworks();
+      return;
+    }
 
     // get stripe checkout information
     const stripeResponse = await fetch(
@@ -84,29 +91,36 @@ const Success = () => {
   }, [session]); // ! this may not be necessary when actually deployed
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Golf Now - Payment Success</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <div className={payStyles.wrapper}>
-          <span className={payStyles.icon}>
-            <BsBagCheckFill />
-          </span>
-          <div className={payStyles.success}>
-            <h2>Thank you for your order!</h2>
-          </div>
+      <main>
+        <Container
+          maxWidth="lg"
+          sx={{
+            my: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <LocalMallIcon fontSize="large" sx={{ mb: 2 }} />
+
+          <Typography variant="h1" gutterBottom>
+            Thank you for your order!
+          </Typography>
+
           <Link href="/">
-            <button type="button" width="300px" className={payStyles.btn}>
-              Continue Shopping
-            </button>
+            <Button variant="contained">Continue Shopping</Button>
           </Link>
-        </div>
+        </Container>
       </main>
-    </div>
+    </>
   );
 };
 

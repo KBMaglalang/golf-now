@@ -2,33 +2,60 @@ import styles from "./Card.module.css";
 import Link from "next/link";
 import { urlForImage } from "../../lib/sanity";
 
-export default function Card({ product }) {
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
+
+export default function ProductCard({ product }) {
   return (
-    <div className={styles.card}>
+    <Grid item>
       <Link href={`/products/${product?._type}/${product?.slug.current}`}>
-        <a>
-          <div>
-            <img
-              src={urlForImage(product?.image && product?.image[0])}
-              width={"100%"}
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
               height={"auto"}
-              object-fit={"contain"}
+              width={"100%"}
+              image={urlForImage(product?.image && product?.image[0])
+                .width(345)
+                .url()}
               alt={`${product?._type}-${product?.slug.current}`}
             />
-          </div>
-          <div className={styles.brand}>{product?.brand?.title}</div>
-          <h3>{product?.name}</h3>
-          {product?.stock > 0 && <label>${product?.price}</label>}
-          {!product?.stock && (
-            <div>
-              <label
-                className={!product?.stock && styles.strike}
-              >{`$${product?.price}`}</label>
-              <label> SOLD OUT</label>
-            </div>
-          )}
-        </a>
+            <CardContent>
+              <Typography variant="subtitle2" gutterBottom>
+                {product?.brand?.title}
+              </Typography>
+              <Typography variant="h5" color="primary" noWrap gutterBottom>
+                {product?.name}
+              </Typography>
+              {product?.stock > 0 && (
+                <Typography variant="h6">${product?.price}</Typography>
+              )}
+              {!product?.stock && (
+                <Box>
+                  <Typography
+                    variant="h5"
+                    className={!product?.stock && styles.strike}
+                    sx={{ display: "inline", mr: 2 }}
+                  >
+                    {`$${product?.price}`}
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    color="error"
+                    sx={{ display: "inline" }}
+                  >
+                    SOLD OUT
+                  </Typography>
+                </Box>
+              )}
+            </CardContent>
+          </CardActionArea>
+        </Card>
       </Link>
-    </div>
+    </Grid>
   );
 }

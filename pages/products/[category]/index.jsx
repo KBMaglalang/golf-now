@@ -1,24 +1,37 @@
-import Card from "../../../components/ui/Card";
-import Image from "next/image";
-import { sanityClient } from "../../../lib/sanity.server";
 import Head from "next/head";
-import styles from "../../../styles/Category.module.css";
-import { useRouter } from "next/router";
-import BrandCard from "../../../components/ui/BrandCard";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { sanityClient } from "../../../lib/sanity.server";
+
+// material ui
+import { Typography, Container, Grid } from "@mui/material";
+
+// components
+import BrandCard from "../../../components/ui/BrandCard";
+import ProductCard from "../../../components/ui/Card";
 
 export default function ClubsBase({ products }) {
   const [productList, setProductList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   const router = useRouter();
-  const categoryName =
-    router?.query?.category.charAt(0).toUpperCase() +
-    router?.query?.category.slice(1);
 
   useEffect(() => {
     setProductList(products);
     setSelectedBrand("");
   }, [products]);
+
+  const toUpperCaseWords = () => {
+    if (!router?.query?.category) return;
+
+    return router?.query?.category
+      .split("-")
+      .map((e) => {
+        return e.charAt(0).toUpperCase() + e.slice(1);
+      })
+      .join(" ");
+  };
+
+  const categoryName = toUpperCaseWords();
 
   // get products from a specific brand
   const getProducts = async (brandId) => {
@@ -43,12 +56,12 @@ export default function ClubsBase({ products }) {
       ));
     }
     return products.map((product) => (
-      <Card key={product._id} product={product} />
+      <ProductCard key={product._id} product={product} />
     ));
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         {categoryName && <title>{`Golf Now | ${categoryName}`}</title>}
         {!router?.query?.category && <title>{`Golf Now`}</title>}
@@ -56,24 +69,26 @@ export default function ClubsBase({ products }) {
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        {selectedBrand && (
-          <h1 className={styles.categoryTitle}>
-            {categoryName} | {selectedBrand}
-          </h1>
-        )}
-        {!selectedBrand && (
-          <h1 className={styles.categoryTitle}>{categoryName}</h1>
-        )}
-
-        {!router.query.category.includes("brand") && (
-          <div className={styles.filterContainer}></div>
-        )}
-        <div className={styles.productsContainer}>
-          {listProducts(productList)}
-        </div>
+      <main>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          {selectedBrand && (
+            <Typography variant="h3" color="primary" gutterBottom>
+              {categoryName} | {selectedBrand}
+            </Typography>
+          )}
+          {!selectedBrand && (
+            <Typography variant="h3" color="primary" gutterBottom>
+              {categoryName}
+            </Typography>
+          )}
+          <Container>
+            <Grid container spacing={4}>
+              {listProducts(productList)}
+            </Grid>
+          </Container>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }
 

@@ -3,10 +3,13 @@ import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
 import getStripe from "../lib/stripe";
 import toast from "react-hot-toast";
-import styles from "../styles/Product.module.css";
+import { useRouter } from "next/router";
+
+import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 export default function Cart() {
   const { cartItems } = useStateContext();
+  const router = useRouter();
 
   // list items in the cart
   const listCartItems = (items) => {
@@ -14,8 +17,7 @@ export default function Cart() {
       return;
     }
 
-    const temp = items.map((e) => <CartItem key={e._id} product={e} />);
-    return temp;
+    return items.map((e) => <CartItem key={e._id} product={e} />);
   };
 
   // calculate cart total
@@ -32,7 +34,13 @@ export default function Cart() {
   };
 
   const handleCheckout = async () => {
-    toast.loading("Redirecting...");
+    // ! for deployment purposes only
+    if (process.env.NODE_ENV === "production") {
+      router.push("/success");
+      return;
+    }
+
+    const toastNotification = toast.loading("Redirecting...");
 
     // process the order with stripe
     const stripe = await getStripe();
@@ -50,38 +58,59 @@ export default function Cart() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>{`Golf Now | Cart`}</title>
         <meta name="description" content="Golf Products" />
         <link rel="icon" href="/golf-ball-icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <h1>{`Your Cart ${
-          cartItems.length ? `(${cartItems.length}) ` : ""
-        }`}</h1>
+      <main>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
+          <Typography variant="h3" color="primary" gutterBottom>
+            {`Your Cart ${cartItems.length ? `(${cartItems.length}) ` : ""}`}
+          </Typography>
 
-        {!cartItems.length && <span>Cart is Empty</span>}
+          <Container>
+            {cartItems.length >= 1 ? (
+              <>
+                <Grid
+                  container
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                  spacing={4}
+                >
+                  {listCartItems(cartItems)}
+                </Grid>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent="flex-end"
+                  alignItems="flex-end"
+                >
+                  <Typography
+                    variant="h4"
+                    color="primary"
+                    sx={{ my: 2 }}
+                  >{`Subtotal: $${getTotal(cartItems)}`}</Typography>
 
-        <div>{listCartItems(cartItems)}</div>
-
-        {!!cartItems.length && (
-          <div className={styles.productImagesContainer}>
-            <h1>{`Cart Total: $${getTotal(cartItems)}`}</h1>
-
-            <div>
-              <button
-                type="button"
-                className={styles.addToCartButton}
-                onClick={handleCheckout}
-              >
-                Pay with Stripe
-              </button>
-            </div>
-          </div>
-        )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCheckout}
+                  >
+                    Pay with Stripe
+                  </Button>
+                </Box>
+              </>
+            ) : (
+              <Typography variant="body1">Cart is Empty</Typography>
+            )}
+          </Container>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }

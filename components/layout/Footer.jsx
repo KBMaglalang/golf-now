@@ -1,75 +1,77 @@
+import React from "react";
 import Link from "next/link";
-import React, { Fragment } from "react";
-import {
-  AiFillFacebook,
-  AiFillTwitterCircle,
-  AiFillInstagram,
-  AiFillYoutube,
-} from "react-icons/ai";
-import styles from "./Footer.module.css";
+
+// Material UI components
+import { Typography, IconButton, Box } from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 export default function FooterBar() {
   return (
-    <Fragment>
-      <div className={styles.footerCustomerContainer}>
-        <h2>Customer Care</h2>
-        <ul>
-          <li>
-            <Link href="/contact-us">Contact Us</Link>
-          </li>
-          <li>
-            <Link href="/returns">Returns & Refunds</Link>
-          </li>
-          <li>
-            <Link href="/shipping">Shipping Policies</Link>
-          </li>
-        </ul>
-      </div>
-      <div className={styles.footerAboutUsContainer}>
-        <h2>About Us</h2>
-        <ul>
-          <li>
-            <Link href="/about">About Us</Link>
-          </li>
-          <li>
-            <Link href="/careers">Careers</Link>
-          </li>
-          <li>
-            <Link href="/policy">Privacy Policy</Link>
-          </li>
-          <li>
-            <Link href="/accessibility">Accessibility</Link>
-          </li>
-          <li>
-            <Link href="/terms-conditions">Terms & Conditions</Link>
-          </li>
-        </ul>
-      </div>
-      <div className={styles.footerConnectContainer}>
-        <h2>Connect With Us</h2>
-        <ul>
-          <li>
-            <a href="https://www.facebook.com/">
-              <AiFillFacebook className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.twitter.com/">
-              <AiFillTwitterCircle className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/">
-              <AiFillInstagram className={styles.logo} />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.youtube.com/">
-              <AiFillYoutube className={styles.logo} />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </Fragment>
+    <>
+      <Box>
+        <Typography variant="h5" color="primary">
+          Customer Care
+        </Typography>
+        <Link href="/contact-us">
+          <Typography variant="body1">Contact Us</Typography>
+        </Link>
+        <Link href="/returns">
+          <Typography variant="body1">Returns & Refunds</Typography>
+        </Link>
+        <Link href="/shipping">
+          <Typography variant="body1">Shipping Policies</Typography>
+        </Link>
+      </Box>
+      <Box>
+        <Typography variant="h5" color="primary">
+          About Us
+        </Typography>
+
+        <Link href="/about">
+          <Typography variant="body1">About Us</Typography>
+        </Link>
+        <Link href="/careers">
+          <Typography variant="body1">Careers</Typography>
+        </Link>
+        <Link href="/policy">
+          <Typography variant="body1">Privacy Policy</Typography>
+        </Link>
+        <Link href="/accessibility">
+          <Typography variant="body1">Accessibility</Typography>
+        </Link>
+        <Link href="/terms-conditions">
+          <Typography variant="body1">Terms & Conditions</Typography>
+        </Link>
+      </Box>
+      <Box>
+        <Typography variant="h5" color="primary">
+          Connect With Us
+        </Typography>
+
+        <a href="https://www.facebook.com/">
+          <IconButton aria-label="facebook">
+            <FacebookIcon fontSize="large" />
+          </IconButton>
+        </a>
+        <a href="https://www.twitter.com/">
+          <IconButton aria-label="twitter">
+            <TwitterIcon fontSize="large" />
+          </IconButton>
+        </a>
+        <a href="https://www.instagram.com/">
+          <IconButton aria-label="instagram">
+            <InstagramIcon fontSize="large" />
+          </IconButton>
+        </a>
+        <a href="https://www.youtube.com/">
+          <IconButton aria-label="youtube">
+            <YouTubeIcon fontSize="large" />
+          </IconButton>
+        </a>
+      </Box>
+    </>
   );
 }

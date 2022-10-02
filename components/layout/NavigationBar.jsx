@@ -1,106 +1,83 @@
-import React, { Fragment } from "react";
-import Link from "next/link";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useRouter } from "next/router";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { AiOutlineRight } from "react-icons/ai";
-import styles from "./NavigationBar.module.css";
+import React from "react";
+import { useSession, signIn } from "next-auth/react";
+import { useStateContext } from "../../context/StateContext";
+
+// Material UI components
+import Link from "@mui/material/Link";
+import {
+  Typography,
+  Toolbar,
+  AppBar,
+  Container,
+  IconButton,
+  Box,
+  Badge,
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import GolfCourseIcon from "@mui/icons-material/GolfCourse";
+
+// Custom Components
+import CategoryBar from "./CategoryBar";
+import LoginProfileButton from "./LoginProfileButton";
+import SearchBar from "./SearchBar";
 
 export default function NavigationBar() {
   const { data: session } = useSession();
-  const router = useRouter();
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-
-    router.push(`/search?=${encodeURIComponent(event.target.search.value)}`);
-  };
+  const { cartItems } = useStateContext();
 
   return (
-    <Fragment>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <Link href="/">Golf Now</Link>
-        </div>
-
-        <form className="searchForm" onSubmit={handleSearch} role="search">
-          <label htmlFor="search">Search for stuff</label>
-          <input
-            id="search"
-            type="search"
-            placeholder="Search..."
-            autoFocus
-            required
-          />
-          <button type="submit">
-            <AiOutlineRight />
-          </button>
-        </form>
-
-        <nav>
-          <ul>
-            {session && (
-              <li>
-                <div className={styles.dropdown}>
-                  <button className={styles.dropbtn}>
-                    {session.user?.name
-                      ? session.user.name
-                      : session.user.email}
-                  </button>
-                  <div className={styles.dropdownContent}>
-                    <a href="/account">Account</a>
-                    <a href="/orders">Orders</a>
-                    <a href="/favorites">Favorites</a>
-                    <a onClick={() => signOut()}>Sign Out</a>
-                  </div>
-                </div>
-              </li>
-            )}
-            {!session && (
-              <li onClick={() => signIn()}>
-                <div className={styles.dropdown}>
-                  <button className={styles.dropbtn}>Log In / Sign Up</button>
-                </div>
-              </li>
-            )}
-
-            <li>
-              <Link href="/cart">
-                <div>
-                  <AiOutlineShoppingCart className={styles.cart} alt="cart" />
-                </div>
+    <>
+      <AppBar position="relative" color="primary">
+        <Toolbar>
+          <Container
+            maxWidth="xl"
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+            }}
+          >
+            <Box>
+              <Link href="/">
+                <Typography variant="h5" color="secondary.contrastText" noWrap>
+                  <GolfCourseIcon />
+                  Golf Now
+                </Typography>
               </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div>
-        <nav className={styles.navigation}>
-          <ul>
-            <li>
-              <a href="/products/clubs">Clubs</a>
-            </li>
-            <li>
-              <a href="/products/balls">Balls</a>
-            </li>
-            <li>
-              <a href="/products/shoes">Shoes</a>
-            </li>
-            <li>
-              <a href="/products/clothing">Clothing</a>
-            </li>
-            <li>
-              <a href="/products/bag-carts">Bags & Carts</a>
-            </li>
-            <li>
-              <a href="/products/golf-tech">Golf Tech</a>
-            </li>
-            <li>
-              <a href="/products/brand">Brand</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </Fragment>
+            </Box>
+
+            <Box sx={{ flexGrow: 1 }}>
+              <SearchBar />
+            </Box>
+
+            <Box>
+              {session && <LoginProfileButton />}
+              {!session && (
+                <IconButton aria-label="login" onClick={signIn}>
+                  <LoginOutlinedIcon />
+                </IconButton>
+              )}
+
+              <Link href="/cart">
+                <IconButton aria-label="cart">
+                  {cartItems.length >= 1 ? (
+                    <Badge color="error" variant="dot">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  ) : (
+                    <ShoppingCartIcon />
+                  )}
+                </IconButton>
+              </Link>
+            </Box>
+          </Container>
+        </Toolbar>
+      </AppBar>
+      <AppBar position="relative" color="categoryBar">
+        <CategoryBar />
+      </AppBar>
+    </>
   );
 }

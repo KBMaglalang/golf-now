@@ -1,30 +1,50 @@
 import React from "react";
-import styles from "./OrderCard.module.css";
+
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Container, Grid, Box } from "@mui/material";
 
 export default function OrderCard({ product }) {
   return (
-    <div className={styles.card}>
-      <div className={styles.block}>
-        <span className={styles.title}>{product.createdAt.split("T")[0]}</span>
-        <span className={styles.date}>{product.createdAt.split("T")[1]}</span>
-      </div>
-      <span className={styles.productName}>{product.productName}</span>
-      <div className={styles.block}>
-        <span className={styles.title}>Quantity</span>
-        <span>{product.quantity}</span>
-      </div>
-      <div className={styles.block}>
-        <span className={styles.title}>Total</span>
-        <span>
-          {`$${((product.productSubTotal * product.quantity) / 100).toFixed(
-            2
-          )}`}
-        </span>
-      </div>
-      <div className={styles.block}>
-        <span className={styles.title}>Order Status</span>
-        <span>{product.status}</span>
-      </div>
-    </div>
+    <Grid item>
+      <Card sx={{ width: 345 }}>
+        <CardContent>
+          <Typography variant="h5" color="primary" noWrap gutterBottom>
+            {product.productName}
+          </Typography>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              Order Date:
+            </Typography>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              {product.createdAt.split("T")[0]}
+            </Typography>
+            <Typography sx={{ display: "inline" }}>
+              {product.createdAt.split("T")[1].slice(0, 5)}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>Quantity:</Typography>
+            <Typography sx={{ display: "inline" }}>
+              {product.quantity}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>Total:</Typography>
+            <Typography sx={{ display: "inline" }}>{`$${(
+              (product.productSubTotal * product.quantity) /
+              100
+            ).toFixed(2)}`}</Typography>
+          </Box>
+          <Box>
+            <Typography sx={{ display: "inline", mr: 1 }}>
+              Order Status:
+            </Typography>
+            <Typography sx={{ display: "inline" }}>{product.status}</Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }

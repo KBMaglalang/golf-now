@@ -1,10 +1,17 @@
-import React from "react";
 import Head from "next/head";
-import styles from "../styles/Account.module.css";
 import { useSession, getSession } from "next-auth/react";
-import prisma from "../lib/prisma";
-import InputBox from "../components/ui/InputBox";
 import toast from "react-hot-toast";
+import prisma from "../lib/prisma";
+
+// material ui
+import {
+  Typography,
+  Container,
+  Grid,
+  Button,
+  TextField,
+  Card,
+} from "@mui/material";
 
 export default function Account({ userData }) {
   const { data: session } = useSession({ required: true });
@@ -40,60 +47,101 @@ export default function Account({ userData }) {
   // If session exists, display content
   if (session) {
     return (
-      <div className={styles.container}>
+      <div>
         <Head>
           <title>Golf Now | Account</title>
           <meta name="description" content="Golf Products" />
           <link rel="icon" href="/golf-ball-icon.png" />
         </Head>
 
-        <main className={styles.main}>
-          <h1>Account Information</h1>
-          <form onSubmit={updateUser} className={styles.form}>
-            <InputBox
-              inputTitle="Name"
-              inputId="name"
-              inputDefaultValue={userData?.name}
-            />
-            <InputBox
-              inputTitle="Phone Number"
-              inputId="phoneNumber"
-              inputDefaultValue={userData.phoneNumber}
-            />
-            <InputBox
-              inputTitle="Address 1"
-              inputId="address1"
-              inputDefaultValue={userData.address1}
-            />
-            <InputBox
-              inputTitle="Address 2"
-              inputId="address2"
-              inputDefaultValue={userData.address2}
-            />
-            <InputBox
-              inputTitle="City"
-              inputId="city"
-              inputDefaultValue={userData.city}
-            />
-            <InputBox
-              inputTitle="State/Province"
-              inputId="stateProvince"
-              inputDefaultValue={userData.stateProvince}
-            />
-            <InputBox
-              inputTitle="Country"
-              inputId="country"
-              inputDefaultValue={userData.country}
-            />
-            <InputBox
-              inputTitle="Postal Code"
-              inputId="postalCode"
-              inputDefaultValue={userData.postalCode}
-            />
-            <button className={styles.updateAccountButton} type="submit">
-              Update Account
-            </button>
-          </form>
+        <main>
+          <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Typography variant="h3" color="primary" gutterBottom>
+              Account Information
+            </Typography>
+
+            <form onSubmit={updateUser}>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <TextField
+                    id="name"
+                    label="Name"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData?.name}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="phoneNumber"
+                    label="Phone Number"
+                    type="tel"
+                    fullWidth
+                    defaultValue={userData.phoneNumber}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="address1"
+                    label="Address 1"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.address1}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="address2"
+                    label="Address 2"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.address2}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="city"
+                    label="City"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.city}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="stateProvince"
+                    label="State/Province"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.stateProvince}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="country"
+                    label="Country"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.country}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="postalCode"
+                    label="Postal Code"
+                    type="text"
+                    fullWidth
+                    defaultValue={userData.postalCode}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" type="submit" fullWidth>
+                    Update Account
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Container>
         </main>
       </div>
     );
@@ -102,8 +150,12 @@ export default function Account({ userData }) {
   // show this if user is not logged in
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Container maxWidth="lg">
+        <Typography variant="h1" color="error">
+          Not signed in
+        </Typography>
+        <Button onClick={() => signIn()}>Sign in</Button>
+      </Container>
     </>
   );
 }
