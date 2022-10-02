@@ -92,7 +92,37 @@ export default function ClubsBase({ products }) {
   );
 }
 
-export const getServerSideProps = async ({ params: { category } }) => {
+// export const getServerSideProps = async ({ params: { category } }) => {
+//   let products = undefined;
+//   if (category === "brand") {
+//     products = await sanityClient.fetch(`*[_type == "${category}"]`);
+//   } else {
+//     products = await sanityClient.fetch(
+//       `*[_type == "${category}"]{..., brand->{_id,title}}`
+//     );
+//   }
+
+//   return {
+//     props: { products },
+//   };
+// };
+
+export const getStaticPaths = async () => {
+  // ? I would need to get both the type and the product sku
+  const products = await sanityClient.fetch(`*[_type == "${category}"]`);
+
+  return {
+    paths: products.map((product) => ({
+      params: {
+        category: product._type,
+        slug: product.slug.current,
+      },
+    })),
+    fallback: false, // can also be true or 'blocking'
+  };
+};
+
+export const getStaticProps = async () => {
   let products = undefined;
   if (category === "brand") {
     products = await sanityClient.fetch(`*[_type == "${category}"]`);
@@ -104,5 +134,6 @@ export const getServerSideProps = async ({ params: { category } }) => {
 
   return {
     props: { products },
+    revalidate: 10,
   };
 };

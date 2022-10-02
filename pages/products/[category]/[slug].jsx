@@ -284,11 +284,29 @@ export default function ClubsDetails({ product }) {
   );
 }
 
-export const getServerSideProps = async (context) => {
+// export const getServerSideProps = async (context) => {
+//   const product = await sanityClient.fetch(
+//     `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}']{..., brand->{_id,title}}[0]`
+//   );
+//   return {
+//     props: { product },
+//   };
+// };
+
+// // Generates `/posts/1` and `/posts/2`
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+//     fallback: false, // can also be true or 'blocking'
+//   };
+// };
+
+export const getStaticProps = async () => {
   const product = await sanityClient.fetch(
     `*[_type == "${context.query.category}" && slug.current == '${context.query.slug}']{..., brand->{_id,title}}[0]`
   );
   return {
     props: { product },
+    revalidate: 10,
   };
 };

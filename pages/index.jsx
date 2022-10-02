@@ -78,3 +78,27 @@ export const getServerSideProps = async () => {
     props: { allProducts },
   };
 };
+
+// // Generates `/posts/1` and `/posts/2`
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
+//     fallback: false, // can also be true or 'blocking'
+//   };
+// };
+
+// export const getStaticProps = async () => {
+//   // get products from sanity
+//   const allProducts = await sanityClient.fetch(
+//     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
+//   );
+
+//   for (let i = allProducts.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [allProducts[i], allProducts[j]] = [allProducts[j], allProducts[i]];
+//   }
+
+//   return {
+//     props: { allProducts },
+//   };
+// };
