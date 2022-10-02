@@ -40,7 +40,7 @@ export default function Cart() {
       return;
     }
 
-    const toastNotification = toast.loading("Redirecting...");
+    toast.loading("Redirecting...");
 
     // process the order with stripe
     const stripe = await getStripe();
