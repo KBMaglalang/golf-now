@@ -23,7 +23,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function ClubsDetails({ product }) {
+export default function ProductDetails({ product }) {
   const router = useRouter();
   const { data: session } = useSession();
   const { onAdd } = useStateContext();
