@@ -1,17 +1,13 @@
-import ProductCard from "../components/ui/Card";
 import Head from "next/head";
-import { sanityClient } from "../lib/sanity.server";
+import { sanityClient } from "../lib/sanity/sanity.server";
+
+// helper functions
+import { listProducts } from "../lib/helper/listProducts";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
 
 export default function search({ products }) {
-  const listProducts = (items) => {
-    return items.map((product) => (
-      <ProductCard key={product.sku} product={product} />
-    ));
-  };
-
   return (
     <>
       <Head>

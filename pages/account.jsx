@@ -1,17 +1,10 @@
 import Head from "next/head";
 import { useSession, getSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import prisma from "../lib/prisma";
+import prisma from "../lib/prisma/prisma";
 
 // material ui
-import {
-  Typography,
-  Container,
-  Grid,
-  Button,
-  TextField,
-  Card,
-} from "@mui/material";
+import { Typography, Container, Grid, Button, TextField } from "@mui/material";
 
 // components
 import NotSignedIn from "../components/layout/NotSignedIn";

@@ -1,37 +1,19 @@
 import Head from "next/head";
 import { useStateContext } from "../context/StateContext";
-import CartItem from "../components/ui/CartItem";
-import getStripe from "../lib/stripe";
+import getStripe from "../lib/stripe/stripe";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 
+// helper functions
+import { listCartItems } from "../lib/helper/listCartItems";
+import { getTotal } from "../lib/helper/getTotal";
+
+// material ui
 import { Typography, Container, Grid, Button, Box } from "@mui/material";
 
 export default function Cart() {
   const { cartItems } = useStateContext();
   const router = useRouter();
-
-  // list items in the cart
-  const listCartItems = (items) => {
-    if (!items?.length) {
-      return;
-    }
-
-    return items.map((e) => <CartItem key={e._id} product={e} />);
-  };
-
-  // calculate cart total
-  const getTotal = (items) => {
-    if (!items?.length) {
-      return;
-    }
-
-    const results = items
-      .reduce((p, c) => p + c.price * c.quantity, 0)
-      .toFixed(2);
-
-    return results;
-  };
 
   const handleCheckout = async () => {
     // ! for deployment purposes only

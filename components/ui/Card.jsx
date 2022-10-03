@@ -1,13 +1,13 @@
 import styles from "./Card.module.css";
 import Link from "next/link";
-import { urlForImage } from "../../lib/sanity";
+import { urlForImage } from "../../lib/sanity/sanity";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { Container, Grid, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (

@@ -1,35 +1,17 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { sanityClient } from "../../../lib/sanity.server";
+import { sanityClient } from "../../../lib/sanity/sanity.server";
+
+// helper functions
+import { toUpperCaseWords } from "../../../lib/helper/toUpperCaseWords";
+import { listProducts } from "../../../lib/helper/listProducts";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
 
-// components
-import ProductCard from "../../../components/ui/Card";
-
 export default function ClubsBase({ products }) {
   const router = useRouter();
-
-  const toUpperCaseWords = () => {
-    if (!router?.query?.category) return;
-
-    return router?.query?.category
-      .split("-")
-      .map((e) => {
-        return e.charAt(0).toUpperCase() + e.slice(1);
-      })
-      .join(" ");
-  };
-
-  const categoryName = toUpperCaseWords();
-
-  // list products associated with type or brand
-  const listProducts = () => {
-    return products.map((product) => (
-      <ProductCard key={product._id} product={product} />
-    ));
-  };
+  const categoryName = toUpperCaseWords(router);
 
   return (
     <>
@@ -48,7 +30,7 @@ export default function ClubsBase({ products }) {
 
           <Container>
             <Grid container spacing={4}>
-              {listProducts()}
+              {listProducts(products)}
             </Grid>
           </Container>
         </Container>

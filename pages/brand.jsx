@@ -1,14 +1,13 @@
 import React from "react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { sanityClient } from "../lib/sanity.server";
+import { sanityClient } from "../lib/sanity/sanity.server";
+
+// helper functions
+import { listBrandProducts } from "../lib/helper/listProducts";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
-
-// components
-import BrandCard from "../components/ui/BrandCard";
-import ProductCard from "../components/ui/Card";
 
 export default function Brand({ products }) {
   const [productList, setProductList] = useState([]);
@@ -33,19 +32,6 @@ export default function Brand({ products }) {
     setSelectedBrand(data.response[0].brand.title);
   };
 
-  // list products associated with type or brand
-  const listProducts = (items) => {
-    const isProductsBrands = productList?.filter((e) => e._type === "brand");
-    if (isProductsBrands.length) {
-      return items.map((product) => (
-        <BrandCard key={product._id} brand={product} handler={getProducts} />
-      ));
-    }
-    return items.map((product) => (
-      <ProductCard key={product._id} product={product} />
-    ));
-  };
-
   return (
     <>
       <Head>
@@ -68,7 +54,7 @@ export default function Brand({ products }) {
           )}
           <Container>
             <Grid container spacing={4}>
-              {listProducts(productList)}
+              {listBrandProducts(productList, getProducts)}
             </Grid>
           </Container>
         </Container>
@@ -77,7 +63,7 @@ export default function Brand({ products }) {
   );
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async () => {
   const products = await sanityClient.fetch(`*[_type == "brand"]`);
 
   return {
