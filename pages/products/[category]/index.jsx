@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { sanityClient } from "../../../lib/sanity.server";
 
@@ -7,18 +6,10 @@ import { sanityClient } from "../../../lib/sanity.server";
 import { Typography, Container, Grid } from "@mui/material";
 
 // components
-import BrandCard from "../../../components/ui/BrandCard";
 import ProductCard from "../../../components/ui/Card";
 
 export default function ClubsBase({ products }) {
-  const [productList, setProductList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState("");
   const router = useRouter();
-
-  useEffect(() => {
-    setProductList(products);
-    setSelectedBrand("");
-  }, [products]);
 
   const toUpperCaseWords = () => {
     if (!router?.query?.category) return;
@@ -33,28 +24,8 @@ export default function ClubsBase({ products }) {
 
   const categoryName = toUpperCaseWords();
 
-  // get products from a specific brand
-  const getProducts = async (brandId) => {
-    const sanityData = await fetch(`/api/sanityUpdate?id=${brandId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (sanityData.statusCode === 500) return;
-    const data = await sanityData.json();
-    setProductList(data.response);
-    setSelectedBrand(data.response[0].brand.title);
-  };
-
   // list products associated with type or brand
-  const listProducts = (products) => {
-    const isProductsBrands = productList?.filter((e) => e._type === "brand");
-    if (router.query.category.includes("brand") && isProductsBrands.length) {
-      return products.map((product) => (
-        <BrandCard key={product._id} brand={product} handler={getProducts} />
-      ));
-    }
+  const listProducts = () => {
     return products.map((product) => (
       <ProductCard key={product._id} product={product} />
     ));
@@ -71,19 +42,13 @@ export default function ClubsBase({ products }) {
 
       <main>
         <Container maxWidth="lg" sx={{ my: 4 }}>
-          {selectedBrand && (
-            <Typography variant="h3" color="primary" gutterBottom>
-              {categoryName} | {selectedBrand}
-            </Typography>
-          )}
-          {!selectedBrand && (
-            <Typography variant="h3" color="primary" gutterBottom>
-              {categoryName}
-            </Typography>
-          )}
+          <Typography variant="h3" color="primary" gutterBottom>
+            {categoryName}
+          </Typography>
+
           <Container>
             <Grid container spacing={4}>
-              {listProducts(productList)}
+              {listProducts()}
             </Grid>
           </Container>
         </Container>
@@ -93,7 +58,6 @@ export default function ClubsBase({ products }) {
 }
 
 export const getStaticPaths = async () => {
-  // ? I would need to get both the type and the product sku
   const products = await sanityClient.fetch(
     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
   );
