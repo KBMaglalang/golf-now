@@ -1,4 +1,3 @@
-import styles from "./Card.module.css";
 import Link from "next/link";
 import { urlForImage } from "../../lib/sanity/sanity";
 
@@ -38,8 +37,11 @@ export default function ProductCard({ product }) {
                 <Box>
                   <Typography
                     variant="h5"
-                    className={!product?.stock && styles.strike}
-                    sx={{ display: "inline", mr: 2 }}
+                    sx={{
+                      display: "inline",
+                      mr: 2,
+                      textDecoration: "line-through",
+                    }}
                   >
                     {`$${product?.price}`}
                   </Typography>
