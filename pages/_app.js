@@ -1,6 +1,4 @@
 import "../styles/globals.css";
-import "../styles/InputBox.scss";
-import "../styles/SearchBox.scss";
 
 import Layout from "../components/layout/Layout";
 import PropTypes from "prop-types";
