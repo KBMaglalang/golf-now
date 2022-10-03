@@ -1,9 +1,9 @@
 import Head from "next/head";
-import prisma from "../lib/prisma";
+import prisma from "../lib/prisma/prisma";
 import { useSession, getSession } from "next-auth/react";
 
 // material ui
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Grid } from "@mui/material";
 
 // components
 import OrderCard from "../components/ui/OrderCard";
@@ -19,7 +19,7 @@ export default function Orders({ userOrders }) {
     ));
   };
 
-  // If session exists, display content
+  // if session exists, display content
   if (session) {
     return (
       <>

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { sanityClient } from "../../../lib/sanity.server";
-import { urlForImage } from "../../../lib/sanity";
+import { sanityClient } from "../../../lib/sanity/sanity.server";
+import { urlForImage } from "../../../lib/sanity/sanity";
 import { useStateContext } from "../../../context/StateContext";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";

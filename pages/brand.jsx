@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { sanityClient } from "../lib/sanity.server";
+import { sanityClient } from "../lib/sanity/sanity.server";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";

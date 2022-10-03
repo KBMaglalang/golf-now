@@ -1,4 +1,4 @@
-import { urlForImage } from "../../lib/sanity";
+import { urlForImage } from "../../lib/sanity/sanity";
 import { useStateContext } from "../../context/StateContext";
 
 import Card from "@mui/material/Card";

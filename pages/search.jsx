@@ -1,6 +1,6 @@
 import ProductCard from "../components/ui/Card";
 import Head from "next/head";
-import { sanityClient } from "../lib/sanity.server";
+import { sanityClient } from "../lib/sanity/sanity.server";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";

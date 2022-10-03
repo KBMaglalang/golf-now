@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useStateContext } from "../context/StateContext";
 import CartItem from "../components/ui/CartItem";
-import getStripe from "../lib/stripe";
+import getStripe from "../lib/stripe/stripe";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 

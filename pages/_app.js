@@ -13,8 +13,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 
-import theme from "../lib/theme";
-import createEmotionCache from "../lib/createEmotionCache";
+import theme from "../lib/materialUI/theme";
+import createEmotionCache from "../lib/materialUI/createEmotionCache";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

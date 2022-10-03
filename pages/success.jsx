@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useStateContext } from "../context/StateContext";
-import { runFireworks } from "../lib/fireworks";
+import { runFireworks } from "../lib/helper/fireworks";
 import { useSession } from "next-auth/react";
 
 // material ui
