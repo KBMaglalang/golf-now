@@ -32,7 +32,7 @@ export default function CategoryBar() {
         <Button color="categoryText" variant="text" href="/products/golf-tech">
           Golf Tech
         </Button>
-        <Button color="categoryText" variant="text" href="/products/brand">
+        <Button color="categoryText" variant="text" href="/brand">
           Brand
         </Button>
       </Container>

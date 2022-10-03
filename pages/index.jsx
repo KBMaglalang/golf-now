@@ -63,7 +63,40 @@ export default function Home({ allProducts }) {
   );
 }
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
+//   // get products from sanity
+//   const allProducts = await sanityClient.fetch(
+//     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
+//   );
+
+//   for (let i = allProducts.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [allProducts[i], allProducts[j]] = [allProducts[j], allProducts[i]];
+//   }
+
+//   return {
+//     props: { allProducts },
+//   };
+// };
+
+// export const getStaticPaths = async () => {
+//   // ? I would need to get both the type and the product sku
+//   const products = await sanityClient.fetch(
+//     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
+//   );
+
+//   return {
+//     paths: products.map((product) => ({
+//       params: {
+//         category: product._type,
+//         slug: product.slug.current,
+//       },
+//     })),
+//     fallback: false,
+//   };
+// };
+
+export const getStaticProps = async () => {
   // get products from sanity
   const allProducts = await sanityClient.fetch(
     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
@@ -76,5 +109,6 @@ export const getServerSideProps = async () => {
 
   return {
     props: { allProducts },
+    revalidate: 10,
   };
 };
