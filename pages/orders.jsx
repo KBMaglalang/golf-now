@@ -2,22 +2,17 @@ import Head from "next/head";
 import prisma from "../lib/prisma/prisma";
 import { useSession, getSession } from "next-auth/react";
 
+// helper function
+import { loadOrders } from "../lib/helper/loadOrders";
+
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
 
 // components
-import OrderCard from "../components/ui/OrderCard";
 import NotSignedIn from "../components/layout/NotSignedIn";
 
 export default function Orders({ userOrders }) {
   const { data: session } = useSession({ required: true });
-
-  // load previous orders associated with the account
-  const loadOrders = (orders) => {
-    return orders.map((product) => (
-      <OrderCard key={product.id} product={product} />
-    ));
-  };
 
   // if session exists, display content
   if (session) {

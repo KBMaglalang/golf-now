@@ -16,14 +16,14 @@ const Success = () => {
   const { data: session } = useSession();
 
   const processData = async () => {
-    if (!router.isReady) return;
-    if (!router.query?.session_id) return;
-
     // ! for deployment purposes only
     if (process.env.NODE_ENV === "production") {
       runFireworks();
       return;
     }
+
+    if (!router.isReady) return;
+    if (!router.query?.session_id) return;
 
     // get stripe checkout information
     const stripeResponse = await fetch(
