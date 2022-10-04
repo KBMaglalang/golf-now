@@ -48,7 +48,7 @@ export default function Cart() {
             {`Your Cart ${cartItems.length ? `(${cartItems.length}) ` : ""}`}
           </Typography>
 
-          <Container>
+          <Box>
             {cartItems.length >= 1 ? (
               <>
                 <Grid
@@ -90,7 +90,7 @@ export default function Cart() {
             ) : (
               <Typography variant="body1">Cart is Empty</Typography>
             )}
-          </Container>
+          </Box>
         </Container>
       </main>
     </>
