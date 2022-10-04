@@ -3,6 +3,10 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+// helper functions
+import { prismaFavoriteDelete } from "../../lib/queries/api";
+
+// material ui
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -10,21 +14,18 @@ import { CardActionArea, Grid, Button, Box } from "@mui/material";
 
 export default function FavoriteCard({ favorites }) {
   const router = useRouter();
+
   const handleFavoriteDelete = async () => {
-    const response = await fetch(`/api/prisma/favorite`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        favoriteId: favorites.id,
-      }),
-    });
+    const response = await prismaFavoriteDelete(favorites);
     if (response.statusCode === 500) return;
     const prismaFavoritesResponse = await response.json();
+
     if (prismaFavoritesResponse) {
       toast.success("Product Removed From Favorites");
     } else {
       toast.error("Unable to Remove Product");
     }
+
     router.reload(window.location.pathname);
   };
 

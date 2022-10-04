@@ -1,13 +1,12 @@
-import styles from "./Card.module.css";
 import Link from "next/link";
-import { urlForImage } from "../../lib/sanity";
+import { urlForImage } from "../../lib/sanity/sanity";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { Container, Grid, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 export default function ProductCard({ product }) {
   return (
@@ -38,8 +37,11 @@ export default function ProductCard({ product }) {
                 <Box>
                   <Typography
                     variant="h5"
-                    className={!product?.stock && styles.strike}
-                    sx={{ display: "inline", mr: 2 }}
+                    sx={{
+                      display: "inline",
+                      mr: 2,
+                      textDecoration: "line-through",
+                    }}
                   >
                     {`$${product?.price}`}
                   </Typography>

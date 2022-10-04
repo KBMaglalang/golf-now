@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.3",
@@ -44,6 +45,6 @@
     "cypress": "^10.8.0",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.2",
-    "prisma": "^4.3.1"
+    "prisma": "^4.4.0"
   }
 }

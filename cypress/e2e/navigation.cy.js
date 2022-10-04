@@ -57,7 +57,7 @@ describe("Navigation", () => {
 
   it("should go to BRAND page", () => {
     cy.contains("a", "Brand").click();
-    cy.url().should("include", "/products/brand");
+    cy.url().should("include", "/brand");
     cy.get("h3").contains("Brand");
   });
 

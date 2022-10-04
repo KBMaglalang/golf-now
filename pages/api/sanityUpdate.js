@@ -1,4 +1,4 @@
-import { sanityClient } from "../../lib/sanity.server";
+import { sanityClient } from "../../lib/sanity/sanity.server";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

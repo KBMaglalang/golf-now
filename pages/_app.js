@@ -1,20 +1,18 @@
 import "../styles/globals.css";
-import "../styles/InputBox.scss";
-import "../styles/SearchBox.scss";
 
 import Layout from "../components/layout/Layout";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { StateContext, useStateContext } from "../context/StateContext";
+import { StateContext } from "../context/StateContext";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 
-import theme from "../lib/theme";
-import createEmotionCache from "../lib/createEmotionCache";
+import theme from "../lib/materialUI/theme";
+import createEmotionCache from "../lib/materialUI/createEmotionCache";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

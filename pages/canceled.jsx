@@ -1,11 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import payStyles from "../styles/Payment.module.css";
 import Head from "next/head";
 
 // material ui
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Button } from "@mui/material";
 
 const Canceled = () => {
   return (

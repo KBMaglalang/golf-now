@@ -1,6 +1,15 @@
 import Head from "next/head";
-import ProductCard from "../components/ui/Card";
-import { sanityClient } from "../lib/sanity.server";
+import { sanityClient } from "../lib/sanity/sanity.server";
+
+// constants
+import {
+  ALL_PRODUCTS_QUERY,
+  REVALIDATE_GET_STATIC_PROPS,
+} from "../lib/queries/serverSideQueries";
+
+// helper functions
+import { listProducts, topSellingProducts } from "../lib/helper/listProducts";
+import { randomizeShuffle } from "../lib/helper/randomizeShuffle";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
@@ -9,25 +18,6 @@ import { Typography, Container, Grid } from "@mui/material";
 import HeroBanner from "../components/layout/HeroBanner";
 
 export default function Home({ allProducts }) {
-  // list top selling products
-  const topSellingProducts = () => {
-    // sort products from lowest stock and filter products that in stock
-    const results = [...allProducts]
-      .sort((a, b) => a.stock - b.stock)
-      .filter((e) => e.stock > 1);
-    results.splice(3, results.length);
-
-    return results
-      ?.filter((product) => product.stock > 0)
-      .map((product) => <ProductCard key={product._id} product={product} />);
-  };
-
-  const listProducts = () => {
-    return allProducts
-      ?.filter((product) => product.stock > 0)
-      .map((product) => <ProductCard key={product._id} product={product} />);
-  };
-
   return (
     <>
       <Head>
@@ -46,7 +36,7 @@ export default function Home({ allProducts }) {
               Top Selling Products
             </Typography>
             <Grid container spacing={4}>
-              {topSellingProducts()}
+              {topSellingProducts(allProducts)}
             </Grid>
           </Container>
           <Container>
@@ -54,7 +44,7 @@ export default function Home({ allProducts }) {
               Check Out These Products
             </Typography>
             <Grid container spacing={4}>
-              {listProducts()}
+              {listProducts(allProducts)}
             </Grid>
           </Container>
         </Container>
@@ -63,52 +53,14 @@ export default function Home({ allProducts }) {
   );
 }
 
-// export const getServerSideProps = async () => {
-//   // get products from sanity
-//   const allProducts = await sanityClient.fetch(
-//     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-//   );
-
-//   for (let i = allProducts.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [allProducts[i], allProducts[j]] = [allProducts[j], allProducts[i]];
-//   }
-
-//   return {
-//     props: { allProducts },
-//   };
-// };
-
-// export const getStaticPaths = async () => {
-//   // ? I would need to get both the type and the product sku
-//   const products = await sanityClient.fetch(
-//     '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-//   );
-
-//   return {
-//     paths: products.map((product) => ({
-//       params: {
-//         category: product._type,
-//         slug: product.slug.current,
-//       },
-//     })),
-//     fallback: false,
-//   };
-// };
-
 export const getStaticProps = async () => {
   // get products from sanity
-  const allProducts = await sanityClient.fetch(
-    '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-  );
+  const allProducts = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
 
-  for (let i = allProducts.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [allProducts[i], allProducts[j]] = [allProducts[j], allProducts[i]];
-  }
+  randomizeShuffle(allProducts);
 
   return {
     props: { allProducts },
-    revalidate: 10,
+    revalidate: REVALIDATE_GET_STATIC_PROPS,
   };
 };

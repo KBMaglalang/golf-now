@@ -3,11 +3,19 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useStateContext } from "../context/StateContext";
-import { runFireworks } from "../lib/fireworks";
+import { runFireworks } from "../lib/helper/fireworks";
 import { useSession } from "next-auth/react";
 
+// helper functions
+import {
+  stripeGetOrderInfo,
+  prismaGetUserInfo,
+  prismaCreateOrder,
+  sanityUpdateProductStock,
+} from "../lib/queries/api";
+
 // material ui
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Typography, Container, Button } from "@mui/material";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 
 const Success = () => {
@@ -16,25 +24,17 @@ const Success = () => {
   const { data: session } = useSession();
 
   const processData = async () => {
-    if (!router.isReady) return;
-    if (!router.query?.session_id) return;
-
     // ! for deployment purposes only
     if (process.env.NODE_ENV === "production") {
       runFireworks();
       return;
     }
 
+    if (!router.isReady) return;
+    if (!router.query?.session_id) return;
+
     // get stripe checkout information
-    const stripeResponse = await fetch(
-      `/api/stripe/orders?key=${router.query.session_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const stripeResponse = await stripeGetOrderInfo(router);
     if (stripeResponse.statusCode === 500) return;
     const stripeData = await stripeResponse.json();
 
@@ -43,39 +43,20 @@ const Success = () => {
 
       if (cartItems.length) {
         // get information about the logged in user
-        const response = await fetch(
-          `/api/prisma/user?key=${session.user.email}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+
+        const response = await prismaGetUserInfo(session);
         if (response.statusCode === 500) return;
         const prismaUserData = await response.json();
 
         // store the data in prisma
         await Promise.all(
           cartItems.map(async (product) => {
-            await fetch(`/api/prisma/order/`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                cartItems: product,
-                stripeData,
-                userData: prismaUserData,
-              }),
-            });
+            prismaCreateOrder(product, stripeData, prismaUserData);
           })
         );
 
         // update the stock amount in sanity
-        const sanityCheck = await fetch("/api/sanityUpdate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cartItems),
-        });
+        const sanityCheck = await sanityUpdateProductStock(cartItems);
         if (sanityCheck.statusCode === 500) return;
         await sanityCheck.json();
 
