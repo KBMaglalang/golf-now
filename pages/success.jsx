@@ -27,6 +27,11 @@ const Success = () => {
     // ! for deployment purposes only
     if (process.env.NODE_ENV === "production") {
       runFireworks();
+      if (cartItems.length) {
+        // clear out cart items
+        setCartItems([]);
+        localStorage.clear();
+      }
       return;
     }
 
@@ -43,7 +48,6 @@ const Success = () => {
 
       if (cartItems.length) {
         // get information about the logged in user
-
         const response = await prismaGetUserInfo(session);
         if (response.statusCode === 500) return;
         const prismaUserData = await response.json();
