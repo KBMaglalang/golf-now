@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
-import { Container, IconButton, Menu, MenuItem } from "@mui/material";
+// material ui
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 export default function LoginProfileButton() {

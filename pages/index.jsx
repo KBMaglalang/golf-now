@@ -1,8 +1,15 @@
 import Head from "next/head";
 import { sanityClient } from "../lib/sanity/sanity.server";
 
+// constants
+import {
+  ALL_PRODUCTS_QUERY,
+  REVALIDATE_GET_STATIC_PROPS,
+} from "../lib/queries/serverSideQueries";
+
 // helper functions
 import { listProducts, topSellingProducts } from "../lib/helper/listProducts";
+import { randomizeShuffle } from "../lib/helper/randomizeShuffle";
 
 // material ui
 import { Typography, Container, Grid } from "@mui/material";
@@ -48,17 +55,12 @@ export default function Home({ allProducts }) {
 
 export const getStaticProps = async () => {
   // get products from sanity
-  const allProducts = await sanityClient.fetch(
-    '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-  );
+  const allProducts = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
 
-  for (let i = allProducts.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [allProducts[i], allProducts[j]] = [allProducts[j], allProducts[i]];
-  }
+  randomizeShuffle(allProducts);
 
   return {
     props: { allProducts },
-    revalidate: 10,
+    revalidate: REVALIDATE_GET_STATIC_PROPS,
   };
 };
