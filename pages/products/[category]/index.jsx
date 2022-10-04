@@ -2,6 +2,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { sanityClient } from "../../../lib/sanity/sanity.server";
 
+// constants
+import {
+  ALL_PRODUCTS_QUERY,
+  REVALIDATE_GET_STATIC_PROPS,
+  CATEGORY_PRODUCT_QUERY,
+} from "../../../lib/queries/serverSideQueries";
+
 // helper functions
 import { toUpperCaseWords } from "../../../lib/helper/toUpperCaseWords";
 import { listProducts } from "../../../lib/helper/listProducts";
@@ -40,9 +47,7 @@ export default function ClubsBase({ products }) {
 }
 
 export const getStaticPaths = async () => {
-  const products = await sanityClient.fetch(
-    '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-  );
+  const products = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
 
   return {
     paths: products.map((product) => ({
@@ -56,17 +61,10 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { category } }) => {
-  let products = undefined;
-  if (category === "brand") {
-    products = await sanityClient.fetch(`*[_type == "${category}"]`);
-  } else {
-    products = await sanityClient.fetch(
-      `*[_type == "${category}"]{..., brand->{_id,title}}`
-    );
-  }
+  const products = await sanityClient.fetch(CATEGORY_PRODUCT_QUERY(category));
 
   return {
     props: { products },
-    revalidate: 10,
+    revalidate: REVALIDATE_GET_STATIC_PROPS,
   };
 };

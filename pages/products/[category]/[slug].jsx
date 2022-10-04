@@ -5,8 +5,21 @@ import { urlForImage } from "../../../lib/sanity/sanity";
 import { useStateContext } from "../../../context/StateContext";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import toast from "react-hot-toast";
 import { toPlainText } from "@portabletext/react";
+import toast from "react-hot-toast";
+
+// constants
+import {
+  ALL_PRODUCTS_QUERY,
+  PRODUCT_DETAILS_QUERY,
+  REVALIDATE_GET_STATIC_PROPS,
+} from "../../../lib/queries/serverSideQueries";
+import {
+  prismaGetUserInfo,
+  isUserFavoriteProduct,
+  prismaFavoriteAdd,
+  prismaFavoriteDelete,
+} from "../../../lib/queries/api";
 
 // material ui
 import Card from "@mui/material/Card";
@@ -23,7 +36,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function ClubsDetails({ product }) {
+export default function ProductDetails({ product }) {
   const router = useRouter();
   const { data: session } = useSession();
   const { onAdd } = useStateContext();
@@ -38,7 +51,7 @@ export default function ClubsDetails({ product }) {
 
   useEffect(() => {
     if (session) {
-      getUserFavorite();
+      getUserFavorite(product);
     }
   }, [session]);
 
@@ -57,27 +70,20 @@ export default function ClubsDetails({ product }) {
     router.push("/cart");
   };
 
-  const getUserFavorite = async () => {
+  const getUserFavorite = async (productDetails) => {
     // get information about the logged in user
-    const prismaUserResponse = await fetch(
-      `/api/prisma/user?key=${session.user.email}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const prismaUserResponse = await prismaGetUserInfo(session);
     if (prismaUserResponse.statusCode === 500) return;
     const prismaUserData = await prismaUserResponse.json();
 
-    const response = await fetch(
-      `/api/prisma/favorite?userId=${prismaUserData.id}&productSanityId=${product._id}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
+    // get information if the product is in the user favorite
+    const response = await isUserFavoriteProduct(
+      prismaUserData,
+      productDetails
     );
     if (response.statusCode === 500) return;
     const productFavorite = await response.json();
+
     if (productFavorite.length) {
       setFavState(true);
       setFavoriteId(productFavorite[0].id);
@@ -88,45 +94,34 @@ export default function ClubsDetails({ product }) {
     setFavoriteId("");
   };
 
-  const handleProductFavorite = async () => {
+  const handleProductFavorite = async (product) => {
     if (session) {
       // get information about the logged in user
-      const prismaUserResponse = await fetch(
-        `/api/prisma/user?key=${session.user.email}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const prismaUserResponse = await prismaGetUserInfo(session);
       if (prismaUserResponse.statusCode === 500) return;
       const prismaUserData = await prismaUserResponse.json();
 
       // check if the product should be removed from favorites
       if (favState) {
         // remove product
-        const response = await fetch(`/api/prisma/favorite`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ favoriteId }),
-        });
+        const response = await prismaFavoriteDelete({ id: favoriteId });
         if (response.statusCode === 500) return;
-        const prismaProductDelete = await response.json();
-        // setFavState(false);
+        await response.json();
+
         toast.success("Product Removed From Favorites");
       } else {
         // add product to favorites
-        const prismaFavoriteResponse = await fetch(`/api/prisma/favorite`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ product, prismaUserData }),
-        });
+        const prismaFavoriteResponse = await prismaFavoriteAdd(
+          product,
+          prismaUserData
+        );
         if (prismaFavoriteResponse.statusCode === 500) return;
-        const prismaFavoriteData = await prismaFavoriteResponse.json();
-        // setFavState(true);
+        await prismaFavoriteResponse.json();
+
         toast.success("Added To Favorites");
       }
 
-      getUserFavorite();
+      getUserFavorite(product);
       return;
     }
 
@@ -192,7 +187,7 @@ export default function ClubsDetails({ product }) {
                   <Button
                     variant="contained"
                     color={favState ? "error" : "primary"}
-                    onClick={handleProductFavorite}
+                    onClick={() => handleProductFavorite(product)}
                     fullWidth
                     sx={{ my: 4 }}
                   >
@@ -285,10 +280,7 @@ export default function ClubsDetails({ product }) {
 }
 
 export const getStaticPaths = async () => {
-  // ? I would need to get both the type and the product sku
-  const products = await sanityClient.fetch(
-    '*[_type in ["balls", "clubs", "shoes", "clothing", "bag-carts", "golf-tech"]]{..., brand->{_id,title}}'
-  );
+  const products = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
 
   return {
     paths: products.map((product) => ({
@@ -302,12 +294,10 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const product = await sanityClient.fetch(
-    `*[_type == "${params.category}" && slug.current == '${params.slug}']{..., brand->{_id,title}}[0]`
-  );
+  const product = await sanityClient.fetch(PRODUCT_DETAILS_QUERY(params));
 
   return {
     props: { product },
-    revalidate: 10,
+    revalidate: REVALIDATE_GET_STATIC_PROPS,
   };
 };

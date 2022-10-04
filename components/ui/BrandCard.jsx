@@ -1,11 +1,11 @@
 import { urlForImage } from "../../lib/sanity/sanity";
 
+// material ui
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import { Grid } from "@mui/material";
+import { CardActionArea, Grid } from "@mui/material";
 
 export default function BrandCard({ brand: { logo, title, _id }, handler }) {
   return (

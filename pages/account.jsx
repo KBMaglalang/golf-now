@@ -3,6 +3,9 @@ import { useSession, getSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import prisma from "../lib/prisma/prisma";
 
+// helper functions
+import { prismaUpdateUserInfo } from "../lib/queries/api";
+
 // material ui
 import { Typography, Container, Grid, Button, TextField } from "@mui/material";
 
@@ -17,24 +20,7 @@ export default function Account({ userData }) {
     event.preventDefault();
     const loading = toast.loading("Updating Account Information");
 
-    // setup data to pass over db
-    const formData = {
-      name: event.target.name.value,
-      phoneNumber: event.target.phoneNumber.value,
-      address1: event.target.address1.value,
-      address2: event.target.address2.value,
-      city: event.target.city.value,
-      country: event.target.country.value,
-      stateProvince: event.target.stateProvince.value,
-      postalCode: event.target.postalCode.value,
-    };
-
-    // update content in prisma
-    await fetch(`/api/prisma/user/`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ formData, userData }),
-    });
+    prismaUpdateUserInfo(event, userData);
 
     toast.remove(loading);
     toast.success("Update Complete");

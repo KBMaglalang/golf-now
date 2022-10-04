@@ -1,13 +1,11 @@
 import "../styles/globals.css";
-import "../styles/InputBox.scss";
-import "../styles/SearchBox.scss";
 
 import Layout from "../components/layout/Layout";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { StateContext, useStateContext } from "../context/StateContext";
+import { StateContext } from "../context/StateContext";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";

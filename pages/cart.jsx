@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 // helper functions
 import { listCartItems } from "../lib/helper/listCartItems";
 import { getTotal } from "../lib/helper/getTotal";
+import { stripeCreateOrder } from "../lib/queries/api";
 
 // material ui
 import { Typography, Container, Grid, Button, Box } from "@mui/material";
@@ -21,18 +22,12 @@ export default function Cart() {
       router.push("/success");
       return;
     }
-
     toast.loading("Redirecting...");
 
     // process the order with stripe
     const stripe = await getStripe();
-    const response = await fetch("/api/stripe/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cartItems }),
-    });
+    const response = await stripeCreateOrder(cartItems);
+
     if (response.statusCode === 500) return;
     const data = await response.json();
 
@@ -53,7 +48,7 @@ export default function Cart() {
             {`Your Cart ${cartItems.length ? `(${cartItems.length}) ` : ""}`}
           </Typography>
 
-          <Container>
+          <Box>
             {cartItems.length >= 1 ? (
               <>
                 <Grid
@@ -95,7 +90,7 @@ export default function Cart() {
             ) : (
               <Typography variant="body1">Cart is Empty</Typography>
             )}
-          </Container>
+          </Box>
         </Container>
       </main>
     </>

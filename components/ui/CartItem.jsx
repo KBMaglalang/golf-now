@@ -38,9 +38,7 @@ export default function CartItem({ product }) {
             <Typography variant="subtitle2" color="primary">
               {product?.brand?.title}
             </Typography>
-            <Typography variant="h5" noWrap>
-              {product?.name}
-            </Typography>
+            <Typography variant="h5">{product?.name}</Typography>
           </Box>
           <Box
             sx={{
