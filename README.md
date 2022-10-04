@@ -1,6 +1,6 @@
 # GolfNow - WIP
 
-An ecommerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, and NextAuth for user authentication.
+An e-commerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, NextAuth for user authentication, and Material UI css framework. NodeMailer with Mailtrap used for testing and confirming passwordless email login.
 
 # Dependencies
 
@@ -15,7 +15,8 @@ An ecommerce website for golf related products. Using NextJS react framework, St
 - react: ^17.0,
 - react-barcode: ^1.3.2,
 - react-dom: ^17.0,
-- styled-components: ^5.2.0
+- nodemailer ^6.7.8,
+- @mui/material ^5.10.6
 
 # Screenshots
 
@@ -24,6 +25,9 @@ An ecommerce website for golf related products. Using NextJS react framework, St
 !['brand-search'](doc/3-brandSearch.png)
 !['product-categories'](doc/4-productCategories.png)
 !['product-search'](doc/5-productSearch.png)
+!['account-info'](doc/6-accountInfoPage.png)
+!['user-favorites'](doc/7-userFavoritesPage.png)
+!['user-orders'](doc/8-userOrderPage.png)
 
 # Getting Started
 
@@ -59,5 +63,5 @@ An ecommerce website for golf related products. Using NextJS react framework, St
 2. copy `.env.example` to `.env` and fill in the details
 3. run `npx prisma init`
 4. run `npx prisma migrate dev`
-5. run `npm run seed` to populate the datbase with default user information
+5. run `npm run seed` to populate the database with default user information
 6. can run the prisma studio `npx prisma studio` to see the database
