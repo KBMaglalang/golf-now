@@ -1,6 +1,6 @@
-# GolfNow - WIP
+# GolfNow
 
-An e-commerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, NextAuth for user authentication, and Material UI css framework. NodeMailer with Mailtrap used for testing and confirming passwordless email login.
+An e-commerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, NextAuth for user authentication, and Material UI CSS framework. NodeMailer was used with Mailtrap for testing and confirming of passwordless email login.
 
 # Dependencies
 
@@ -32,36 +32,41 @@ An e-commerce website for golf related products. Using NextJS react framework, S
 # Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
-2. Update the .env file with your correct local information
-3. Install dependencies: `npm i`
-4. Run the server: `npm run dev`
-5. Visit `http://localhost:3000/`
+2. Update the `.env` file with your secret keys and prisma database URL
+3. Create the `.env.development` by using `.env.development.example` as a reference: `cp .env.development.example .env.development`
+4. Update the `.env` with the information needed
+5. Install dependencies: `npm i`
+6. Run the server: `npm run dev`
+7. Visit `http://localhost:3000/`
 
 ## Sanity Setup and Usage
 
-1. setup an account with sanity
-2. grab the sanity token associated with the account
-3. populate the token in `.env`
-4. will need to restart the server if it is already running
+1. setup an account with Sanity.IO
+2. grab the sanity tokens associated with the account
+3. add the `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_API_READ_TOKEN` in the `.env.development` file
+4. add the tokens as well in, `./golf-sanity-studio/.env.development`
+5. will need to restart the server if it is already running
 
 ## Stripe Setup and Usage
 
 1. grab stripe publishable key and stripe secret key from you stripe account
-2. populate the information in the `.env` file
-3. will need to restart the server if it is already running
+2. add the `STRIPE_SECRET_KEY` in the `.env` file
+3. add the `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in the `.env.development` file
+4. will need to restart the server if it is already running
 
 ## NextAuth Setup and Usage
 
 1. Create OAuth credentials in Google
 2. grab the Google Client ID and Google Secret Key
-3. populate the information in the `.env` file
-4. will need to restart the server if it is already running
+3. add the `NEXTAUTH_SECRET` in the `.env` file
+4. add the `GOOGLE_CLIENT_ID` and `NEXTAUTH_URL` in the `.env.development` file
+5. will need to restart the server if it is already running
 
 ## Prisma Setup and Usage
 
 1. run `npm i` or `npm install` to install the new packages added to package.json (prisma and @prisma/client)
 2. copy `.env.example` to `.env` and fill in the details
-3. run `npx prisma init`
-4. run `npx prisma migrate dev`
-5. run `npm run seed` to populate the database with default user information
+3. copy the postgresql to `DATABASE_URL` in the `.env` file
+4. run `npx prisma init`
+5. run `npx prisma migrate dev` or `npx prisma db push`
 6. can run the prisma studio `npx prisma studio` to see the database
