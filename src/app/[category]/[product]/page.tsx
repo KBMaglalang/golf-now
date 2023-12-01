@@ -1,5 +1,6 @@
 import React from "react";
 import { toPlainText } from "@portabletext/react";
+import type { Metadata } from "next";
 
 // components
 import {
@@ -11,9 +12,11 @@ import {
 // context or store
 
 // constants and functions
+import { formatPathname } from "@/lib/utils";
 import { sanityFetch } from "@/lib/sanity";
 import { urlForImage } from "@/lib/sanity";
 import { SANITY_GET_PRODUCT_DETAILS } from "@/lib/sanity/queries";
+import { META_TITLE } from "@/constants";
 
 type Props = {
   params: {
@@ -21,6 +24,18 @@ type Props = {
     product: string;
   };
 };
+
+type MetaProps = {
+  params: { category: string; product: string };
+};
+
+export async function generateMetadata({
+  params,
+}: MetaProps): Promise<Metadata> {
+  return {
+    title: `${META_TITLE} | ${formatPathname(params.category)}`,
+  };
+}
 
 export default async function page({ params: { category, product } }: Props) {
   const productDetail = await sanityFetch<ProductType>({

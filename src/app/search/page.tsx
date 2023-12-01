@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 
 // components
 import { BreadCrumb } from "@/components/Common";
@@ -9,6 +10,15 @@ import { ProductList } from "@/components/ProductList";
 // constants and functions
 import { sanityFetch } from "@/lib/sanity";
 import { SANITY_SEARCH_QUERY } from "@/lib/sanity/queries";
+import { META_TITLE, META_DESCRIPTION } from "@/constants";
+
+export const metadata: Metadata = {
+  title: `${META_TITLE} | Search`,
+  description: META_DESCRIPTION,
+  icons: {
+    icon: "./favicon.png",
+  },
+};
 
 type Props = {
   searchParams: any;

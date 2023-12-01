@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import type { Order } from "@prisma/client";
+import type { Metadata } from "next";
 
 // components
 import { BreadCrumb } from "@/components/Common";
@@ -11,6 +11,15 @@ import { SideBar, ViewOrders } from "@/components/User";
 // constants and functions
 import { authOptions } from "@/config/auth/auth";
 import { prisma } from "@/config/prisma/prisma";
+import { META_TITLE, META_DESCRIPTION } from "@/constants";
+
+export const metadata: Metadata = {
+  title: `${META_TITLE} | User Orders`,
+  description: META_DESCRIPTION,
+  icons: {
+    icon: "./favicon.png",
+  },
+};
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
