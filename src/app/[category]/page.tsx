@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 
 // components
 import { BreadCrumb } from "@/components/Common";
@@ -14,12 +15,25 @@ import {
   SANITY_GET_NEW_PRODUCTS,
   SANITY_GET_DEAL_PRODUCTS,
 } from "@/lib/sanity/queries";
+import { META_TITLE } from "@/constants";
 
 type Props = {
   params: {
     category: string;
   };
 };
+
+type MetaProps = {
+  params: { category: string };
+};
+
+export async function generateMetadata({
+  params,
+}: MetaProps): Promise<Metadata> {
+  return {
+    title: `${META_TITLE} | ${formatPathname(params.category)}`,
+  };
+}
 
 export default async function page({ params }: Props) {
   let sanitySearchTerm = null;
