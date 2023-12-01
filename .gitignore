@@ -2,9 +2,9 @@
 
 # dependencies
 /node_modules
-node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -24,7 +24,6 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
 # local env files
 .env*.local
@@ -35,9 +34,14 @@ yarn-error.log*
 # vercel
 .vercel
 
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
 /productDocs
 productDocs
 
 # sanity env
 /golf-sanity-studio/.env.development
 /golf-sanity-studio/.env.production
+temp

@@ -78,6 +78,10 @@ model User {
   address1      String?
   address2      String?
 
+  emailNotification      Boolean @default(false)
+  smsNotification        Boolean @default(false)
+  newsLetterNotification Boolean @default(false)
+
   accounts Account[]
   sessions Session[]
   orders   Order[]
