@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 
 // components
 import { BreadCrumb } from "@/components/Common";
@@ -6,6 +7,15 @@ import { BreadCrumb } from "@/components/Common";
 // context or store
 
 // constants and functions
+import { META_TITLE, META_DESCRIPTION } from "@/constants";
+
+export const metadata: Metadata = {
+  title: `${META_TITLE} | Privacy Policy`,
+  description: META_DESCRIPTION,
+  icons: {
+    icon: "./favicon.png",
+  },
+};
 
 export default function page() {
   return (
