@@ -35,6 +35,7 @@ export default function CarouselItem({
       {/* images */}
       <Link href={items?.link} className="w-full">
         <Image
+          priority
           src={imageURL || "https://dummyimage.com/1920x1080"}
           alt={items.title || "img"}
           width={1360}
