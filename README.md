@@ -1,72 +1,51 @@
-# GolfNow
+# GolfNow - eCommerce Store
 
-An e-commerce website for golf related products. Using NextJS react framework, Stripe for payment, PRISMA for ORM to Postgresql database, Sanity for content management system, NextAuth for user authentication, and Material UI CSS framework. NodeMailer was used with Mailtrap for testing and confirming of passwordless email login.
+GolfNow is a dynamic ecommerce platform focused on providing everything golf-related to enthusiasts of the sport. The website offers a comprehensive range of golf accessories and equipment, brought to life using several state-of-the-art web technologies.
 
-# Dependencies
+## Description
 
-- @sanity/base: ^2.30.1,
-- @sanity/core: ^2.30.2,
-- @sanity/default-layout: ^2.30.1,
-- @sanity/default-login: ^2.30.1,
-- @sanity/desk-tool: ^2.30.1,
-- @sanity/eslint-config-studio: ^2.0.0,
-- @sanity/vision: ^2.30.1,
-- prop-types: ^15.7,
-- react: ^17.0,
-- react-barcode: ^1.3.2,
-- react-dom: ^17.0,
-- nodemailer ^6.7.8,
-- @mui/material ^5.10.6
+### Key Features:
 
-# Screenshots
+- User Authentication: Users can easily sign up and log in to GolfNow using their Google accounts through NextAuth.
+- Product Listings: The website offers a wide variety of golf products. Users can search and browse to find the exact items they're looking for.
+- Shopping Cart: Users can select products, add them to their cart and view their selected items before proceeding to checkout.
+- Secure Payment Processing: Integrated Stripe provides a safe and hassle-free payment experience.
+- Content Management: Sanity.io is used for managing website content such as product listings, descriptions, and other relevant information.
+- Optimized Performance: Leveraging the power of Next.js, the website offers fast loading times and an efficient browsing experience.
 
-!['homepage'](doc/1-homepage.png)
-!['product-page'](doc/2-productPage.png)
-!['brand-search'](doc/3-brandSearch.png)
-!['product-categories'](doc/4-productCategories.png)
-!['product-search'](doc/5-productSearch.png)
-!['account-info'](doc/6-accountInfoPage.png)
-!['user-favorites'](doc/7-userFavoritesPage.png)
-!['user-orders'](doc/8-userOrderPage.png)
+### Technologies Used:
 
-# Getting Started
+- Next.js: A high-performance React framework used for server-side rendering, enabling rapid website loading and efficient performance.
+- Tailwind CSS and Daisy UI: Utilized for rapid development and easy styling of components. Daisy UI, a plugin for Tailwind CSS, further enhances the aesthetics of the user interface.
+- NextAuth: Used for secure and reliable user authentication, allowing users to log in using their Google accounts.
+- Sanity.io: A robust headless CMS adopted for flexible content management on the website.
+- Prisma: An open-source database toolkit used for interfacing with a PostgreSQL database, simplifying database access and management.
+- Stripe: Incorporated for seamless and secure payment processing, letting users make safe online transactions.
+- TypeScript: The programming language of choice for this project, which provides static typing and improved code maintainability.
 
-1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
-2. Update the `.env` file with your secret keys and prisma database URL
-3. Create the `.env.development` by using `.env.development.example` as a reference: `cp .env.development.example .env.development`
-4. Update the `.env` with the information needed
-5. Install dependencies: `npm i`
-6. Run the server: `npm run dev`
-7. Visit `http://localhost:3000/`
+## Screenshots
 
-## Sanity Setup and Usage
+!['homepage'](doc/1-homepage.PNG)
+!['search'](doc/2-search.PNG)
+!['categories'](doc/3-categories.PNG)
+!['productPage'](doc/4-productPage.PNG)
+!['cart'](doc/5-cart.PNG)
+!['userProfile'](doc/6-userProfile.png)
+!['userOrders'](doc/7-userOrders.png)
+!['userSettings'](doc/8-userSettings.png)
+!['mobileView'](doc/9-mobileView.png)
 
-1. setup an account with Sanity.IO
-2. grab the sanity tokens associated with the account
-3. add the `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_API_READ_TOKEN` in the `.env.development` file
-4. add the tokens as well in, `./golf-sanity-studio/.env.development`
-5. will need to restart the server if it is already running
+## Getting Started
 
-## Stripe Setup and Usage
+### Install
 
-1. grab stripe publishable key and stripe secret key from you stripe account
-2. add the `STRIPE_SECRET_KEY` in the `.env` file
-3. add the `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in the `.env.development` file
-4. will need to restart the server if it is already running
+1. Clone the repository: `git clone https://github.com/KBMaglalang/golf-now`
+2. Navigate to the project directory: `cd golf-now`
+3. Install the necessary packages: `npm install` or `npm i`
+4. Copy the `.env.example` file. You can create either `.env.local` or `.env` based on your preference
+5. Open the newly created .env or .env.local file and populate the fields with the required values. Ensure the necessary permissions are granted for any services or APIs you're connecting to.
 
-## NextAuth Setup and Usage
+### Run
 
-1. Create OAuth credentials in Google
-2. grab the Google Client ID and Google Secret Key
-3. add the `NEXTAUTH_SECRET` in the `.env` file
-4. add the `GOOGLE_CLIENT_ID` and `NEXTAUTH_URL` in the `.env.development` file
-5. will need to restart the server if it is already running
-
-## Prisma Setup and Usage
-
-1. run `npm i` or `npm install` to install the new packages added to package.json (prisma and @prisma/client)
-2. copy `.env.example` to `.env` and fill in the details
-3. copy the postgresql to `DATABASE_URL` in the `.env` file
-4. run `npx prisma init`
-5. run `npx prisma migrate dev` or `npx prisma db push`
-6. can run the prisma studio `npx prisma studio` to see the database
+1. Run `npm run dev`
+2. Click on the link shown in the terminal, usually `localhost:3000`
