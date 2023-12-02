@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import type { User } from "@prisma/client";
 
 // components
@@ -36,10 +37,12 @@ export function ViewSettings({ userDetails }: Props) {
     });
 
     const json = await res.json();
-    if (!res.ok) throw Error(json.message);
+    if (!res.ok) {
+      toast.error("Error Updating User Settings!");
+      throw Error(json.message);
+    }
 
-    // TODO: update to toast instead of alert
-    alert("User details updated successfully!");
+    toast.success("User Settings Updated Successfully!");
   };
 
   return (
