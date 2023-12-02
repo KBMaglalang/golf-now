@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: `${META_TITLE} | User Orders`,
   description: META_DESCRIPTION,
   icons: {
-    icon: "./favicon.png",
+    icon: "../../favicon.png",
   },
 };
 
