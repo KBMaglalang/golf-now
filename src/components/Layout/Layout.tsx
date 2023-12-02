@@ -4,6 +4,7 @@ import React from "react";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
 import { SessionProvider } from "@/providers/SessionProvider";
+import { ClientProvider } from "@/providers/ClientProvider";
 
 // context or store
 import { StateProvider } from "@/context/stateContext";
@@ -19,6 +20,7 @@ export function Layout({ children }: Props) {
     <>
       <SessionProvider>
         <StateProvider>
+          <ClientProvider />
           <Header />
           {children}
           <Footer />
