@@ -14,6 +14,11 @@ import { sanityFetch } from "@/lib/sanity";
 import { SANITY_GET_ALL_PRODUCTS } from "@/lib/sanity/queries";
 
 export default async function Home() {
+  /**
+
+  Fetches all products from the Sanity API.
+  @param {Array<string>} tags - An array of tags to filter the products by.
+  @returns {Promise<Array<ProductType>>} - A promise that resolves to an array of ProductType objects. */
   const products = await sanityFetch<ProductType[]>({
     query: SANITY_GET_ALL_PRODUCTS,
     tags: [],

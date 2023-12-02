@@ -14,6 +14,10 @@ type Props = {
 };
 
 export function ButtonPayment({ cartDetails }: Props) {
+  /**
+
+  Handles the checkout process by sending a POST request to the "/api/checkout_sessions" endpoint
+  with the cart details, and then redirects the user to the Stripe checkout using the obtained session ID. */
   const handleCheckout = async () => {
     const response = await fetch("/api/checkout_sessions", {
       method: "POST",

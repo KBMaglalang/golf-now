@@ -15,6 +15,11 @@ export function Search() {
   const router = useRouter();
   const [text, setText] = useState("");
 
+  /**
+
+  Handles keyboard events for input field.
+  @param {React.KeyboardEvent<HTMLInputElement>} e - The keyboard event object.
+  @returns {void} */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // on enter key press down
     if (e.key === "Enter") {

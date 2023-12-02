@@ -25,7 +25,14 @@ type Props = {
 };
 
 export default async function Page({ searchParams }: Props) {
+  // get search params from URI
   const { q } = searchParams ?? { q: "" };
+
+  /**
+
+  Fetches products from the Sanity API based on a search query.
+  @param {string} q - The search query to filter the products by.
+  @returns {Promise<Array<ProductType>>} - A promise that resolves to an array of ProductType objects. */
   const searchProducts = await sanityFetch<ProductType[]>({
     query: SANITY_SEARCH_QUERY(q),
     tags: [],

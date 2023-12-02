@@ -10,6 +10,13 @@ import { sanityFetch } from "@/lib/sanity";
 import { SANITY_GET_HERO } from "@/lib/sanity/queries";
 
 export default async function Carousel() {
+  /**
+
+  Fetches hero data from Sanity API.
+  @param {Object} options - The options for fetching hero data.
+  @param {string} options.query - The query for fetching hero data.
+  @param {string[]} options.tags - The tags for filtering hero data.
+  @returns {Promise<HeroType[]>} - A promise that resolves to an array of hero objects. */
   const heroData = await sanityFetch<HeroType[]>({
     query: SANITY_GET_HERO,
     tags: [],

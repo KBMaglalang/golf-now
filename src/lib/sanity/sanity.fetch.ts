@@ -2,7 +2,6 @@ import "server-only";
 
 import type { QueryParams } from "@sanity/client";
 import { draftMode } from "next/headers";
-
 import { client } from "./sanity.client";
 
 // eslint-disable-next-line no-process-env

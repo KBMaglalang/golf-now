@@ -12,6 +12,15 @@ import { META_TITLE, META_DESCRIPTION } from "@/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
+/**
+
+Metadata object containing information about the website.
+@property {string} title - The title of the website.
+@property {string} description - The description of the website.
+@property {object} icons - An object containing information about the icons of the website.
+@property {string} icons.icon - The path to the favicon icon.
+@typedef {object} Metadata
+@memberof module:common */
 export const metadata: Metadata = {
   title: META_TITLE,
   description: META_DESCRIPTION,

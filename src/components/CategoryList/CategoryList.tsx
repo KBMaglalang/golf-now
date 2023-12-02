@@ -10,6 +10,11 @@ import { sanityFetch } from "@/lib/sanity";
 import { SANITY_GET_CATEGORIES } from "@/lib/sanity/queries";
 
 export async function CategoryList() {
+  /**
+
+  Fetches the categories from the Sanity API by sending a POST request with the specified query
+  and an empty array of tags. The response is then awaited and stored in the 'categories' variable.
+  @returns {Promise<CategoryType[]>} A promise that resolves to an array of category objects. */
   const categories = await sanityFetch<CategoryType[]>({
     query: SANITY_GET_CATEGORIES,
     tags: [],
