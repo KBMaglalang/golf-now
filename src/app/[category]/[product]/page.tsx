@@ -29,6 +29,11 @@ type MetaProps = {
   params: { category: string; product: string };
 };
 
+/**
+
+Generates metadata for a specific category.
+@param {MetaProps} params - Parameters for generating metadata.
+@returns {Promise<Metadata>} - A promise that resolves to the Metadata object. */
 export async function generateMetadata({
   params,
 }: MetaProps): Promise<Metadata> {
@@ -38,10 +43,22 @@ export async function generateMetadata({
 }
 
 export default async function page({ params: { category, product } }: Props) {
+  /**
+
+  Fetches the details of a specific product from the Sanity API.
+  @param {string} category - The category of the product.
+  @param {string} product - The name or identifier of the product.
+  @returns {Promise<ProductType>} - A promise that resolves to the ProductType object. */
   const productDetail = await sanityFetch<ProductType>({
     query: SANITY_GET_PRODUCT_DETAILS({ category, product }),
     tags: [],
   });
+
+  /**
+
+  Retrieves the URLs of images associated with a product.
+  @param {Array<Image>} images - An array of Image objects.
+  @returns {Array<string>} - An array of image URLs. */
   const imageUrls = productDetail.image.map((image) =>
     urlForImage(image).url()
   );

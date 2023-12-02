@@ -13,6 +13,11 @@ import { ButtonSignOut } from ".";
 import { authOptions } from "@/config/auth/auth";
 
 export async function ButtonAccount() {
+  /* `const session = await getServerSession(authOptions);` is calling the `getServerSession` function
+  and passing `authOptions` as an argument. This function is responsible for retrieving the user
+  session from the server. The `await` keyword is used to wait for the function to complete and
+  return the session object. The session object contains information about the authenticated user,
+  such as their ID, name, and email. */
   const session = await getServerSession(authOptions);
 
   return (

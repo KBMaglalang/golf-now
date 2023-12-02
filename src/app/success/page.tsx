@@ -15,6 +15,11 @@ import { useStateContext } from "@/context/stateContext";
 
 // constants and functions
 
+/**
+
+Retrieves order information from the server using Stripe API.
+@param {string} id - The ID of the order to retrieve information for.
+@returns {Promise<Response>} - A promise that resolves to the response from the server. */
 const stripeGetOrderInfo = async (id: string) => {
   return await fetch(`/api/checkout_sessions?key=${id}`, {
     method: "GET",
@@ -24,6 +29,11 @@ const stripeGetOrderInfo = async (id: string) => {
   });
 };
 
+/**
+
+Retrieves user information from the server using Prisma API.
+@param {Session} session - The session object containing user information.
+@returns {Promise<Response>} - A promise that resolves to the response from the server. */
 const prismaGetUserInfo = async (session: Session) => {
   return await fetch(`/api/user/profile?key=${session?.user?.email}`, {
     method: "GET",
@@ -31,6 +41,13 @@ const prismaGetUserInfo = async (session: Session) => {
   });
 };
 
+/**
+
+Creates a new order by sending a POST request to the server using Prisma API.
+@param {CartItemType} product - The product item to be included in the order.
+@param {any} stripeData - Data related to the Stripe payment for the order.
+@param {User} prismaUserData - User data to be associated with the order.
+@returns {Promise<Response>} - A promise that resolves to the response from the server. */
 const prismaCreateOrder = async (
   product: CartItemType,
   stripeData: any,
@@ -47,6 +64,11 @@ const prismaCreateOrder = async (
   });
 };
 
+/**
+
+Updates the stock of products in the server using Sanity API.
+@param {CartItemType[]} cartDetails - An array of cart items containing product details.
+@returns {Promise<Response>} - A promise that resolves to the response from the server. */
 const sanityUpdateProductStock = async (cartDetails: CartItemType[]) => {
   return await fetch("/api/sanity", {
     method: "POST",

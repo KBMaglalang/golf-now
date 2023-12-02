@@ -14,6 +14,8 @@ type Props = {
 };
 
 export default function ProductListItem({ item }: Props) {
+  /* The line `const imageURL = urlForImage(item.image[0]).url();` is assigning the URL of the first
+  image in the `item.image` array to the `imageURL` variable. */
   const imageURL = urlForImage(item.image[0]).url();
 
   return (

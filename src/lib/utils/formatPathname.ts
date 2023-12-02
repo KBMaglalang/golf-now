@@ -1,3 +1,8 @@
+/**
+
+Formats a URL pathname by splitting it into segments and processing each segment.
+@param {string} url - The URL pathname to be formatted.
+@returns {string[]} - An array of formatted segments from the URL pathname. */
 export function formatPathname(url: string) {
   // Split the path by '/'
   const segments = url.split("/").slice(0);

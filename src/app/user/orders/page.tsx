@@ -22,8 +22,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  // get user details
   const session = await getServerSession(authOptions);
 
+  /**
+
+  Retrieves a user from the database based on the email address stored in the session.
+  @param {Session | null} session - The user session.
+  @returns {Promise<User | null>} - A promise that resolves to the User object or null if not found. */
   const user =
     session &&
     (await prisma.user.findUnique({
@@ -32,6 +38,11 @@ export default async function Page() {
       },
     }));
 
+  /**
+
+  Retrieves all orders associated with a user from the database.
+  @param {number | null} userId - The user ID.
+  @returns {Promise<Array<Order>>} - A promise that resolves to an array of Order objects. */
   const orders =
     user?.id &&
     (await prisma.order.findMany({

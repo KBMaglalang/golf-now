@@ -27,6 +27,11 @@ type MetaProps = {
   params: { category: string };
 };
 
+/**
+
+Generates metadata for a specific category.
+@param {MetaProps} params - Parameters for generating metadata.
+@returns {Promise<Metadata>} - A promise that resolves to the Metadata object. */
 export async function generateMetadata({
   params,
 }: MetaProps): Promise<Metadata> {
@@ -49,6 +54,11 @@ export default async function page({ params }: Props) {
       break;
   }
 
+  /**
+
+  Fetches products of a specific category from the Sanity API based on a search term.
+  @param {string} searchTerm - The search term to filter the products by.
+  @returns {Promise<Array<ProductType>>} - A promise that resolves to an array of ProductType objects. */
   const categoryProducts = await sanityFetch<ProductType[]>({
     query: sanitySearchTerm,
     tags: [],
