@@ -30,6 +30,7 @@ export function Search() {
   return (
     <div className="flex flex-row w-full max-w-4xl">
       <input
+        data-test="search-input"
         type="text"
         placeholder="Type here"
         className="input input-bordered w-full"
@@ -38,7 +39,7 @@ export function Search() {
         onKeyDown={handleKeyDown}
       />
 
-      <Link href={`/search?q=${text}`}>
+      <Link data-test="search-button" href={`/search?q=${text}`}>
         <MagnifyingGlassCircleIcon className="w-12 h-12" />
       </Link>
     </div>

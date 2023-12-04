@@ -13,22 +13,56 @@ export function Footer() {
       {/* products */}
       <nav>
         <header className="footer-title">Products</header>
-        <Link href={"/clubs"} className="link link-hover">
+        <Link data-test="footer-new" href={"/new"} className="link link-hover">
+          New
+        </Link>
+        <Link
+          data-test="footer-deals"
+          href={"/deals"}
+          className="link link-hover"
+        >
+          Deals
+        </Link>
+        <Link
+          data-test="footer-clubs"
+          href={"/clubs"}
+          className="link link-hover"
+        >
           Clubs
         </Link>
-        <Link href={"/balls/"} className="link link-hover">
+        <Link
+          data-test="footer-balls"
+          href={"/balls/"}
+          className="link link-hover"
+        >
           Golf Balls
         </Link>
-        <Link href={"/shoes"} className="link link-hover">
+        <Link
+          data-test="footer-shoes"
+          href={"/shoes"}
+          className="link link-hover"
+        >
           Shoes
         </Link>
-        <Link href={"/clothing"} className="link link-hover">
+        <Link
+          data-test="footer-clothing"
+          href={"/clothing"}
+          className="link link-hover"
+        >
           Clothing
         </Link>
-        <Link href={"/bag-carts"} className="link link-hover">
+        <Link
+          data-test="footer-bag-carts"
+          href={"/bag-carts"}
+          className="link link-hover"
+        >
           Bags & Carts
         </Link>
-        <Link href={"/golf-tech"} className="link link-hover">
+        <Link
+          data-test="footer-golf-tech"
+          href={"/golf-tech"}
+          className="link link-hover"
+        >
           Golf Tech
         </Link>
       </nav>
@@ -36,10 +70,18 @@ export function Footer() {
       {/* company */}
       <nav>
         <header className="footer-title">Company</header>
-        <Link href={"/about-us"} className="link link-hover">
+        <Link
+          data-test="footer-about-us"
+          href={"/about-us"}
+          className="link link-hover"
+        >
           About us
         </Link>
-        <Link href={"/contact"} className="link link-hover">
+        <Link
+          data-test="footer-contact"
+          href={"/contact"}
+          className="link link-hover"
+        >
           Contact
         </Link>
       </nav>
@@ -47,13 +89,25 @@ export function Footer() {
       {/* legal */}
       <nav>
         <header className="footer-title">Legal</header>
-        <Link href={"/terms-of-use"} className="link link-hover">
+        <Link
+          data-test="footer-terms-of-use"
+          href={"/terms-of-use"}
+          className="link link-hover"
+        >
           Terms of use
         </Link>
-        <Link href={"/privacy-policy"} className="link link-hover">
+        <Link
+          data-test="footer-privacy-policy"
+          href={"/privacy-policy"}
+          className="link link-hover"
+        >
           Privacy policy
         </Link>
-        <Link href={"/cookie-policy"} className="link link-hover">
+        <Link
+          data-test="footer-cookie-policy"
+          href={"/cookie-policy"}
+          className="link link-hover"
+        >
           Cookie policy
         </Link>
       </nav>

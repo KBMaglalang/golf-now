@@ -22,6 +22,7 @@ export function Header() {
         {/* website  */}
         <div className="flex-none">
           <Link
+            data-text="home"
             href={"/"}
             className="font-bold text-xl p-4 hover:cursor-pointer"
           >

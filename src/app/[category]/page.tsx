@@ -75,7 +75,7 @@ export default async function page({ params }: Props) {
       {/* content */}
       <div className="space-y-4 my-12">
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 data-test="category-header" className="text-2xl font-bold">
             {formatPathname(params.category)}
           </h1>
         </div>

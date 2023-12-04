@@ -26,7 +26,10 @@ export default function page() {
       {/* content */}
       <div className="space-y-4 my-12">
         <div>
-          <h1 className="text-2xl font-bold">{`About Us`}</h1>
+          <h1
+            data-test="category-header"
+            className="text-2xl font-bold"
+          >{`About Us`}</h1>
         </div>
 
         <div className="">
