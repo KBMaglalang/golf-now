@@ -1,5 +1,5 @@
 // check product that has no stock
-xdescribe("check product that has no stock", () => {
+describe("check product that has no stock", () => {
   beforeEach(() => {
     cy.visit("/clothing/40010826");
   });
