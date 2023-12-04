@@ -46,7 +46,9 @@ export default async function Page({ searchParams }: Props) {
       {/* content */}
       <div className="space-y-4 my-12">
         <div>
-          <h1 className="text-2xl font-bold">Search</h1>
+          <h1 data-test="category-header" className="text-2xl font-bold">
+            Search
+          </h1>
         </div>
 
         <ProductList productData={searchProducts} />

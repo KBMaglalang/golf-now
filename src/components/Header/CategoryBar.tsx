@@ -15,6 +15,7 @@ export default function CategoryBar() {
         className="tabs tabs-lifted tabs-lg flex flex-wrap justify-between w-full"
       >
         <Link
+          data-test="category-new"
           href={"/new"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -22,6 +23,7 @@ export default function CategoryBar() {
           New!
         </Link>
         <Link
+          data-test="category-deals"
           href={"/deals"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -29,6 +31,7 @@ export default function CategoryBar() {
           Deals
         </Link>
         <Link
+          data-test="category-clubs"
           href={"/clubs"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -36,6 +39,7 @@ export default function CategoryBar() {
           Clubs
         </Link>
         <Link
+          data-test="category-balls"
           href={"/balls"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -43,6 +47,7 @@ export default function CategoryBar() {
           Golf Balls
         </Link>
         <Link
+          data-test="category-shoes"
           href={"/shoes"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -50,6 +55,7 @@ export default function CategoryBar() {
           Shoes
         </Link>
         <Link
+          data-test="category-clothing"
           href={"/clothing"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -57,6 +63,7 @@ export default function CategoryBar() {
           Clothing
         </Link>
         <Link
+          data-test="category-bag-carts"
           href={"/bag-carts"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"
@@ -64,6 +71,7 @@ export default function CategoryBar() {
           Bags & Carts
         </Link>
         <Link
+          data-test="category-golf-tech"
           href={"/golf-tech"}
           role="tab"
           className="tab hover:tab-active w-full md:w-auto"

@@ -25,6 +25,7 @@ export function ButtonCart() {
       {/* header button */}
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <label
+        data-test="cart-button"
         htmlFor="my-drawer-4"
         className="btn btn-ghost btn-circle drawer-content drawer-button"
       >
@@ -54,7 +55,10 @@ export function ButtonCart() {
           </div>
 
           {/* cart content */}
-          <div className="flex flex-col flex-1 overflow-y-auto space-y-4">
+          <div
+            data-test="cart-list"
+            className="flex flex-col flex-1 overflow-y-auto space-y-4"
+          >
             {cart.length > 0 ? (
               <CartList />
             ) : (
