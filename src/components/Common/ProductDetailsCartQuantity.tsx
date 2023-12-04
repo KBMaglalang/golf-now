@@ -48,6 +48,13 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
     });
   };
 
+  const handleBuyNow = () => {
+    addToCart({
+      ...productDetail,
+      quantity: 1,
+    });
+  };
+
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex flex-row justify-between space-x-2">
@@ -93,6 +100,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
       <button
         className="btn btn-primary uppercase w-full"
         disabled={isOutOfStock}
+        onClick={handleBuyNow}
       >
         Buy Now
       </button>
