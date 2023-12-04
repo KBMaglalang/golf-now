@@ -37,6 +37,9 @@ export async function generateMetadata({
 }: MetaProps): Promise<Metadata> {
   return {
     title: `${META_TITLE} | ${formatPathname(params.category)}`,
+    icons: {
+      icon: "../favicon.png",
+    },
   };
 }
 
