@@ -83,9 +83,11 @@ export default async function page({ params: { category, product } }: Props) {
           {/* details */}
           <span className="text-sm font-bold">{productDetail.brand.title}</span>
 
-          <h1 className="text-2xl font-bold">{productDetail.name}</h1>
+          <h1 data-test="product-name" className="text-2xl font-bold">
+            {productDetail.name}
+          </h1>
 
-          <span>{`Stock: ${productDetail.stock}`}</span>
+          <span data-test="product-stock">{`Stock: ${productDetail.stock}`}</span>
           <span className="text-2xl font-bold mt-12">{`$${productDetail.price.toFixed(
             2
           )}`}</span>

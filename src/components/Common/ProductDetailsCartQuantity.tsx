@@ -62,6 +62,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
         <div className="flex flex-row w-2/3 ">
           {/* dec */}
           <button
+            data-test="product-quantity-decrement"
             className="btn btn-square"
             disabled={isOutOfStock}
             onClick={decrementQuantity}
@@ -70,6 +71,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
           </button>
           {/* value */}
           <input
+            data-test="product-quantity-input"
             type="text"
             className="input input-bordered w-full text-center"
             value={quantity}
@@ -78,6 +80,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
           />
           {/* inc */}
           <button
+            data-test="product-quantity-increment"
             className="btn btn-square"
             disabled={isOutOfStock}
             onClick={incrementQuantity}
@@ -88,6 +91,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
 
         {/* add to cart */}
         <button
+          data-test="product-add-to-cart"
           className="btn btn-neutral uppercase w-1/3"
           disabled={isOutOfStock}
           onClick={handleAddToCart}
@@ -98,6 +102,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
 
       {/* buy now */}
       <button
+        data-test="product-buy-now"
         className="btn btn-primary uppercase w-full"
         disabled={isOutOfStock}
         onClick={handleBuyNow}

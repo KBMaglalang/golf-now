@@ -41,7 +41,9 @@ export default function CartListItem({ item }: Props) {
       {/* cart item detail */}
       <div className="flex flex-row justify-between">
         <span className="">{`$${item.price.toFixed(2)}`}</span>
-        <span className="">{item.quantity}</span>
+        <span data-test="cart-list-item-quantity" className="">
+          {item.quantity}
+        </span>
         <span className="">{`$${(item.price * item.quantity).toFixed(
           2
         )}`}</span>
