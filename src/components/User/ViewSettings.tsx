@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import type { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
 // components
 
@@ -17,9 +18,9 @@ type Props = {
 export function ViewSettings({ userDetails }: Props) {
   const [details, setDetails] = useState(
     {
-      emailNotification: userDetails.emailNotification,
-      smsNotification: userDetails.smsNotification,
-      newsLetterNotification: userDetails.newsLetterNotification,
+      emailNotification: userDetails?.emailNotification ?? "",
+      smsNotification: userDetails?.smsNotification ?? "",
+      newsLetterNotification: userDetails?.newsLetterNotification ?? "",
     } || {}
   );
 
@@ -43,6 +44,28 @@ export function ViewSettings({ userDetails }: Props) {
     }
 
     toast.success("User Settings Updated Successfully!");
+  };
+
+  const handleDeleteAccount = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    const res = await fetch(`/api/user/delete?key=${userDetails.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await res.json();
+    if (!res.ok) {
+      toast.error("Error Deleting User Account!");
+      throw Error(json.message);
+    }
+
+    toast.success("User Account Deleted Successfully!");
+    signOut({ callbackUrl: `${window.location.origin}/` });
   };
 
   return (
@@ -141,15 +164,20 @@ export function ViewSettings({ userDetails }: Props) {
         </div> */}
 
         {/* delete account */}
-        {/* <div>
+        <div>
           <div className="mb-6">
             <h1 className="font-bold text-2xl">Delete Account</h1>
           </div>
 
           <div className="flex flex-row justify-end mt-6">
-            <button className="btn btn-error uppercase">Delete Account</button>
+            <button
+              onClick={handleDeleteAccount}
+              className="btn btn-error uppercase"
+            >
+              Delete Account
+            </button>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
