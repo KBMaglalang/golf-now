@@ -99,3 +99,47 @@ describe("check product with stock", () => {
     cy.get('[data-test="cart-list-item-quantity"]').contains(/13/i);
   });
 });
+
+// check product with stock
+describe.only("Search Functionality Test", () => {
+  beforeEach(() => {
+    cy.visit("/shoes/40125786");
+  });
+
+  it("checks page loads", () => {
+    cy.contains(/GolfNow/i);
+  });
+
+  it("should check search functionality", () => {
+    cy.get('[data-test="search-input"]').as("searchInput");
+
+    // no input in the input box
+    cy.get('[data-test="category-header"]').should("not.contain", /Search/i);
+    cy.get("@searchInput").type(" ");
+    cy.get('[data-test="search-button"]').click();
+    cy.get('[data-test="category-header"]').should("contain", /Search/i);
+
+    // product that exists
+    cy.get("@searchInput").clear();
+    cy.get('[data-test="product-list-container"]')
+      .children()
+      .should("not.contain", /Approach/i);
+    cy.get("@searchInput").type("approach");
+    cy.get("@searchInput").type("{enter}");
+    cy.get('[data-test="product-list-container"]')
+      .children()
+      .contains(/Approach/i);
+
+    // product that does not exist
+    cy.get("@searchInput").clear();
+    cy.get("@searchInput").type("unknown product");
+    cy.get("@searchInput").type("{enter}");
+    cy.get('[data-test="product-list-container"]')
+      .children()
+      .should("not.contain", /Approach/i);
+    cy.get('[data-test="product-list-container"]')
+      .children()
+      .find("img")
+      .should("not.exist");
+  });
+});

@@ -14,7 +14,11 @@ type Props = {
 
 export async function ProductList({ productData, title }: Props) {
   return (
-    <section id="productList" className="text-gray-600 body-font">
+    <section
+      id="productList"
+      data-test="product-list-container"
+      className="text-gray-600 body-font"
+    >
       {/* title */}
       <div className="justify-center w-full flex flex-row mt-12">
         <h1 className="text-4xl font-bold">{title}</h1>
@@ -23,7 +27,7 @@ export async function ProductList({ productData, title }: Props) {
       {/* product list */}
       <div className="container px-5 py-12 mx-auto">
         <div className="flex flex-wrap -m-4">
-          {productData.map((item: ProductType) => (
+          {productData.map((item: ProductType, index: number) => (
             <ProductListItem key={item._id} item={item} />
           ))}
         </div>
