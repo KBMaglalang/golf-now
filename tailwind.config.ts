@@ -7,7 +7,15 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "brand-main": "#004225",
+        "brand-ads": "#A4C639",
+        "brand-primary": "#008000",
+        "brand-secondary": "#808080",
+        "brand-accent": "#D4AF37",
+      },
+    },
   },
   plugins: [require("daisyui")],
 
