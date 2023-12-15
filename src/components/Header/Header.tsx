@@ -14,17 +14,17 @@ import { WEBSITE_NAME } from "@/constants";
 
 export function Header() {
   return (
-    <header className="flex-col">
+    <header className="flex-col ">
       {/* notifications */}
       <NotificationBar />
 
-      <div className="navbar bg-base-100 ">
+      <div className="navbar bg-brand-main ">
         {/* website  */}
         <div className="flex-none">
           <Link
             data-text="home"
             href={"/"}
-            className="font-bold text-xl p-4 hover:cursor-pointer"
+            className="font-bold text-xl p-4 hover:cursor-pointer text-white"
           >
             {WEBSITE_NAME}
           </Link>

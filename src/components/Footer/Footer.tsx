@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="footer p-5 bg-base-200 text-base-content ">
+    <footer className="footer p-5 text-white bg-brand-main">
       {/* products */}
       <nav>
         <header className="footer-title">Products</header>
@@ -117,7 +117,9 @@ export function Footer() {
         <header className="footer-title">Newsletter</header>
         <fieldset className="form-control w-80">
           <label className="label">
-            <span className="label-text">Enter your email address</span>
+            <span className="label-text text-white">
+              Enter your email address
+            </span>
           </label>
           <div className="join">
             <input

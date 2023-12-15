@@ -40,7 +40,7 @@ export function Search() {
       />
 
       <Link data-test="search-button" href={`/search?q=${text}`}>
-        <MagnifyingGlassCircleIcon className="w-12 h-12" />
+        <MagnifyingGlassCircleIcon className="w-12 h-12 text-white" />
       </Link>
     </div>
   );

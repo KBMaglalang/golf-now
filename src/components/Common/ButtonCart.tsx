@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/20/solid";
 
 // components
 import { CartList } from "../CartList";
@@ -30,7 +30,7 @@ export function ButtonCart() {
         className="btn btn-ghost btn-circle drawer-content drawer-button"
       >
         <div className="indicator">
-          <ShoppingCartIcon className="h-5 w-5" />
+          <ShoppingCartIcon className="h-5 w-5 text-white" />
           {cart.length > 0 && (
             <span className="badge badge-sm indicator-item">
               {cartQuantity}

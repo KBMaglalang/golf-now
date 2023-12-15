@@ -25,7 +25,7 @@ export async function ButtonAccount() {
       {/* icon */}
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar ">
         <div className="rounded-full">
-          <UserIcon className="h-8 w-8" />
+          <UserIcon className="h-8 w-8 text-white" />
         </div>
       </label>
 
