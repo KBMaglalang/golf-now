@@ -24,8 +24,8 @@ export default async function NotificationBar() {
   if (!nottificationData?.title || !nottificationData?.text) return;
 
   return (
-    <div className="w-full bg-base-200 scrolling-text-container">
-      <div className="w-full flex justify-center scrolling-text">
+    <div className="w-full scrolling-text-container bg-brand-ads">
+      <div className="w-full flex justify-center scrolling-text text-white font-medium py-2">
         {nottificationData?.text}
       </div>
     </div>
