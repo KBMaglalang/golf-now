@@ -48,9 +48,9 @@ export default function TestimonialItem({ testimonial }: Props) {
           />
         </div>
 
-        <p className="leading-relaxed">{testimonial.review}</p>
+        <p className="leading-relaxed text-white">{testimonial.review}</p>
         <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-        <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
+        <h2 className="text-white font-medium title-font tracking-wider text-sm">
           {testimonial.name}
         </h2>
       </div>

@@ -30,7 +30,7 @@ const TEMP_DATA = [
 
 export function Testimonials() {
   return (
-    <section className="text-gray-600 body-font bg-base-200">
+    <section className="text-gray-600 body-font bg-brand-ads">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
           {/* testimonials */}

@@ -59,11 +59,11 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
     <div className="flex flex-col space-y-4">
       <div className="flex flex-row justify-between space-x-2">
         {/* quantity */}
-        <div className="flex flex-row w-2/3 ">
+        <div className="flex flex-row w-2/3 space-x-2">
           {/* dec */}
           <button
             data-test="product-quantity-decrement"
-            className="btn btn-square"
+            className="btn btn-square btn-secondary"
             disabled={isOutOfStock}
             onClick={decrementQuantity}
           >
@@ -81,7 +81,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
           {/* inc */}
           <button
             data-test="product-quantity-increment"
-            className="btn btn-square"
+            className="btn btn-square btn-secondary"
             disabled={isOutOfStock}
             onClick={incrementQuantity}
           >
@@ -92,7 +92,7 @@ export function ProductDetailsCartQuantity({ productDetail }: Props) {
         {/* add to cart */}
         <button
           data-test="product-add-to-cart"
-          className="btn btn-neutral uppercase w-1/3"
+          className="btn btn-secondary uppercase w-1/3"
           disabled={isOutOfStock}
           onClick={handleAddToCart}
         >
