@@ -54,7 +54,7 @@ export default async function page({ params: { category, product } }: Props) {
   @returns {Promise<ProductType>} - A promise that resolves to the ProductType object. */
   const productDetail = await sanityFetch<ProductType>({
     query: SANITY_GET_PRODUCT_DETAILS({ category, product }),
-    tags: [],
+    tags: [`${product}`],
   });
 
   /**

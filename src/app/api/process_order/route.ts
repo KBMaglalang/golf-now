@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+import { revalidateTag } from "next/cache";
 
 // components
 
@@ -45,6 +46,7 @@ export async function POST(req: NextRequest) {
     // update the sanity stock for each product
     await Promise.all(
       cart.map(async (product: any) => {
+        revalidateTag(`${product.slug.current}`);
         await sanityClient
           .patch(product._id)
           .dec({ stock: product.quantity })
