@@ -8,7 +8,7 @@ import React from "react";
 
 export function AdSegment1() {
   return (
-    <section className=" body-font py-12 bg-brand-ads justify-center items-center flex -mt-2">
+    <section className=" body-font py-12 bg-brand-main justify-center items-center flex -mt-2">
       <div className="stats shadow flex flex-col md:flex-row">
         <div className="stat">
           <div className="stat-figure text-secondary"></div>
